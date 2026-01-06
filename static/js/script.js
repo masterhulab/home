@@ -1,5 +1,5 @@
 console.log(
-  "%cCopyright © 2024 masterhu.com.cn",
+  "%cCopyright © 2026 masterhu.com.cn",
   "background-color: #ff00ff; color: white; font-size: 24px; font-weight: bold; padding: 10px;"
 );
 console.log("%c   /\\_/\\", "color: #8B4513; font-size: 20px;");
@@ -66,6 +66,19 @@ document.addEventListener("DOMContentLoaded", function () {
         var computed = getComputedStyle(html).getPropertyValue("--name") || "";
         themeNameEl.textContent = computed.trim().replace(/^"|"$/g, "") || (themeNames[index] || ("主题" + (index + 1)));
       }
+    } catch (e) {}
+
+    // update picker button active state
+    try {
+      var pickerButtons = document.querySelectorAll('.theme-picker button');
+      pickerButtons.forEach(function (btn) {
+        var btnIndex = parseInt(btn.getAttribute('data-theme-index'), 10);
+        if (btnIndex === index) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
     } catch (e) {}
 
     // update toggle button icon and tooltip (title)
@@ -141,10 +154,10 @@ document.addEventListener("DOMContentLoaded", function () {
       var label = themeNames[idx] || ('主题' + (idx + 1));
       b.setAttribute('aria-label', '选择 ' + label);
       b.title = label;
-      var img = document.createElement('img');
-      img.src = './static/svg/theme' + (idx + 1) + '.svg';
-      img.alt = label;
-      b.appendChild(img);
+      b.textContent = label;
+      if (idx === themeIndex) {
+        b.classList.add('active');
+      }
       b.addEventListener('click', function (e) {
         applyThemeByIndex(idx);
         closePicker();
@@ -159,51 +172,64 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  var fpsElement = document.createElement("div");
-  fpsElement.id = "fps";
-  fpsElement.style.zIndex = "10000";
-  fpsElement.style.position = "fixed";
-  fpsElement.style.left = "0";
-  document.body.insertBefore(fpsElement, document.body.firstChild);
-
-  var showFPS = (function () {
-    var requestAnimationFrame =
-      window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.oRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function (callback) {
-        window.setTimeout(callback, 1000 / 60);
-      };
-
-    var fps = 0,
-      last = Date.now(),
-      offset,
-      step,
-      appendFps;
-
-    step = function () {
-      offset = Date.now() - last;
-      fps += 1;
-
-      if (offset >= 1000) {
-        last += offset;
-        appendFps(fps);
-        fps = 0;
-      }
-
-      requestAnimationFrame(step);
-    };
-
-    appendFps = function (fpsValue) {
-      fpsElement.textContent = "FPS: " + fpsValue;
-    };
-
-    step();
-  })();
-
   //pop('./static/img/tz.jpg')
+
+  // Mobile Navigation Toggle
+  const burger = document.querySelector('.burger');
+  const nav = document.querySelector('.nav-links');
+  const navLinks = document.querySelectorAll('.nav-links li');
+
+  if (burger && nav) {
+    burger.addEventListener('click', () => {
+      // Toggle Nav
+      nav.classList.toggle('nav-active');
+
+      // Animate Links
+      navLinks.forEach((link, index) => {
+        if (link.style.animation) {
+          link.style.animation = '';
+        } else {
+          link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+        }
+      });
+
+      // Burger Animation
+      burger.classList.toggle('toggle');
+    });
+  }
+});
+
+function pop(url) {
+  var tc = document.querySelector(".tc");
+  var tcMain = document.querySelector(".tc-main");
+  var tcImg = document.querySelector(".tc-img");
+  tcImg.src = url;
+  tc.classList.add("active");
+  setTimeout(function() {
+    tcMain.classList.add("active");
+  }, 100);
+}
+
+function closePop() {
+  var tc = document.querySelector(".tc");
+  var tcMain = document.querySelector(".tc-main");
+  tcMain.classList.remove("active");
+  setTimeout(function() {
+    tc.classList.remove("active");
+    document.querySelector(".tc-img").src = "";
+  }, 300);
+}
+
+// Close popup when clicking on the background
+document.addEventListener("DOMContentLoaded", function() {
+  var tc = document.querySelector(".tc");
+  if (tc) {
+    tc.addEventListener("click", function(e) {
+      if (e.target === tc) {
+        closePop();
+      }
+    });
+  }
 });
 
 var pageLoading = document.querySelector("#mh-loading");

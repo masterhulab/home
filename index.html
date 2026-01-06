@@ -19,52 +19,45 @@
 	</div>
 	<!-- ================= 插入导航栏代码开始 ================= -->
 	<nav class="navbar">
-		<div class="nav-container">
-			<span class="gradientText">MasterHu's Home</span>
-
-
-			<ul class="nav-links">
-				<li><a href="https://blog.masterhu.com.cn" target="_blank">博客</a></li>
-				<li>
-					<a href="https://blog.masterhu.com.cn/message" target="_blank">留言板</a>
-				</li>
-				<li>
-					<a href="https://blog.masterhu.com.cn/friends" target="_blank">友情链接</a>
-				</li>
-				<li>
-					<a href="https://blog.masterhu.com.cn/about" target="_blank">关于</a>
-				</li>
-			</ul>
-			<div class="nav-theme" style="display:flex;align-items:center;gap:8px;margin-left:12px;position:relative;">
-				<button id="theme-toggle-button" aria-label="切换主题" title="切换主题"
-					style="padding:6px;border-radius:6px;border:1px solid rgba(0,0,0,0.08);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-					<img id="theme-icon" src="./static/svg/theme1.svg" alt="theme"
-						style="width:24px;height:24px;display:block;" />
-				</button>
-				<span id="theme-name" style="font-size:0.9rem;color:var(--main_text_color);">默认</span>
-				<div id="theme-picker" class="theme-picker" aria-hidden="true">
-					<!-- buttons filled by JS -->
+			<div class="nav-container">
+				<span class="gradientText">MasterHu's Home</span>
+				<ul class="nav-links">
+					<li><a href="https://blog.masterhu.com.cn" target="_blank">博客</a></li>
+					<li>
+						<a href="https://blog.masterhu.com.cn/message" target="_blank">留言板</a>
+					</li>
+					<li>
+						<a href="https://blog.masterhu.com.cn/friends" target="_blank">友情链接</a>
+					</li>
+					<li>
+						<a href="https://blog.masterhu.com.cn/about" target="_blank">关于</a>
+					</li>
+				</ul>
+				<div class="burger">
+					<div class="line1"></div>
+					<div class="line2"></div>
+					<div class="line3"></div>
 				</div>
 			</div>
-			<div class="line1"></div>
-			<div class="line2"></div>
-			<div class="line3"></div>
+		</nav>
+
+	<!-- 主题切换按钮 - 右上角 -->
+	<div class="nav-theme">
+		<button id="theme-toggle-button" aria-label="切换主题" title="切换主题">🎨</button>
+		<div style="display:flex;align-items:center;gap:10px;">
+			<img id="theme-icon" src="./static/svg/theme1.svg" alt="theme" />
+			<span id="theme-name">暗夜模糊</span>
 		</div>
+		<div id="theme-picker" class="theme-picker" aria-hidden="true">
+			<!-- buttons filled by JS -->
 		</div>
-	</nav>
+	</div>
 	<!-- ================= 插入导航栏代码结束 ================= -->
 	<div class="mh-filter"></div>
 
 	<div class="mh-main">
 		<div class="mh-left">
 			<div class="mh-avatar" style="background-image: url(./static/img/avatar.gif)">
-				<img style="
-              position: absolute;
-              top: -15%;
-              left: -10%;
-              width: 120%;
-              aspect-ratio: 1/1;
-            " src="./static/img/logokuang.png" />
 			</div>
 			<div class="left-div left-des">
 				<div class="left-des-item">
@@ -157,7 +150,7 @@
 				</div>
 
 				<div class="iconContainer">
-					<a class="iconItem" onclick="" href="https://github.com/masterhublog">
+					<a class="iconItem" onclick="" href="https://github.com/masterhublog" target="_blank">
 						<svg t="1704870335945" class="icon" viewBox="0 0 1024 1024" version="1.1"
 							xmlns="http://www.w3.org/2000/svg" p-id="2487">
 							<path
@@ -216,12 +209,12 @@
 					<a class="projectItem a" target="_blank" href="https://blog.masterhu.com.cn">
 						<div class="projectItemLeft">
 							<h1>博客</h1>
-							<p>记录摆烂日常</p>
+							<p>乐于分享<br>The Joy of Sharing</p>
 						</div>
 						<div class="projectItemRight">
-							<img src="./static/img/i1.png" alt="" />
+							<img src="./static/svg/blog.svg" alt="Blog Icon" />
 						</div>
-					</a><a class="projectItem a" target="_blank" href="https://i.zyyo.cc">
+					</a><a class="projectItem a" target="_blank" href="https://">
 						<div class="projectItemLeft">
 							<h1>云盘</h1>
 							<p>存储收集文件</p>
@@ -230,15 +223,7 @@
 							<img src="./static/img/i2.png" alt="" />
 						</div>
 					</a>
-					<a class="projectItem a" target="_blank" href="https://zyyo.cc">
-						<div class="projectItemLeft">
-							<h1>实验室</h1>
-							<p>收集有趣html作品</p>
-						</div>
-						<div class="projectItemRight">
-							<img src="./static/img/i4.png" alt="" />
-						</div>
-					</a><a class="projectItem a" target="_blank" href="https://zyyo.cc">
+					<a class="projectItem a" target="_blank" href="https://">
 						<div class="projectItemLeft">
 							<h1>实验室</h1>
 							<p>收集有趣html作品</p>
@@ -263,9 +248,9 @@
 							<p>记录摆烂日常</p>
 						</div>
 						<div class="projectItemRight">
-							<img src="./static/img/i1.png" alt="" />
+							<img src="./static/svg/blog.svg" alt="" />
 						</div>
-					</a><a class="projectItem b" target="_blank" href="https://i.zyyo.cc">
+					</a><a class="projectItem b" target="_blank" href="https://">
 						<div class="projectItemLeft">
 							<h1>云盘</h1>
 							<p>存储收集文件</p>
@@ -274,15 +259,7 @@
 							<img src="./static/img/i2.png" alt="" />
 						</div>
 					</a>
-					<a class="projectItem b" target="_blank" href="https://zyyo.cc">
-						<div class="projectItemLeft">
-							<h1>实验室</h1>
-							<p>收集有趣html作品</p>
-						</div>
-						<div class="projectItemRight">
-							<img src="./static/img/i4.png" alt="" />
-						</div>
-					</a><a class="projectItem b" target="_blank" href="https://zyyo.cc">
+					<a class="projectItem b" target="_blank" href="https://">
 						<div class="projectItemLeft">
 							<h1>实验室</h1>
 							<p>收集有趣html作品</p>
@@ -314,17 +291,16 @@
 
 	</footer>
 	<div class="tc">
-		<div onclick="" class="tc-main">
+		<div class="tc-main">
 			<img class="tc-img" src="" alt="" srcset="" />
 		</div>
 	</div>
 </body>
 <link rel="stylesheet" href="https://registry.npmmirror.com/weblive2d/latest/files/waifu.css">
 <script async src="https://registry.npmmirror.com/weblive2d/latest/files/js/autoload.js"></script>
-<script src="./static/js/script.js"></script>
-[![My Skills](https://skillicons.dev/icons?i=js,html,css,wasm)](https://skillicons.dev)
 
-<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script src="./static/js/script.js"></script>
+<script charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script>
 <script>
 	LA.init({ id: "KFqltKSkJgQTGD9l", ck: "KFqltKSkJgQTGD9l" });
 </script>
