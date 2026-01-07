@@ -1,16 +1,14 @@
 console.log(
   "%cCopyright © 2026 masterhu.com.cn",
-  "background-color: #ff00ff; color: white; font-size: 24px; font-weight: bold; padding: 10px;"
+  "background: linear-gradient(90deg, #ff00ff, #8e44ad); color: white; font-size: 20px; font-weight: bold; padding: 8px 20px; border-radius: 5px;"
 );
-console.log("%c   /\\_/\\", "color: #8B4513; font-size: 20px;");
-console.log("%c  ( o.o )", "color: #8B4513; font-size: 20px;");
-console.log(" %c  > ^ <", "color: #8B4513; font-size: 20px;");
-console.log("  %c /  ~ \\", "color: #8B4513; font-size: 20px;");
-console.log("  %c/______\\", "color: #8B4513; font-size: 20px;");
 
-document.addEventListener("contextmenu", function (event) {
-  event.preventDefault();
-});
+const catStyle = "color: #ff9ff3; font-family: monospace; font-weight: bold; line-height: 1.2;";
+
+console.log("%c      |\\      _,,,---,,_", catStyle);
+console.log("%cZZZzz /,`.-'`'    -.  ;-;;,_", catStyle);
+console.log("%c     |,4-  ) )-,_. ,\\ (  `'-'", catStyle);
+console.log("%c    '---''(_/--'  `-'\\_)", catStyle);
 
 function setCookie(name, value, days) {
   var expires = "";
@@ -41,10 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
   var html = document.documentElement;
   var tanChiShe = document.getElementById("tanChiShe");
 
-  // theme classes defined in CSS: theme-1 .. theme-5
-  var themeClasses = ["theme-1", "theme-2", "theme-3", "theme-4", "theme-5"];
+  // theme classes reordered: theme-6 (原图清晰), theme-1 (暗夜背景), theme-2 (清新卡片), theme-3 (蔚蓝天空), theme-4 (纯白简约), theme-5 (背景模糊), theme-7 (纯黑主题)
+  var themeClasses = ["theme-6", "theme-1", "theme-5", "theme-2", "theme-3", "theme-4", "theme-7"];
   // human-readable theme names matching the CSS --name variables
-  var themeNames = ["暗夜模糊", "照片卡片", "蓝色渐变", "简约白", "图像暗色"];
+  var themeNames = ["原图清晰", "暗夜背景", "背景模糊", "清新卡片", "蔚蓝天空", "纯白简约", "纯黑主题"];
   var themeIndex = parseInt(getCookie("themeIndex"), 10);
   if (isNaN(themeIndex) || themeIndex < 0 || themeIndex >= themeClasses.length) themeIndex = 0;
 
@@ -58,15 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
     html.classList.add(themeClasses[index]);
     setCookie("themeIndex", index, 365);
     themeIndex = index;
-
-    // update visible theme name from CSS variable --name
-    try {
-      var themeNameEl = document.getElementById("theme-name");
-      if (themeNameEl) {
-        var computed = getComputedStyle(html).getPropertyValue("--name") || "";
-        themeNameEl.textContent = computed.trim().replace(/^"|"$/g, "") || (themeNames[index] || ("主题" + (index + 1)));
-      }
-    } catch (e) {}
 
     // update picker button active state
     try {
@@ -83,12 +72,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // update toggle button icon and tooltip (title)
     try {
-      var themeIcon = document.getElementById("theme-icon");
       var navBtn = document.getElementById("theme-toggle-button");
-      var nameForTitle = themeNames[index] || (document.getElementById("theme-name") || {}).textContent || ("主题" + (index + 1));
-      if (themeIcon) themeIcon.src = "./static/svg/theme" + (index + 1) + ".svg";
+      var nameForTitle = themeNames[index] || ("主题" + (index + 1));
+      var themeIcons = ['🔍', '🌙', '🌑', '🎨', '🌊', '☀️', '🌚']; // Different icons for each theme
       if (navBtn) {
-        navBtn.title = nameForTitle;
+        navBtn.textContent = themeIcons[index];
+        navBtn.setAttribute("data-tooltip", nameForTitle);
         navBtn.setAttribute("aria-label", nameForTitle);
       }
     } catch (e) {}
@@ -123,7 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // initialize
   applyThemeByIndex(themeIndex);
 
-
   // navbar toggle button cycles through themes on click; shift+click opens picker
   var navToggle = document.getElementById("theme-toggle-button");
   var themePicker = document.getElementById("theme-picker");
@@ -152,9 +140,11 @@ document.addEventListener("DOMContentLoaded", function () {
       var b = document.createElement('button');
       b.setAttribute('data-theme-index', idx);
       var label = themeNames[idx] || ('主题' + (idx + 1));
+      // Different icons for each theme
+      var themeIcons = ['🔍', '🌙', '🎨', '🌊', '☀️', '🌑', '🌚'];
       b.setAttribute('aria-label', '选择 ' + label);
-      b.title = label;
-      b.textContent = label;
+      b.setAttribute('data-tooltip', label);
+      b.innerHTML = themeIcons[idx] + ' ' + label;
       if (idx === themeIndex) {
         b.classList.add('active');
       }
@@ -196,6 +186,38 @@ document.addEventListener("DOMContentLoaded", function () {
       // Burger Animation
       burger.classList.toggle('toggle');
     });
+  }
+  var descCn = document.getElementById("desc-cn");
+  var descEn = document.getElementById("desc-en");
+  var isDesktopViewport = window.innerWidth >= 800;
+  var textCn = "不忘初心，方得始终.";
+  var textEn = "Stay hungry Stay foolish !";
+  if (descCn && descEn) {
+    var mainTextColor = getComputedStyle(document.documentElement).getPropertyValue("--main_text_color").trim();
+    descCn.style.color = mainTextColor || "";
+    descEn.style.color = mainTextColor || "";
+    if (isDesktopViewport) {
+      var cnIndex = 0, enIndex = 0;
+      descCn.textContent = "";
+      descEn.textContent = "";
+      var cnTimer = setInterval(function() {
+        if (cnIndex < textCn.length) {
+          descCn.textContent += textCn.charAt(cnIndex++);
+        } else {
+          clearInterval(cnTimer);
+          var enTimer = setInterval(function() {
+            if (enIndex < textEn.length) {
+              descEn.textContent += textEn.charAt(enIndex++);
+            } else {
+              clearInterval(enTimer);
+            }
+          }, 50);
+        }
+      }, 50);
+    } else {
+      descCn.textContent = textCn;
+      descEn.textContent = textEn;
+    }
   }
 });
 
