@@ -1,3 +1,4 @@
+/* --- 1. 炫彩控制台输出 --- */
 console.log(
   "%cCopyright © 2026 masterhu.com.cn",
   "background: linear-gradient(90deg, #ff00ff, #8e44ad); color: white; font-size: 20px; font-weight: bold; padding: 8px 20px; border-radius: 5px;"
@@ -10,305 +11,183 @@ console.log("%cZZZzz /,`.-'`'    -.  ;-;;,_", catStyle);
 console.log("%c     |,4-  ) )-,_. ,\\ (  `'-'", catStyle);
 console.log("%c    '---''(_/--'  `-'\\_)", catStyle);
 
-function setCookie(name, value, days) {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + value + expires + "; path=/";
+/* --- 2. 状态与存储管理 --- */
+const Storage = {
+    set: (key, val) => localStorage.setItem(key, val),
+    get: (key) => localStorage.getItem(key)
+};
+
+// 预定义常量
+const THEMES = {
+    classes: ["theme-1", "theme-2", "theme-3", "theme-4", "theme-5", "theme-6", "theme-7"],
+    names: ["原图清晰", "暗调原图", "清新卡片", "背景模糊", "蔚蓝天空", "纯白简约", "纯黑主题"],
+    icons: ["🖼️", "🔅", "✨", "🌫️", "🌤️", "⚪", "⚫"]
+};
+
+// 缓存全局 DOM 引用
+let UI = {};
+
+/* --- 3. 核心功能函数 --- */
+
+// 判断颜色深浅：用于自动切换蛇的图标颜色
+function isDarkColor(color) {
+    if (!color) return false;
+    let r, g, b;
+    if (color.startsWith('#')) {
+        let c = color.substring(1);
+        if (c.length === 3) c = c.split('').map(x => x + x).join('');
+        r = parseInt(c.substr(0, 2), 16);
+        g = parseInt(c.substr(2, 2), 16);
+        b = parseInt(c.substr(4, 2), 16);
+    } else {
+        const match = color.match(/\d+/g);
+        if (!match) return false;
+        [r, g, b] = match.map(Number);
+    }
+    return (0.2126 * r + 0.7152 * g + 0.0722 * b) < 128;
 }
 
-function getCookie(name) {
-  var nameEQ = name + "=";
-  var cookies = document.cookie.split(";");
-  for (var i = 0; i < cookies.length; i++) {
-    var cookie = cookies[i];
-    while (cookie.charAt(0) == " ") {
-      cookie = cookie.substring(1, cookie.length);
+// 应用主题
+function applyTheme(index) {
+    index = (index + THEMES.classes.length) % THEMES.classes.length;
+    const html = document.documentElement;
+    
+    // 切换 Class
+    THEMES.classes.forEach(c => html.classList.remove(c));
+    html.classList.add(THEMES.classes[index]);
+    Storage.set("themeIndex", index);
+
+    // 同步 UI 状态（Picker 按钮）
+    if (UI.themePicker) {
+        const btns = UI.themePicker.querySelectorAll('button');
+        btns.forEach((btn, i) => btn.classList.toggle('active', i === index));
     }
-    if (cookie.indexOf(nameEQ) == 0) {
-      return cookie.substring(nameEQ.length, cookie.length);
+
+    // 更新导航栏图标
+    if (UI.navToggle) {
+        UI.navToggle.textContent = THEMES.icons[index];
+        UI.navToggle.setAttribute("data-tooltip", THEMES.names[index]);
     }
-  }
-  return null;
+
+    // 蛇图标变色逻辑
+    if (UI.snakeImg) {
+        const textColor = getComputedStyle(html).getPropertyValue("--main-text-color").trim();
+        const suffix = isDarkColor(textColor) ? "Dark" : "Light";
+        UI.snakeImg.src = `./static/svg/snake-${suffix}.svg`;
+    }
+
+    return index;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  var html = document.documentElement;
-  var tanChiShe = document.getElementById("tanChiShe");
+/* --- 4. 弹窗逻辑 (彻底消除 QuerySelector) --- */
+window.pop = function(url) {
+    if (!UI.tc) return;
+    UI.tcImg.src = url;
+    UI.tc.classList.add("active");
+    setTimeout(() => UI.tcMain.classList.add("active"), 100);
+};
 
-  var themeClasses = ["theme-1", "theme-2", "theme-3", "theme-4", "theme-5", "theme-6", "theme-7"];
-  var themeNames = ["原图清晰", "暗调原图", "清新卡片", "背景模糊", "蔚蓝天空", "纯白简约", "纯黑主题"];
-  var themeIcons = ["🖼️", "🔅", "✨", "🌫️", "🌤️", "⚪", "⚫"];
-  var themeIndex = parseInt(getCookie("themeIndex"), 10);
-  if (isNaN(themeIndex) || themeIndex < 0 || themeIndex >= themeClasses.length) themeIndex = 0;
+window.closePop = function() {
+    if (!UI.tc) return;
+    UI.tcMain.classList.remove("active");
+    setTimeout(() => {
+        UI.tc.classList.remove("active");
+        UI.tcImg.src = "";
+    }, 300); // 建议设为 300ms 配合 CSS 动画
+};
 
-  function applyThemeByIndex(index) {
-    index = ((index % themeClasses.length) + themeClasses.length) % themeClasses.length;
-    // remove other theme classes and any simple light/dark classes
-    themeClasses.forEach(function (c) {
-      html.classList.remove(c);
-    });
-    html.classList.remove("light-theme", "dark-theme");
-    html.classList.add(themeClasses[index]);
-    setCookie("themeIndex", index, 365);
-    themeIndex = index;
+/* --- 5. 主程序入口 --- */
+document.addEventListener("DOMContentLoaded", () => {
+    // 初始化 DOM 缓存池
+    UI = {
+        html: document.documentElement,
+        tc: document.querySelector(".tc"),
+        tcMain: document.querySelector(".tc-main"),
+        tcImg: document.querySelector(".tc-img"),
+        snakeImg: document.getElementById("snake-img"),
+        motto: document.getElementById("motto"),
+        navToggle: document.getElementById("theme-toggle-button"),
+        themePicker: document.getElementById("theme-picker"),
+        burger: document.querySelector('.burger'),
+        nav: document.querySelector('.nav-links'),
+        loading: document.querySelector("#mh-loading")
+    };
 
-    // update picker button active state
-    try {
-      var pickerButtons = document.querySelectorAll('.theme-picker button');
-      pickerButtons.forEach(function (btn) {
-        var btnIndex = parseInt(btn.getAttribute('data-theme-index'), 10);
-        if (btnIndex === index) {
-          btn.classList.add('active');
+    // --- 主题初始化 ---
+    let currentThemeIdx = parseInt(Storage.get("themeIndex")) || 0;
+    currentThemeIdx = applyTheme(currentThemeIdx);
+
+    // 主题切换点击
+    UI.navToggle?.addEventListener("click", (e) => {
+        if (e.shiftKey) {
+            const isHidden = UI.themePicker.getAttribute("aria-hidden") === "true";
+            UI.themePicker.setAttribute("aria-hidden", !isHidden);
         } else {
-          btn.classList.remove('active');
+            currentThemeIdx = applyTheme(currentThemeIdx + 1);
         }
-      });
-    } catch (e) {}
-
-    // update toggle button icon and tooltip (title)
-    try {
-      var navBtn = document.getElementById("theme-toggle-button");
-      var nameForTitle = themeNames[index] || ("主题" + (index + 1));
-      if (navBtn) {
-        navBtn.textContent = themeIcons[index];
-        navBtn.setAttribute("data-tooltip", nameForTitle);
-        navBtn.setAttribute("aria-label", nameForTitle);
-      }
-    } catch (e) {}
-
-    // update snake image depending on whether theme text color is dark or light
-    try {
-      var mt = getComputedStyle(html).getPropertyValue("--main_text_color").trim();
-      var color = mt || "#000000";
-      var isDark = false;
-      if (color.indexOf("#") === 0) {
-        var c = color.replace("#", "");
-        if (c.length === 3) c = c.split("").map(function (ch) {
-          return ch + ch;
-        }).join("");
-        var r = parseInt(c.substr(0, 2), 16),
-          g = parseInt(c.substr(2, 2), 16),
-          b = parseInt(c.substr(4, 2), 16);
-        var lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-        isDark = lum < 128;
-      } else if (color.indexOf("rgb") === 0) {
-        var nums = color.match(/\d+/g).map(Number);
-        var r = nums[0],
-          g = nums[1],
-          b = nums[2];
-        var lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-        isDark = lum < 128;
-      }
-      if (tanChiShe) tanChiShe.src = "./static/svg/snake-" + (isDark ? "Dark" : "Light") + ".svg";
-    } catch (e) {}
-  }
-
-  // initialize
-  applyThemeByIndex(themeIndex);
-
-  // navbar toggle button cycles through themes on click; shift+click opens picker
-  var navToggle = document.getElementById("theme-toggle-button");
-  var themePicker = document.getElementById("theme-picker");
-  function closePicker() {
-    if (themePicker) themePicker.setAttribute("aria-hidden", "true");
-  }
-  function openPicker() {
-    if (themePicker) themePicker.setAttribute("aria-hidden", "false");
-  }
-  if (navToggle) {
-    navToggle.addEventListener("click", function (ev) {
-      if (ev.shiftKey) {
-        // open picker
-        if (themePicker && themePicker.getAttribute("aria-hidden") === "false") closePicker();
-        else openPicker();
-        return;
-      }
-      applyThemeByIndex(themeIndex + 1);
     });
-  }
 
-  // theme picker buttons
-  if (themePicker) {
-    themePicker.innerHTML = "";
-    themeClasses.forEach(function (c, idx) {
-      var b = document.createElement('button');
-      b.setAttribute('data-theme-index', idx);
-      var label = themeNames[idx] || ('主题' + (idx + 1));
-      b.setAttribute('aria-label', '选择 ' + label);
-      b.setAttribute('data-tooltip', label);
-      b.innerHTML = themeIcons[idx] + ' ' + label;
-      if (idx === themeIndex) {
-        b.classList.add('active');
-      }
-      b.addEventListener('click', function (e) {
-        applyThemeByIndex(idx);
-        closePicker();
-      });
-      themePicker.appendChild(b);
-    });
-    // close when clicking outside
-    document.addEventListener('click', function (e) {
-      if (!themePicker.contains(e.target) && !navToggle.contains(e.target)) {
-        closePicker();
-      }
-    });
-  }
-
-  // Mobile Navigation Toggle
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.nav-links');
-  const navLinks = document.querySelectorAll('.nav-links li');
-  const backdrop = document.querySelector('.nav-backdrop');
-
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      // Toggle Nav
-      nav.classList.toggle('nav-active');
-      document.body.classList.toggle('nav-open');
-
-      // Animate Links
-      navLinks.forEach((link, index) => {
-        if (link.style.animation) {
-          link.style.animation = '';
-        } else {
-          link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-        }
-      });
-
-      // Burger Animation
-      burger.classList.toggle('toggle');
-    });
-    // Close when clicking backdrop
-    if (backdrop) {
-      backdrop.addEventListener('click', () => {
-        nav.classList.remove('nav-active');
-        document.body.classList.remove('nav-open');
-        burger.classList.remove('toggle');
-        navLinks.forEach((link) => (link.style.animation = ''));
-      });
-    }
-    // Close when pressing ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        nav.classList.remove('nav-active');
-        document.body.classList.remove('nav-open');
-        burger.classList.remove('toggle');
-        navLinks.forEach((link) => (link.style.animation = ''));
-      }
-    });
-    // Close after clicking any nav link
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('nav-active');
-        document.body.classList.remove('nav-open');
-        burger.classList.remove('toggle');
-        navLinks.forEach((l) => (l.style.animation = ''));
-      });
-    });
-  }
-  // Motto: （loop print）
-  var mottoEl = document.getElementById("motto");
-  if (mottoEl) {
-    var messages = ["不忘初心，方得始终", "Stay hungry Stay foolish"];
-    var msgIndex = 0;
-    var charIndex = 0;
-    var deleting = false;
-    var pauseTicks = 0;
-    var intervalId = null;
-    var TYPE_DELAY = 60;   // ms per character type
-    var DELETE_DELAY = 40; // ms per character delete
-    var PAUSE_AFTER_COMPLETE = 20; // ticks to pause after completing type/delete
-
-    mottoEl.textContent = "";
-
-    function tick() {
-      if (pauseTicks > 0) {
-        pauseTicks--;
-        return;
-      }
-      var current = messages[msgIndex];
-      if (!deleting) {
-        if (charIndex < current.length) {
-          mottoEl.textContent = current.slice(0, charIndex + 1);
-          charIndex++;
-        } else {
-          deleting = true;
-          pauseTicks = PAUSE_AFTER_COMPLETE;
-        }
-      } else {
-        if (charIndex > 0) {
-          mottoEl.textContent = current.slice(0, charIndex - 1);
-          charIndex--;
-        } else {
-          deleting = false;
-          msgIndex = (msgIndex + 1) % messages.length;
-          pauseTicks = PAUSE_AFTER_COMPLETE;
-        }
-      }
+    // 生成主题选择器内容
+    if (UI.themePicker) {
+        UI.themePicker.innerHTML = THEMES.classes.map((_, i) => `
+            <button data-theme-index="${i}" aria-label="选择 ${THEMES.names[i]}" data-tooltip="${THEMES.names[i]}">
+                ${THEMES.icons[i]} ${THEMES.names[i]}
+            </button>
+        `).join('');
+        
+        UI.themePicker.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (btn) {
+                currentThemeIdx = applyTheme(parseInt(btn.dataset.themeIndex));
+                UI.themePicker.setAttribute("aria-hidden", "true");
+            }
+        });
     }
 
-    function startLoop() {
-      stopLoop();
-      intervalId = setInterval(tick, deleting ? DELETE_DELAY : TYPE_DELAY);
-    }
-    function stopLoop() {
-      if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
-      }
+    // --- 移动端菜单 ---
+    if (UI.burger) {
+        UI.burger.addEventListener('click', () => {
+            UI.nav.classList.toggle('nav-active');
+            UI.burger.classList.toggle('toggle');
+            document.body.classList.toggle('nav-open');
+        });
     }
 
-    startLoop();
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        stopLoop();
-      } else {
-        startLoop();
-      }
+    // --- 打字机效果 (优化版) ---
+    if (UI.motto) {
+        const msgs = ["不忘初心，方得始终", "Stay hungry Stay foolish"];
+        let msgIdx = 0, charIdx = 0, isDeleting = false, pause = 0;
+
+        const typeTick = () => {
+            if (pause > 0) { pause--; return; }
+
+            const current = msgs[msgIdx];
+            if (!isDeleting) {
+                UI.motto.textContent = current.slice(0, ++charIdx);
+                if (charIdx === current.length) { isDeleting = true; pause = 20; }
+            } else {
+                UI.motto.textContent = current.slice(0, --charIdx);
+                if (charIdx === 0) { isDeleting = false; msgIdx = (msgIdx + 1) % msgs.length; pause = 10; }
+            }
+        };
+        
+        let mottoTimer = setInterval(typeTick, 80);
+        document.addEventListener("visibilitychange", () => {
+            document.hidden ? clearInterval(mottoTimer) : mottoTimer = setInterval(typeTick, 80);
+        });
+    }
+
+    // 弹窗背景点击关闭
+    UI.tc?.addEventListener("click", (e) => {
+        if (e.target === UI.tc) closePop();
     });
-  }
 });
 
-function pop(url) {
-  var tc = document.querySelector(".tc");
-  var tcMain = document.querySelector(".tc-main");
-  var tcImg = document.querySelector(".tc-img");
-  tcImg.src = url;
-  tc.classList.add("active");
-  setTimeout(function() {
-    tcMain.classList.add("active");
-  }, 100);
-}
-
-function closePop() {
-  var tc = document.querySelector(".tc");
-  var tcMain = document.querySelector(".tc-main");
-  tcMain.classList.remove("active");
-  setTimeout(function() {
-    tc.classList.remove("active");
-    document.querySelector(".tc-img").src = "";
-  }, 300);
-}
-
-// Close popup when clicking on the background
-document.addEventListener("DOMContentLoaded", function() {
-  var tc = document.querySelector(".tc");
-  if (tc) {
-    tc.addEventListener("click", function(e) {
-      if (e.target === tc) {
-        closePop();
-      }
-    });
-  }
-});
-
-var pageLoading = document.querySelector("#mh-loading");
-window.addEventListener("load", function () {
-  setTimeout(function () {
-    pageLoading.style.opacity = "0";
-  }, 100);
+// 加载遮罩消失
+window.addEventListener("load", () => {
+    const loading = document.querySelector("#mh-loading");
+    if (loading) {
+        setTimeout(() => loading.style.opacity = "0", 100);
+        setTimeout(() => loading.style.display = "none", 600);
+    }
 });

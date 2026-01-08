@@ -1,5 +1,5 @@
 /*
---svgcolor svg图标的颜色
+--svg-color svg图标颜色
 --main-bg-color主页背景
 --main-text-color文本颜色
 --gradient标题渐变颜色
@@ -20,29 +20,28 @@
 /* 默认主题 */
 html {
   --name: "原图清晰";
-  --main_bg_color: url(../img/background.webp);
-  --main_text_color: #ffffff;
+  --main-bg-color: url(../img/background.webp);
+  --main-text-color: #ffffff;
   --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple_text_color: #a0a0ff;
-  --text_bg_color: #00000040;
-  --item_bg_color: #0000004d;
-  --item_hover_color: #33333366;
-  --item_left_title_color: #ffffff;
-  --item_left_text_color: #cccccc;
-  --footer_text_color: #ffffff;
-  --left_tag_item: #0000002b;
-  --card_filter: 0px;
-  --back_filter: 0px;
-  --back_filter_color: #00000000;
+  --purple-text-color: #a0a0ff;
+  --text-bg-color: #00000040;
+  --item-bg-color: #0000004d;
+  --item-hover-color: #33333366;
+  --item-title-color: #ffffff;
+  --item-text-color: #cccccc;
+  --footer-text-color: #ffffff;
+  --left-tag-item: #0000002b;
+  --card-filter: 0px;
+  --back-filter: 0px;
+  --back-filter-color: #00000000;
   --fill: #ffffff;
 }
-
 
 /* 主题切换按钮 CSS */
 .theme-controls button {
   background: rgba(255,255,255,0.00);
   padding: 6px;
-  /*color: var(--main_text_color);*/
+  /*color: var(--main-text-color);*/
   border: 10px solid rgba(255, 255, 255, 0);
   position: relative;
 }
@@ -82,7 +81,7 @@ html {
   grid-template-columns: repeat(1, 1fr);
   gap: 6px;
   padding: 12px;
-  background: var(--item_bg_color);
+  background: var(--item-bg-color);
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.15);
   transform-origin: top right;
@@ -102,12 +101,12 @@ html {
 
 .theme-picker button {
   border: none;
-  background: var(--item_hover_color);
+  background: var(--item-hover-color);
   padding: 10px 14px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.95rem;
-  color: var(--main_text_color);
+  color: var(--main-text-color);
   transition: all 0.2s ease;
   text-align: left;
   font-weight: 500;
@@ -118,15 +117,15 @@ html {
 }
 
 .theme-picker button:hover {
-  background: var(--item_hover_color);
+  background: var(--item-hover-color);
   transform: translateX(4px);
   opacity: 0.8;
 }
 
 .theme-picker button.active {
-  background: var(--item_hover_color);
+  background: var(--item-hover-color);
   border-left: 3px solid;
-  border-left-color: var(--purple_text_color);
+  border-left-color: var(--purple-text-color);
   padding-left: 11px;
   font-weight: 600;
 }
@@ -149,134 +148,134 @@ html {
 /* Theme presets converted from the multiple `html {}` blocks in the original file */
 .theme-1 {
   --name: "原图清晰";
-  --main_bg_color: url(../img/background.webp);
-  --main_text_color: #ffffff;
+  --main-bg-color: url(../img/background.webp);
+  --main-text-color: #ffffff;
   --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple_text_color: #a0a0ff;
-  --text_bg_color: #00000040;
-  --item_bg_color: #0000004d;
-  --item_hover_color: #33333366;
-  --item_left_title_color: #ffffff;
-  --item_left_text_color: #cccccc;
-  --footer_text_color: #ffffff;
-  --left_tag_item: #0000002b;
-  --card_filter: 0px;
-  --back_filter: 0px;
-  --back_filter_color: #00000000;
+  --purple-text-color: #a0a0ff;
+  --text-bg-color: #00000040;
+  --item-bg-color: #0000004d;
+  --item-hover-color: #33333366;
+  --item-title-color: #ffffff;
+  --item-text-color: #cccccc;
+  --footer-text-color: #ffffff;
+  --left-tag-item: #0000002b;
+  --card-filter: 0px;
+  --back-filter: 0px;
+  --back-filter-color: #00000000;
   --fill: #ffffff;
 }
 
 .theme-2 {
   --name: "暗调原图";
-  --main_bg_color: url(../img/background.webp);
-  --main_text_color: #eeeeee;
+  --main-bg-color: url(../img/background.webp);
+  --main-text-color: #eeeeee;
   --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple_text_color: #747bff;
-  --text_bg_color: #00000040;
-  --item_bg_color: #00000038;
-  --item_hover_color: #33333338;
-  --item_left_title_color: #ffffff;
-  --item_left_text_color: #ffffff;
-  --footer_text_color: #ffffff;
-  --left_tag_item: rgb(27 42 57 / 20%);
-  --card_filter: 15px;
-  --back_filter: 0px;
-  --back_filter_color: #00000030;
+  --purple-text-color: #747bff;
+  --text-bg-color: #00000040;
+  --item-bg-color: #00000038;
+  --item-hover-color: #33333338;
+  --item-title-color: #ffffff;
+  --item-text-color: #ffffff;
+  --footer-text-color: #ffffff;
+  --left-tag-item: rgb(27 42 57 / 20%);
+  --card-filter: 15px;
+  --back-filter: 0px;
+  --back-filter-color: #00000030;
   --fill: #ffffff;
 }
 
 .theme-3 {
   --name: "清新卡片";
-  --main_bg_color: url(../img/background.webp);
-  --main_text_color: #000000;
+  --main-bg-color: url(../img/background.webp);
+  --main-text-color: #000000;
   --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple_text_color: #747bff;
-  --text_bg_color: rgb(121 163 231);
-  --item_bg_color: rgba(249, 250, 251, 0.42);
-  --item_hover_color: rgba(244, 245, 246, 0.8);
-  --item_left_title_color: #000000;
-  --item_left_text_color: #494949;
-  --footer_text_color: #ffffff;
-  --left_tag_item: #c7e1fa;
-  --card_filter: 0px;
-  --back_filter: 20px;
-  --back_filter_color: #00000030;
+  --purple-text-color: #747bff;
+  --text-bg-color: rgb(121 163 231);
+  --item-bg-color: rgba(249, 250, 251, 0.42);
+  --item-hover-color: rgba(244, 245, 246, 0.8);
+  --item-title-color: #000000;
+  --item-text-color: #494949;
+  --footer-text-color: #ffffff;
+  --left-tag-item: #c7e1fa;
+  --card-filter: 0px;
+  --back-filter: 20px;
+  --back-filter-color: #00000030;
   --fill: #000000;
 }
 
 .theme-4 {
   --name: "背景模糊";
-  --main_bg_color: url(../img/background.webp);
-  --main_text_color: #eeeeee;
+  --main-bg-color: url(../img/background.webp);
+  --main-text-color: #eeeeee;
   --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple_text_color: #747bff;
-  --text_bg_color: #00000040;
-  --item_bg_color: #00000038;
-  --item_hover_color: #33333338;
-  --item_left_title_color: #ffffff;
-  --item_left_text_color: #ffffff;
-  --footer_text_color: #ffffff;
-  --left_tag_item: rgb(27 42 57 / 20%);
-  --card_filter: 0px;
-  --back_filter: 19px;
-  --back_filter_color: #00000030;
+  --purple-text-color: #747bff;
+  --text-bg-color: #00000040;
+  --item-bg-color: #00000038;
+  --item-hover-color: #33333338;
+  --item-title-color: #ffffff;
+  --item-text-color: #ffffff;
+  --footer-text-color: #ffffff;
+  --left-tag-item: rgb(27 42 57 / 20%);
+  --card-filter: 0px;
+  --back-filter: 19px;
+  --back-filter-color: #00000030;
   --fill: #ffffff;
 }
 
 .theme-5 {
   --name: "蔚蓝天空";
-  --main_bg_color: linear-gradient(50deg, #a2d1ff, #ffffff);
-  --main_text_color: #000000;
+  --main-bg-color: linear-gradient(50deg, #a2d1ff, #ffffff);
+  --main-text-color: #000000;
   --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple_text_color: #747bff;
-  --text_bg_color: rgb(196 217 251);
-  --item_bg_color: rgba(249, 250, 251, 0.5);
-  --item_hover_color: rgba(244, 245, 246, 0.8);
-  --item_left_title_color: #000000;
-  --item_left_text_color: #494949;
-  --footer_text_color: #222222;
-  --left_tag_item: linear-gradient(50deg, #a2d1ff, #ffffff);
-  --card_filter: 0px;
-  --back_filter: 0px;
-  --back_filter_color: #00000000;
+  --purple-text-color: #747bff;
+  --text-bg-color: rgb(196 217 251);
+  --item-bg-color: rgba(249, 250, 251, 0.5);
+  --item-hover-color: rgba(244, 245, 246, 0.8);
+  --item-title-color: #000000;
+  --item-text-color: #494949;
+  --footer-text-color: #222222;
+  --left-tag-item: linear-gradient(50deg, #a2d1ff, #ffffff);
+  --card-filter: 0px;
+  --back-filter: 0px;
+  --back-filter-color: #00000000;
   --fill: #000000;
 }
 
 .theme-6 {
   --name: "纯白简约";
-  --main_bg_color: #ffffff;
-  --main_text_color: #000000;
+  --main-bg-color: #ffffff;
+  --main-text-color: #000000;
   --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple_text_color: #747bff;
-  --text_bg_color: rgb(240 243 247);
-  --item_bg_color: rgb(247 247 247);
-  --item_hover_color: rgba(244, 245, 246, 0.5);
-  --item_left_title_color: #000000;
-  --item_left_text_color: #494949;
-  --footer_text_color: #222222;
-  --left_tag_item: #ffffff;
-  --card_filter: 0px;
-  --back_filter: 0px;
-  --back_filter_color: #00000000;
+  --purple-text-color: #747bff;
+  --text-bg-color: rgb(240 243 247);
+  --item-bg-color: rgb(247 247 247);
+  --item-hover-color: rgba(244, 245, 246, 0.5);
+  --item-title-color: #000000;
+  --item-text-color: #494949;
+  --footer-text-color: #222222;
+  --left-tag-item: #ffffff;
+  --card-filter: 0px;
+  --back-filter: 0px;
+  --back-filter-color: #00000000;
   --fill: #000000;
 }
 
 .theme-7 {
   --name: "纯黑主题";
-  --main_bg_color: #000000;
-  --main_text_color: #ffffff;
+  --main-bg-color: #000000;
+  --main-text-color: #ffffff;
   --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple_text_color: #a0a0ff;
-  --text_bg_color: #00000040;
-  --item_bg_color: #111111;
-  --item_hover_color: #333333;
-  --item_left_title_color: #ffffff;
-  --item_left_text_color: #cccccc;
-  --footer_text_color: #ffffff;
-  --left_tag_item: #222222;
-  --card_filter: 0px;
-  --back_filter: 0px;
-  --back_filter_color: #00000000;
+  --purple-text-color: #a0a0ff;
+  --text-bg-color: #00000040;
+  --item-bg-color: #111111;
+  --item-hover-color: #333333;
+  --item-title-color: #ffffff;
+  --item-text-color: #cccccc;
+  --footer-text-color: #ffffff;
+  --left-tag-item: #222222;
+  --card-filter: 0px;
+  --back-filter: 0px;
+  --back-filter-color: #00000000;
   --fill: #ffffff;
 }
 
@@ -286,9 +285,9 @@ html {
   background: transparent;
 }
 
-/* Improve tagline visibility on light themes */
-html.theme-3 .tagline,
-html.theme-4 .tagline {
+/* Improve motto visibility on light themes */
+html.theme-3 .motto,
+html.theme-4 .motto {
   color: #222 !important;
 }
 
@@ -299,7 +298,6 @@ html.theme-4 .tagline {
   .theme-2,
   .theme-3,
   .theme-4 {
-    --main_bg_color: url(../img/background-wap.webp);
+    --main-bg-color: url(../img/background-wap.webp);
   }
 }
-
