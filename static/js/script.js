@@ -21,13 +21,11 @@ const Storage = {
 const THEMES = {
     classes: ["theme-1", "theme-2", "theme-3", "theme-4", "theme-5", "theme-6", "theme-7"],
     names: ["原图清晰", "暗调原图", "清新卡片", "背景模糊", "蔚蓝天空", "纯白简约", "纯黑主题"],
-    icons: ["🖼️", "🔅", "✨", "🌫️", "🌤️", "⚪", "⚫"]
+    icons: ["🖼️", "🔅", "✨", "🌫️", "🌤️", "⚪", "🔮"]
 };
 
 // 缓存全局 DOM 引用
 let UI = {};
-
-/* --- 3. 核心功能函数 --- */
 
 // 判断颜色深浅：用于自动切换蛇的图标颜色
 function isDarkColor(color) {
@@ -57,16 +55,11 @@ function applyTheme(index) {
     html.classList.add(THEMES.classes[index]);
     Storage.set("themeIndex", index);
 
-    // 同步 UI 状态（Picker 按钮）
-    if (UI.themePicker) {
-        const btns = UI.themePicker.querySelectorAll('button');
-        btns.forEach((btn, i) => btn.classList.toggle('active', i === index));
-    }
-
     // 更新导航栏图标
-    if (UI.navToggle) {
-        UI.navToggle.textContent = THEMES.icons[index];
-        UI.navToggle.setAttribute("data-tooltip", THEMES.names[index]);
+    if (UI.navThemeBtn) {
+        UI.navThemeBtn.textContent = THEMES.icons[index] + "主题";
+        //UI.navThemeBtn.textContent = THEMES.icons[index] + " " + THEMES.names[index];
+        UI.navThemeBtn.setAttribute("data-tooltip", THEMES.names[index]);
     }
 
     // 蛇图标变色逻辑
@@ -106,43 +99,19 @@ document.addEventListener("DOMContentLoaded", () => {
         tcImg: document.querySelector(".tc-img"),
         snakeImg: document.getElementById("snake-img"),
         motto: document.getElementById("motto"),
-        navToggle: document.getElementById("theme-toggle-button"),
-        themePicker: document.getElementById("theme-picker"),
+        navThemeBtn: document.getElementById("theme-toggle-button"),
         burger: document.querySelector('.burger'),
         nav: document.querySelector('.nav-links'),
         loading: document.querySelector("#mh-loading")
     };
 
-    // --- 主题初始化 ---
     let currentThemeIdx = parseInt(Storage.get("themeIndex")) || 0;
     currentThemeIdx = applyTheme(currentThemeIdx);
 
     // 主题切换点击
-    UI.navToggle?.addEventListener("click", (e) => {
-        if (e.shiftKey) {
-            const isHidden = UI.themePicker.getAttribute("aria-hidden") === "true";
-            UI.themePicker.setAttribute("aria-hidden", !isHidden);
-        } else {
-            currentThemeIdx = applyTheme(currentThemeIdx + 1);
-        }
+    UI.navThemeBtn?.addEventListener("click", (e) => {
+        currentThemeIdx = applyTheme(currentThemeIdx + 1);
     });
-
-    // 生成主题选择器内容
-    if (UI.themePicker) {
-        UI.themePicker.innerHTML = THEMES.classes.map((_, i) => `
-            <button data-theme-index="${i}" aria-label="选择 ${THEMES.names[i]}" data-tooltip="${THEMES.names[i]}">
-                ${THEMES.icons[i]} ${THEMES.names[i]}
-            </button>
-        `).join('');
-        
-        UI.themePicker.addEventListener('click', (e) => {
-            const btn = e.target.closest('button');
-            if (btn) {
-                currentThemeIdx = applyTheme(parseInt(btn.dataset.themeIndex));
-                UI.themePicker.setAttribute("aria-hidden", "true");
-            }
-        });
-    }
 
     // --- 移动端菜单 ---
     if (UI.burger) {
@@ -150,16 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
             UI.nav.classList.toggle('nav-active');
             UI.burger.classList.toggle('toggle');
             document.body.classList.toggle('nav-open');
-        });
-    }
-
-    // --- 点击背景关闭菜单 ---
-    const navBackdrop = document.querySelector('.nav-backdrop');
-    if (navBackdrop) {
-        navBackdrop.addEventListener('click', () => {
-            UI.nav.classList.remove('nav-active');
-            UI.burger.classList.remove('toggle');
-            document.body.classList.remove('nav-open');
         });
     }
 

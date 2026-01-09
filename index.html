@@ -37,11 +37,7 @@
 					<a href="https://blog.masterhu.com.cn/about" target="_blank">ℹ️ 关于</a>
 				</li>
 				<li>
-					<div class="theme-controls">
-						<button id="theme-toggle-button" aria-label="切换主题">🎨</button>
-						<div id="theme-picker" class="theme-picker" aria-hidden="true">
-						</div>
-					</div>
+					<button class="theme-controls" id="theme-toggle-button" aria-label="切换主题">🎨</button>
 				</li>
 			</ul>
 			<div class="burger" id="burger-menu">
@@ -52,7 +48,6 @@
 		</div>
 	</nav>
 	<!-- ================= navbar end ================= -->
-	<div class="nav-backdrop"></div>
 	<div class="mh-filter"></div>
 
 	<div class="mh-main">
@@ -130,7 +125,10 @@
 		</div>
 		<div class="content-wrapper">
 			<header>
-				<img class="avatar-mobile" src="./static/img/avatar.gif" alt="Avatar" />
+				<div class="avatar-mobile">
+					<img src="./static/img/avatar.gif" alt="Avatar" />
+				</div>
+
 				<div class="banner">
 					<div class="greeting">
 						Hello I'm <span class="gradient-text nameText">MasterHu</span>
