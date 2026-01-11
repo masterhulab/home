@@ -74,27 +74,27 @@ function applyTheme(index) {
 
 /* --- 4. 弹窗逻辑 (彻底消除 QuerySelector) --- */
 window.pop = function(url) {
-    if (!UI.tc) return;
-    UI.tcImg.src = url;
-    UI.tc.classList.add("active");
-    setTimeout(() => UI.tcMain.classList.add("active"), 100);
+    if (!UI.modal) return;
+    UI.modalImg.src = url;
+    UI.modal.classList.add("active");
+    setTimeout(() => UI.modalMain.classList.add("active"), 100);
 };
 
 window.closePop = function() {
-    if (!UI.tc) return;
-    UI.tcMain.classList.remove("active");
+    if (!UI.modal) return;
+    UI.modalMain.classList.remove("active");
     setTimeout(() => {
-        UI.tc.classList.remove("active");
-        UI.tcImg.src = "";
+        UI.modal.classList.remove("active");
+        UI.modalImg.src = "";
     }, 200);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
     UI = {
         html: document.documentElement,
-        tc: document.querySelector(".tc"),
-        tcMain: document.querySelector(".tc-main"),
-        tcImg: document.querySelector(".tc-img"),
+        modal: document.querySelector(".mh-modal"),
+        modalMain: document.querySelector(".modal-main"),
+        modalImg: document.querySelector(".modal-img"),
         snakeImg: document.getElementById("snake-img"),
         heroMotto: document.getElementById("hero-motto"),
         
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const isMenuOpen = UI.navLinks.classList.contains('nav-active');
 
             // 如果点击的【既不是菜单】且【也不是汉堡按钮】，就关闭
-            //if (isMenuOpen && !UI.navBurger.contains(e.target) && !UI.navLinks.contains(e.target))
+            //if (isMenuOpen && !UI.navLinks.contains(e.target) || !UI.navBurger.contains(e.target))
             if (isMenuOpen &&  !e.target.closest('.mh-nav__burger') || e.target.closest('.mh-nav__links')) {
                 UI.navLinks.classList.remove('nav-active');
                 UI.navBurger.classList.remove('toggle');
@@ -156,8 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 弹窗背景点击关闭
-    UI.tc?.addEventListener("click", (e) => {
-        if (e.target === UI.tc) closePop();
+    UI.modal?.addEventListener("click", (e) => {
+        if (e.target === UI.modal) closePop();
     });
 
 });

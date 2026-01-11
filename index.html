@@ -40,19 +40,20 @@
 					<button class="mh-nav__theme-toggle" aria-label="切换主题">🎨</button>
 				</li>
 			</ul>
-			<div class="mh-nav__burger" id="burger-menu">
+			<div class="mh-nav__burger" id="burger-menu" aria-label="打开菜单" aria-controls="nav-links">
 				<div class="line1"></div>
 				<div class="line2"></div>
 				<div class="line3"></div>
 			</div>
 		</div>
 	</nav>
+	
 	<!-- ================= mh-nav end ================= -->
 
 	<!-- ================= background filter ================= -->
 	<div class="mh-bg-filter"></div>
 
-	<div class="mh-layout">
+	<main class="mh-layout">
 		<aside class="mh-sidebar mh-sidebar--left">
 			<div class="mh-sidebar__avatar" style="background-image: url(./static/img/avatar.gif)">
 			</div>
@@ -124,7 +125,7 @@
 				</ul>
 			</div>
 		</aside>
-		<div class="main-content">
+		<div class="mh-content">
 			<header class="hero-section">
 				<div class="avatar-mobile">
 					<img src="./static/img/avatar.gif" alt="Avatar" />
@@ -266,13 +267,13 @@
 				</div>
 			</content>
 		</div>
-	</div>
+	</main>
 	<footer>
 		Copyright ©2026 By <a href="https://masterhu.com.cn/"> 𝓜𝓪𝓼𝓽𝓮𝓻𝓱𝓾 </a>All Rights Reserved.
 	</footer>
-	<div class="tc">
-		<div class="tc-main">
-			<img class="tc-img" src="" alt="" srcset="" />
+	<div class="mh-modal" id="reward-modal">
+		<div class="modal-main">
+			<img class="modal-img" src="" alt="" srcset="" />
 		</div>
 	</div>
 </body>
