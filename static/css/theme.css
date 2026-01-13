@@ -1,125 +1,73 @@
-/*
---svg-color svg图标颜色
---main-bg-color主页背景
---main-text-color文本颜色
---gradient标题渐变颜色
-
---purple-text-color描述紫色文本颜色
---text-bg-color描述紫色文本背景颜色
---item-bg-color项目背景颜色
---item-hover-color项目鼠标移入颜色
---item-left-title-color项目标题颜色
---item-left-text-color项目描述颜色
---footer-text-color底部文本颜色
---left-tag-item左侧标签颜色
---card-filter卡片模糊的数值
---back-filter背景模糊的数值
---back-filter-color全局阴影遮罩
-*/
-
-/* 默认主题 */
-html {
-  --name: "原图清晰";
-  --main-bg-color: url(../img/background.webp);
-  --main-text-color: #ffffff;
-  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple-text-color: #a0a0ff;
-  --text-bg-color: #00000040;
-  --item-bg-color: #0000004d;
-  --item-hover-color: #33333366;
-  --item-title-color: #ffffff;
-  --item-text-color: #cccccc;
-  --footer-text-color: #ffffff;
-  --left-tag-item: #0000002b;
-  --card-filter: 0px;
-  --back-filter: 0px;
-  --back-filter-color: #00000000;
-  --fill: #ffffff;
+/* ==================================================
+   Theme Variables & Defaults
+================================================== */
+:root {
+  --svg-color: #ffffff;        /* svg图标颜色 */
+  --main-bg-color: url(../img/background.webp);  /* 默认主背景 */
+  --main-text-color: #ffffff;  /* 默认主文本颜色 */
+  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%); /* 标题渐变 */
+  --purple-text-color: #a0a0ff; /* 默认描述紫色文本 */
+  --text-bg-color: #00000040;   /* 默认文本背景 */
+  --item-bg-color: #0000004d;   /* 默认卡片背景 */
+  --item-hover-color: #33333366;/* 默认卡片 hover */
+  --item-title-color: #ffffff;  /* 默认卡片标题 */
+  --item-text-color: #cccccc;   /* 默认卡片文字 */
+  --footer-text-color: #ffffff; /* 默认底部文字 */
+  --left-tag-item: #0000002b;   /* 默认左侧标签 */
+  --card-filter: 0px;           /* 默认卡片模糊 */
+  --back-filter: 0px;           /* 默认背景模糊 */
+  --back-filter-color: #00000000; /* 默认阴影遮罩 */
+  --fill: #ffffff;              /* svg填充 */
 }
 
-/* Theme presets converted from the multiple `html {}` blocks in the original file */
-.theme-1 {
+
+/* clear theme */
+.theme-clear {
   --name: "原图清晰";
-  --main-bg-color: url(../img/background.webp);
-  --main-text-color: #ffffff;
-  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple-text-color: #a0a0ff;
-  --text-bg-color: #00000040;
-  --item-bg-color: #0000004d;
-  --item-hover-color: #33333366;
-  --item-title-color: #ffffff;
-  --item-text-color: #cccccc;
-  --footer-text-color: #ffffff;
-  --left-tag-item: #0000002b;
-  --card-filter: 0px;
-  --back-filter: 0px;
-  --back-filter-color: #00000000;
-  --fill: #ffffff;
 }
 
-.theme-2 {
+/* 暗淡原图 */
+.theme-dim {
   --name: "暗调原图";
-  --main-bg-color: url(../img/background.webp);
   --main-text-color: #eeeeee;
-  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
   --purple-text-color: #747bff;
-  --text-bg-color: #00000040;
   --item-bg-color: #00000038;
   --item-hover-color: #33333338;
-  --item-title-color: #ffffff;
   --item-text-color: #ffffff;
-  --footer-text-color: #ffffff;
   --left-tag-item: rgb(27 42 57 / 20%);
   --card-filter: 15px;
-  --back-filter: 0px;
   --back-filter-color: #00000030;
-  --fill: #ffffff;
 }
 
-.theme-3 {
+/* fresh theme */
+.theme-fresh {
   --name: "清新卡片";
-  --main-bg-color: url(../img/background.webp);
   --main-text-color: #000000;
-  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple-text-color: #747bff;
   --text-bg-color: rgb(121 163 231);
   --item-bg-color: rgba(249, 250, 251, 0.42);
   --item-hover-color: rgba(244, 245, 246, 0.8);
   --item-title-color: #000000;
   --item-text-color: #494949;
-  --footer-text-color: #ffffff;
   --left-tag-item: #c7e1fa;
-  --card-filter: 0px;
-  --back-filter: 20px;
-  --back-filter-color: #00000030;
   --fill: #000000;
 }
 
-.theme-4 {
+/* blur theme */
+.theme-blur {
   --name: "背景模糊";
-  --main-bg-color: url(../img/background.webp);
   --main-text-color: #eeeeee;
-  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple-text-color: #747bff;
-  --text-bg-color: #00000040;
   --item-bg-color: #00000038;
   --item-hover-color: #33333338;
-  --item-title-color: #ffffff;
   --item-text-color: #ffffff;
-  --footer-text-color: #ffffff;
-  --left-tag-item: rgb(27 42 57 / 20%);
-  --card-filter: 0px;
   --back-filter: 19px;
   --back-filter-color: #00000030;
-  --fill: #ffffff;
 }
 
-.theme-5 {
+/* sky theme */
+.theme-sky {
   --name: "蔚蓝天空";
   --main-bg-color: linear-gradient(50deg, #a2d1ff, #ffffff);
   --main-text-color: #000000;
-  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple-text-color: #747bff;
   --text-bg-color: rgb(196 217 251);
   --item-bg-color: rgba(249, 250, 251, 0.5);
   --item-hover-color: rgba(244, 245, 246, 0.8);
@@ -127,18 +75,14 @@ html {
   --item-text-color: #494949;
   --footer-text-color: #222222;
   --left-tag-item: linear-gradient(50deg, #a2d1ff, #ffffff);
-  --card-filter: 0px;
-  --back-filter: 0px;
-  --back-filter-color: #00000000;
   --fill: #000000;
 }
 
-.theme-6 {
+/* white theme */
+.theme-white {
   --name: "纯白简约";
   --main-bg-color: #ffffff;
   --main-text-color: #000000;
-  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-  --purple-text-color: #747bff;
   --text-bg-color: rgb(240 243 247);
   --item-bg-color: rgb(247 247 247);
   --item-hover-color: rgba(244, 245, 246, 0.5);
@@ -146,17 +90,14 @@ html {
   --item-text-color: #494949;
   --footer-text-color: #222222;
   --left-tag-item: #ffffff;
-  --card-filter: 0px;
-  --back-filter: 0px;
-  --back-filter-color: #00000000;
   --fill: #000000;
 }
 
-.theme-7 {
+/* dark theme */
+.theme-dark {
   --name: "纯黑主题";
   --main-bg-color: #000000;
   --main-text-color: #ffffff;
-  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
   --purple-text-color: #a0a0ff;
   --text-bg-color: #00000040;
   --item-bg-color: #111111;
@@ -165,31 +106,28 @@ html {
   --item-text-color: #cccccc;
   --footer-text-color: #ffffff;
   --left-tag-item: #222222;
-  --card-filter: 0px;
-  --back-filter: 0px;
-  --back-filter-color: #00000000;
   --fill: #ffffff;
 }
 
-.theme-6 .mh-bg-filter {
+/* background filter */
+.theme-white .mh-bg-filter {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   background: transparent;
 }
 
-/* Improve hero-motto visibility on light themes */
-html.theme-3 .hero-motto,
-html.theme-4 .hero-motto {
+.theme-fresh .hero-motto,
+.theme-blur .hero-motto {
   color: #222 !important;
 }
 
-/* 移动端使用 background-wap.webp */
+/* mobile background */
 @media (max-width: 800px) {
   html,
-  .theme-1,
-  .theme-2,
-  .theme-3,
-  .theme-4 {
+  .theme-clear,
+  .theme-dim,
+  .theme-fresh,
+  .theme-blur {
     --main-bg-color: url(../img/background-wap.webp);
   }
 }

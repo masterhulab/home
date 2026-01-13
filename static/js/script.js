@@ -1,172 +1,246 @@
-/* --- 1. 炫彩控制台输出 --- */
+/* =========================================================
+ * MasterHu Homepage Script
+ * Author: MasterHu
+ * Website: https://masterhu.com.cn
+ * License: CC BY-NC 4.0
+ * ========================================================= */
+
+/* Console Banner & Signature */
+const AUTHOR = 'masterhu.com.cn';
+
 console.log(
   "%cCopyright © 2026 masterhu.com.cn",
   "background: linear-gradient(90deg, #ff00ff, #8e44ad); color: white; font-size: 20px; font-weight: bold; padding: 8px 20px; border-radius: 5px;"
 );
 
-const catStyle = "color: #ff9ff3; font-family: monospace; font-weight: bold; line-height: 1.2;";
+const CAT_STYLE = "color: #ff9ff3; font-family: monospace; font-weight: bold; line-height: 1.2;";
+console.log("%c      |\\      _,,,---,,_", CAT_STYLE);
+console.log("%cZZZzz /,`.-'`'    -.  ;-;;,_", CAT_STYLE);
+console.log("%c     |,4-  ) )-,_. ,\\ (  `'-'", CAT_STYLE);
+console.log("%c    '---''(_/--'  `-'\\_)", CAT_STYLE);
 
-console.log("%c      |\\      _,,,---,,_", catStyle);
-console.log("%cZZZzz /,`.-'`'    -.  ;-;;,_", catStyle);
-console.log("%c     |,4-  ) )-,_. ,\\ (  `'-'", catStyle);
-console.log("%c    '---''(_/--'  `-'\\_)", catStyle);
-
-/* --- 2. 状态与存储管理 --- */
+/*   Storage Utility (LocalStorage Wrapper) */
 const Storage = {
-    set: (key, val) => localStorage.setItem(key, val),
-    get: (key) => localStorage.getItem(key)
+  set(key, value) {
+    localStorage.setItem(key, value);
+  },
+  get(key) {
+    return localStorage.getItem(key);
+  }
 };
 
-// 预定义常量
-const THEMES = {
-    classes: ["theme-1", "theme-2", "theme-3", "theme-4", "theme-5", "theme-6", "theme-7"],
-    names: ["原图清晰", "暗调原图", "清新卡片", "背景模糊", "蔚蓝天空", "纯白简约", "纯黑主题"],
-    icons: ["🖼️", "🔅", "✨", "🌫️", "🌤️", "⚪", "🔮"]
+/* Theme Configuration */
+const THEME_CONFIG = {
+  classes: [
+    "theme-clear", "theme-dim", "theme-fresh",
+    "theme-blur", "theme-sky", "theme-white", "theme-dark"
+  ],
+  names: [
+    "清晰原图", "暗淡原图", "清新卡片",
+    "背景模糊", "蔚蓝天际", "简约纯白", "星河夜幕"
+  ],
+  icons: ["🖼️", "🌗", "🍃", "🌫️", "🌊", "⚪", "🔮"]
 };
 
-// 缓存全局 DOM 引用
+const SITE_CONFIG = {
+  BIRTH_TIME: "2025/01/01 00:00:00",
+  UPTIME_RENDER_ID: "run-time"
+};
+
+/* Uptime Counter */
+function updateSiteUptime() {
+  const start = new Date(SITE_CONFIG.BIRTH_TIME).getTime();
+  const now = Date.now();
+  const diff = now - start;
+
+  const el = document.getElementById(SITE_CONFIG.UPTIME_RENDER_ID);
+  if (!el) return;
+
+  if (diff < 0) {
+    el.textContent = "站点筹备中...";
+    return;
+  }
+
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor(diff / 3600000) % 24;
+  const minutes = Math.floor(diff / 60000) % 60;
+  const seconds = Math.floor(diff / 1000) % 60;
+
+  const pad = (n) => String(n).padStart(2, '0');
+  el.textContent = `${days}天 ${pad(hours)}时 ${pad(minutes)}分 ${pad(seconds)}秒`;
+}
+
+setInterval(updateSiteUptime, 1000);
+updateSiteUptime();
+
+
+/*  Determine whether a color is visually dark */
+function isDarkColor(color) {
+  if (!color) return false;
+
+  let r, g, b;
+  if (color.startsWith('#')) {
+    let hex = color.slice(1);
+    if (hex.length === 3) hex = hex.split('').map(x => x + x).join('');
+    r = parseInt(hex.substr(0, 2), 16);
+    g = parseInt(hex.substr(2, 2), 16);
+    b = parseInt(hex.substr(4, 2), 16);
+  } else {
+    const rgb = color.match(/\d+/g);
+    if (!rgb) return false;
+    [r, g, b] = rgb.map(Number);
+  }
+
+  return (0.2126 * r + 0.7152 * g + 0.0722 * b) < 128;
+}
+
+/**
+ * Apply theme by index
+ * - Switch html class
+ * - Sync UI icon & tooltip
+ * - Persist index
+ */
+function applyTheme(index) {
+  const total = THEME_CONFIG.classes.length;
+  const safeIndex = (index + total) % total;
+
+  const html = document.documentElement;
+  THEME_CONFIG.classes.forEach(cls => html.classList.remove(cls));
+  html.classList.add(THEME_CONFIG.classes[safeIndex]);
+
+  Storage.set("themeIndex", safeIndex);
+
+  if (UI.themeButton) {
+    UI.themeButton.textContent = THEME_CONFIG.icons[safeIndex] + "主题";
+    UI.themeButton.textContent = THEME_CONFIG.icons[safeIndex] + THEME_CONFIG.names[safeIndex];
+    //UI.themeButton.dataset.tooltip = THEME_CONFIG.names[safeIndex];
+  }
+
+  if (UI.snakeImage) {
+    const textColor = getComputedStyle(html)
+      .getPropertyValue("--main-text-color")
+      .trim();
+    const suffix = isDarkColor(textColor) ? "Dark" : "Light";
+    UI.snakeImage.src = `./static/svg/snake-${suffix}.svg`;
+  }
+
+  return safeIndex;
+}
+
+/*  Modal (Public API) */
+window.openModal = function (imgUrl) {
+  if (!UI.modal) return;
+  UI.modalImage.src = imgUrl;
+  UI.modal.classList.add("active");
+  setTimeout(() => UI.modalMain.classList.add("active"), 100);
+};
+
+window.closeModal = function () {
+  if (!UI.modal) return;
+  UI.modalMain.classList.remove("active");
+  setTimeout(() => {
+    UI.modal.classList.remove("active");
+    UI.modalImage.src = "";
+  }, 200);
+};
+
+/*  UI Cache */
 let UI = {};
 
-// 判断颜色深浅：用于自动切换蛇的图标颜色
-function isDarkColor(color) {
-    if (!color) return false;
-    let r, g, b;
-    if (color.startsWith('#')) {
-        let c = color.substring(1);
-        if (c.length === 3) c = c.split('').map(x => x + x).join('');
-        r = parseInt(c.substr(0, 2), 16);
-        g = parseInt(c.substr(2, 2), 16);
-        b = parseInt(c.substr(4, 2), 16);
+function cacheUI() {
+  UI = {
+    html: document.documentElement,
+    loading: document.querySelector(".mh-loading"),
+
+    navBurger: document.querySelector(".nav-burger"),
+    navLinks: document.querySelector(".nav-links"),
+    themeButton: document.querySelector(".nav-theme-toggle"),
+
+    modal: document.querySelector(".mh-modal"),
+    modalMain: document.querySelector(".modal-main"),
+    modalImage: document.querySelector(".modal-img"),
+
+    heroMotto: document.getElementById("hero-motto"),
+    snakeImage: document.getElementById("snake-img")
+  };
+}
+
+/* Initializers */
+function initTheme() {
+  let idx = parseInt(Storage.get("themeIndex")) || 0;
+  idx = applyTheme(idx);
+  UI.themeButton?.addEventListener("click", () => {
+    idx = applyTheme(idx + 1);
+  });
+}
+
+function initMobileNav() {
+  if (!UI.navBurger || !UI.navLinks) return;
+
+  UI.navBurger.addEventListener("click", () => {
+    UI.navLinks.classList.toggle("nav-active");
+    UI.navBurger.classList.toggle("toggle");
+    document.body.classList.toggle("nav-open");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      UI.navLinks.classList.contains("nav-active") &&
+      !e.target.closest(".nav-burger") &&
+      !e.target.closest(".nav-links")
+    ) {
+      UI.navLinks.classList.remove("nav-active");
+      UI.navBurger.classList.remove("toggle");
+      document.body.classList.remove("nav-open");
+    }
+  });
+}
+
+function initHeroTyping() {
+  if (!UI.heroMotto) return;
+
+  const texts = ["不忘初心，方得始终!", "Stay hungry Stay foolish!"];
+  let t = 0, c = 0, del = false, pause = 0;
+
+  const tick = () => {
+    if (pause-- > 0) return;
+
+    const text = texts[t];
+    if (!del) {
+      UI.heroMotto.textContent = text.slice(0, ++c);
+      if (c === text.length) { del = true; pause = 20; }
     } else {
-        const match = color.match(/\d+/g);
-        if (!match) return false;
-        [r, g, b] = match.map(Number);
+      UI.heroMotto.textContent = text.slice(0, --c);
+      if (c === 0) { del = false; t = (t + 1) % texts.length; pause = 10; }
     }
-    return (0.2126 * r + 0.7152 * g + 0.0722 * b) < 128;
+  };
+
+  let timer = setInterval(tick, 80);
+  document.addEventListener("visibilitychange", () => {
+    document.hidden ? clearInterval(timer) : timer = setInterval(tick, 80);
+  });
 }
 
-// 应用主题
-function applyTheme(index) {
-    index = (index + THEMES.classes.length) % THEMES.classes.length;
-    const html = document.documentElement;
-    
-    // 切换 Class
-    THEMES.classes.forEach(c => html.classList.remove(c));
-    html.classList.add(THEMES.classes[index]);
-    Storage.set("themeIndex", index);
-
-    // 更新导航栏图标
-    if (UI.navThemeBtn) {
-        UI.navThemeBtn.textContent = THEMES.icons[index] + "主题";
-        //UI.navThemeBtn.textContent = THEMES.icons[index] + " " + THEMES.names[index];
-        UI.navThemeBtn.setAttribute("data-tooltip", THEMES.names[index]);
-    }
-
-    // 蛇图标变色逻辑
-    if (UI.snakeImg) {
-        const textColor = getComputedStyle(html).getPropertyValue("--main-text-color").trim();
-        const suffix = isDarkColor(textColor) ? "Dark" : "Light";
-        UI.snakeImg.src = `./static/svg/snake-${suffix}.svg`;
-    }
-
-    return index;
-}
-
-/* --- 4. 弹窗逻辑 (彻底消除 QuerySelector) --- */
-window.pop = function(url) {
-    if (!UI.modal) return;
-    UI.modalImg.src = url;
-    UI.modal.classList.add("active");
-    setTimeout(() => UI.modalMain.classList.add("active"), 100);
-};
-
-window.closePop = function() {
-    if (!UI.modal) return;
-    UI.modalMain.classList.remove("active");
-    setTimeout(() => {
-        UI.modal.classList.remove("active");
-        UI.modalImg.src = "";
-    }, 200);
-};
-
+/* Bootstrap */
 document.addEventListener("DOMContentLoaded", () => {
-    UI = {
-        html: document.documentElement,
-        modal: document.querySelector(".mh-modal"),
-        modalMain: document.querySelector(".modal-main"),
-        modalImg: document.querySelector(".modal-img"),
-        snakeImg: document.getElementById("snake-img"),
-        heroMotto: document.getElementById("hero-motto"),
-        
-        navBurger: document.querySelector('.mh-nav__burger'),
-        navLinks: document.querySelector('.mh-nav__links'),
-        navThemeBtn: document.querySelector(".mh-nav__theme-toggle"),
-        loading: document.querySelector("#mh-loading")
-    };
+  cacheUI();
+  initTheme();
+  initMobileNav();
+  initHeroTyping();
 
-    let currentThemeIdx = parseInt(Storage.get("themeIndex")) || 0;
-    currentThemeIdx = applyTheme(currentThemeIdx);
-
-    UI.navThemeBtn?.addEventListener("click", (e) => {
-        currentThemeIdx = applyTheme(currentThemeIdx + 1);
-    });
-
-    // --- 移动端菜单 ---
-    UI.navBurger?.addEventListener('click', () => {
-        UI.navLinks.classList.toggle('nav-active');
-        UI.navBurger.classList.toggle('toggle');
-        document.body.classList.toggle('nav-open');
-    });
-
-    if (UI.navBurger) {
-        document.addEventListener('click', (e) => {
-            const isMenuOpen = UI.navLinks.classList.contains('nav-active');
-
-            // 如果点击的【既不是菜单】且【也不是汉堡按钮】，就关闭
-            //if (isMenuOpen && !UI.navLinks.contains(e.target) || !UI.navBurger.contains(e.target))
-            if (isMenuOpen &&  !e.target.closest('.mh-nav__burger') || e.target.closest('.mh-nav__links')) {
-                UI.navLinks.classList.remove('nav-active');
-                UI.navBurger.classList.remove('toggle');
-                document.body.classList.remove('nav-open');
-            }
-        });
-    }
-
-    // --- 打字机效果 ---
-    if (UI.heroMotto) {
-        const msgs = ["不忘初心，方得始终!", "Stay hungry Stay foolish!"];
-        let msgIdx = 0, charIdx = 0, isDeleting = false, pause = 0;
-        const typeTick = () => {
-            if (pause > 0) { pause--; return; }
-
-            const current = msgs[msgIdx];
-            if (!isDeleting) {
-                UI.heroMotto.textContent = current.slice(0, ++charIdx);
-                if (charIdx === current.length) { isDeleting = true; pause = 20; }
-            } else {
-                UI.heroMotto.textContent = current.slice(0, --charIdx);
-                if (charIdx === 0) { isDeleting = false; msgIdx = (msgIdx + 1) % msgs.length; pause = 10; }
-            }
-        };
-        
-        let heroMottoTimer = setInterval(typeTick, 80);
-        document.addEventListener("visibilitychange", () => {
-            document.hidden ? clearInterval(heroMottoTimer) : heroMottoTimer = setInterval(typeTick, 80);
-        });
-    }
-
-    // 弹窗背景点击关闭
-    UI.modal?.addEventListener("click", (e) => {
-        if (e.target === UI.modal) closePop();
-    });
-
+  UI.modal?.addEventListener("click", (e) => {
+    if (e.target === UI.modal) closeModal();
+  });
 });
 
-// 加载遮罩消失
 window.addEventListener("load", () => {
-    const loading = document.querySelector("#mh-loading");
-    if (loading) {
-        setTimeout(() => loading.style.opacity = "0", 100);
-        setTimeout(() => loading.style.display = "none", 600);
-    }
+  if (!UI.loading) return;
+
+  setTimeout(() => {
+    UI.loading.classList.add("hide");
+  }, 300);
+
+  setTimeout(() => {
+    UI.loading.style.display = "none";
+  }, 900);
 });

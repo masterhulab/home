@@ -1,0 +1,258 @@
+/* =========================
+   Mobile (max-width: 800px)
+   ========================= */
+
+@media (max-width: 800px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2005;
+  }
+
+  /* 2. 修改菜单样式 */
+  .nav-links {
+    position: absolute;
+    /* 从 fixed 改为 absolute，相对于 nav-container */
+    top: 100%;
+    /* 紧贴导航栏底部 */
+    right: 20px;
+    /* 与右侧保持和 nav-burger 相同的边距 */
+
+    width: auto;
+    /* 宽度由内容决定 */
+    min-width: 120px;
+    /* 设置最小宽度，防止太窄点不到 */
+    white-space: nowrap;
+    /* 强制文字不换行，确保宽度被内容撑开 */
+
+    height: auto;
+    background: var(--item-bg-color);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 4px;
+
+    /* 动画：下拉 + 缩放效果 */
+    transform-origin: top right;
+    /* 从右上角展开 */
+    transform: translateY(-10px) scale(0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2001;
+  }
+
+  .nav-links li {
+    opacity: 0;
+  }
+
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 18px;
+    color: var(--main-text-color);
+    border-radius: 8px;
+    position: relative;
+    z-index: 2003;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .nav-active li {
+    opacity: 1;
+    animation: navLinkFade 0.3s ease forwards;
+  }
+
+  .nav-active {
+    transform: translateX(0%) !important;
+  }
+
+  .nav-burger {
+    display: block;
+    position: relative;
+    z-index: 2002;
+  }
+
+  /* 3. 激活状态 */
+  .nav-active {
+    opacity: 1;
+    transform: translateY(10px) scale(1) !important;
+    /* 向下偏移一点，形成悬浮感 */
+    pointer-events: auto;
+  }
+
+  .nav-theme-toggle {
+    background: var(--item-bg-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 6px 8px;
+    border-radius: 12px;
+  }
+
+  .nav-theme-toggle {
+    font-size: 16px;
+  }
+
+  .mh-sidebar {
+    display: none;
+  }
+
+  .mh-content {
+    width: 100%;
+  }
+
+  .mh-content {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .hero-greeting {
+    font-size: 10vw;
+    margin: 2vw 0;
+  }
+
+  .hero-motto {
+    font-size: 4vw;
+  }
+
+  .snake {
+    width: 100%;
+  }
+
+  .hero-actions {
+    margin-top: 3vw;
+  }
+
+  .mh-site-card,
+  .mh-prj-card {
+    padding: 10px;
+  }
+
+  .mh-site-card {
+    width: calc(50% - 18px);
+    margin: 9px;
+  }
+
+  .mh-prj-card {
+    height: 110px;
+    margin: 8px 15px;
+    width: calc(100% - 30px);
+  }
+
+  .mh-site-content,
+  .mh-project-content {
+    width: 100%;
+  }
+
+  .mh-site-content p,
+  .mh-project-content p {
+    font-size: 13px;
+  }
+
+  .mh-site-content h3,
+  .mh-project-content h3 {
+    font-size: 18px;
+  }
+
+  .mh-site-icon,
+  .mh-project-icon {
+    display: none;
+  }
+
+  .mh-site-icon img,
+  .mh-project-icon img {
+    display: none;
+  }
+
+  .skill #skill-mobile {
+    display: block;
+  }
+
+  .skill #skill-pc {
+    display: none;
+  }
+
+  .skill img {
+    width: 92%;
+    max-width: 360px;
+  }
+}
+
+.mh-modal {
+  position: fixed;
+
+  display: flex;
+  visibility: hidden;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(20, 20, 20, 0.5);
+  z-index: 99999;
+  align-items: center;
+  top: 0;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal-main {
+  z-index: 100000;
+
+  width: 80%;
+  max-width: 800px;
+  min-height: 500px;
+  background-color: #ffffff;
+  border-radius: 15px;
+
+  display: flex;
+  transition: transform 0.2s linear;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transform: translateY(30%) scale(0.5);
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+}
+
+.mh-modal.active {
+  visibility: visible;
+}
+
+.modal-main.active {
+  transform: translateY(0) scale(1);
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}

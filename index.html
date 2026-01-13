@@ -1,5 +1,16 @@
+<!--
+  Project: MasterHu Personal Homepage
+  Author: MasterHu
+  Website: https://masterhu.com.cn
+  Repository: https://github.com/masterhublog/homepage
+
+  License: CC BY-NC 4.0
+  You may reuse this project for personal use,
+  but attribution is REQUIRED and commercial use is NOT allowed.
+-->
+
 <!DOCTYPE html>
-<html class="masterhu.com.cn">
+<html data-site="masterhu.com.cn">
 
 <head class="masterhu.com.cn">
 	<meta charset="utf-8" />
@@ -7,6 +18,8 @@
 	<title>𝓜𝓪𝓼𝓽𝓮𝓻𝓱𝓾</title>
 	<link rel="icon" href="./static/img/favicon.ico" />
 	<meta name="description" content="MasterHu | 记录。分享。成长。|让每一次技术探索和生活感悟都有迹可循。" />
+	<meta name="author" content="MasterHu">
+	<meta name="generator" content="MasterHu Homepage Template">
 	<meta property="og:title" content="𝓜𝓪𝓼𝓽𝓮𝓻𝓱𝓾" />
 	<meta property="og:description" content="探索技术与艺术的边界，记录我的数字旅程。" />
 	<meta property="og:image" content="https://masterhu.com.cn/static/img/logo.png" />
@@ -14,18 +27,21 @@
 	<meta name="keywords" content="masterhu,masterhu主页,masterhu homepage" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link rel="stylesheet" href="./static/css/style.css" />
+	<link rel="stylesheet" href="./static/css/mobile.css" />
 	<link rel="stylesheet" href="./static/css/theme.css" />
 </head>
 
-<body>
-	<div id="mh-loading">
-		<div id="mh-loading-center"></div>
+<body class="mh" data-author="masterhu" data-project="homepage" data-license="CC-BY-NC-4.0">
+	<!-- loading -->
+	<div class="mh-loading" id="mh-loading">
+		<div class="mh-loading-spinner"></div>
 	</div>
-	<!-- ================= navba start ================= -->
+
+	<!-- Navigation -->
 	<nav class="mh-nav">
-		<div class="mh-nav__container">
+		<div class="nav-container">
 			<span class="gradient-text">MasterHu's Home</span>
-			<ul class="mh-nav__links">
+			<ul class="nav-links">
 				<li><a href="https://blog.masterhu.com.cn" target="_blank">📖 博客</a></li>
 				<li>
 					<a href="https://blog.masterhu.com.cn/message" target="_blank">💬 留言板</a>
@@ -37,28 +53,26 @@
 					<a href="https://blog.masterhu.com.cn/about" target="_blank">ℹ️ 关于</a>
 				</li>
 				<li>
-					<button class="mh-nav__theme-toggle" aria-label="切换主题">🎨</button>
+					<button class="nav-theme-toggle" aria-label="切换主题">🎨</button>
 				</li>
 			</ul>
-			<div class="mh-nav__burger" id="burger-menu" aria-label="打开菜单" aria-controls="nav-links">
+			<div class="nav-burger" id="burger-menu" aria-label="打开菜单" aria-controls="nav-links">
 				<div class="line1"></div>
 				<div class="line2"></div>
 				<div class="line3"></div>
 			</div>
 		</div>
 	</nav>
-	
-	<!-- ================= mh-nav end ================= -->
 
-	<!-- ================= background filter ================= -->
+	<!-- background filter -->
 	<div class="mh-bg-filter"></div>
 
 	<main class="mh-layout">
 		<aside class="mh-sidebar mh-sidebar--left">
 			<div class="mh-sidebar__avatar" style="background-image: url(./static/img/avatar.gif)">
 			</div>
-			<div class="mh-sidebar__section mh-bio">
-				<div class="mh-bio__item">
+			<div class="mh-sidebar-section mh-bio">
+				<div class="mh-bio-item">
 					<svg t="1705773709627" class="icon" viewBox="0 0 1024 1024" version="1.1"
 						xmlns="http://www.w3.org/2000/svg" p-id="1478">
 						<path
@@ -69,7 +83,7 @@
 							p-id="1480"></path>
 					</svg>China
 				</div>
-				<div class="mh-bio__item">
+				<div class="mh-bio-item">
 					<svg t="1705773906032" class="icon" viewBox="0 0 1024 1024" version="1.1"
 						xmlns="http://www.w3.org/2000/svg" p-id="2474">
 						<path
@@ -77,50 +91,50 @@
 							p-id="2475"></path>
 					</svg>Secret
 				</div>
-				<div class="mh-bio__item">📧 i@masterhu.com.cn</div>
-				<div class="mh-bio__item">🏷️ Full Developer</div>
+				<div class="mh-bio-item">📧 i@masterhu.com.cn</div>
+				<div class="mh-bio-item">🏷️ Full Developer</div>
 			</div>
-			<div class="mh-sidebar__section mh-tags">
-				<div class="mh-tags__item">嵌入式</div>
-				<div class="mh-tags__item">linux</div>
-				<div class="mh-tags__item">后端</div>
-				<div class="mh-tags__item">前端</div>
-				<div class="mh-tags__item">C/C++</div>
-				<div class="mh-tags__item">骑行</div>
-				<div class="mh-tags__item">跑者</div>
-				<div class="mh-tags__item">电子竞技</div>
+			<div class="mh-sidebar-section mh-tags">
+				<div class="mh-tags-item">嵌入式</div>
+				<div class="mh-tags-item">linux</div>
+				<div class="mh-tags-item">后端</div>
+				<div class="mh-tags-item">前端</div>
+				<div class="mh-tags-item">C/C++</div>
+				<div class="mh-tags-item">骑行</div>
+				<div class="mh-tags-item">跑者</div>
+				<div class="mh-tags-item">电子竞技</div>
 			</div>
-			<div class="mh-sidebar__section mh-timeline">
-				<ul class="mh-timeline__list">
-					<li class="mh-timeline__item">
-						<div class="mh-timeline__dot"></div>
-						<div class="mh-timeline__info">创建个人主页</div>
-						<div class="mh-timeline__date">2026.1</div>
+			<div class="mh-sidebar-section mh-timeline">
+				<ul class="mh-timeline-list">
+					<li class="mh-timeline-item">
+						<div class="mh-timeline-dot"></div>
+						<div class="mh-timeline-text">创建个人主页</div>
+						<div class="mh-timeline-date">2026.1</div>
 					</li>
-					<li class="mh-timeline__item">
-						<div class="mh-timeline__dot"></div>
-						<div class="mh-timeline__info">搭建博客</div>
-						<div class="mh-timeline__date">2025.1</div>
+					<li class="mh-timeline-item">
+						<div class="mh-timeline-dot"></div>
+						<div class="mh-timeline-text">搭建博客</div>
+						<div class="mh-timeline-date">2025.1</div>
 					</li>
-					<li class="mh-timeline__item">
-						<div class="mh-timeline__dot"></div>
-						<div class="mh-timeline__info">搭建第一个网站(自用)</div>
-						<div class="mh-timeline__date">2024.3</div>
+					<li class="mh-timeline-item">
+						<div class="mh-timeline-dot"></div>
+						<div class="mh-timeline-text">搭建第一个网站(自用)</div>
+						<div class="mh-timeline-date">2024.3</div>
 					</li>
-					<li class="mh-timeline__item">
-						<div class="mh-timeline__dot"></div>
-						<div class="mh-timeline__info">注册域名 masterhu.com.cn</div>
-						<div class="mh-timeline__date">2024.1</div>
+					<li class="mh-timeline-item">
+						<div class="mh-timeline-dot"></div>
+						<div class="mh-timeline-text">注册域名 masterhu.com.cn</div>
+						<div class="mh-timeline-date">2024.1</div>
 					</li>
-					<li class="mh-timeline__item mh-timeline__item--more">
-						<div class="mh-timeline__dot"></div>
-						<div class="mh-timeline__info">...</div>
-						<div class="mh-timeline__date">...</div>
+					<li class="mh-timeline-item mh-timeline-item--more">
+						<div class="mh-timeline-dot"></div>
+						<div class="mh-timeline-text">...</div>
+						<div class="mh-timeline-date">...</div>
 					</li>
-					<li class="mh-timeline__item">
-						<div class="mh-timeline__dot"></div>
-						<div class="mh-timeline__info">第一篇博客</div>
-						<div class="mh-timeline__date">2020.2</div>
+					<li class="mh-timeline-item">
+						<div class="mh-timeline-dot"></div>
+						<div class="mh-timeline-text">第一篇博客</div>
+						<div class="mh-timeline-date">2020.2</div>
 					</li>
 				</ul>
 			</div>
@@ -157,7 +171,7 @@
 						</svg>
 						<div class="hero-actions-item-tip">Mail</div>
 					</a>
-					<a class="hero-actions-item" onclick="pop('./static/img/reward.webp')" href="javascript:void(0)">
+					<a class="hero-actions-item" onclick="openModal('./static/img/reward.webp')" href="javascript:void(0)">
 						<svg t="1705247464964" class="icon" viewBox="0 0 1024 1024" version="1.1"
 							xmlns="http://www.w3.org/2000/svg" p-id="4987">
 							<path
@@ -179,8 +193,8 @@
 				</div>
 			</header>
 
-			<content class="mh-shelf">
-				<div class="mh-shelf-title">
+			<section class="mh-sections">
+				<div class="mh-sections-title">
 					<svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1"
 						xmlns="http://www.w3.org/2000/svg" p-id="1891">
 						<path
@@ -191,43 +205,43 @@
 
 				<div class="mh-site-grid">
 					<a class="mh-site-card" target="_blank" href="https://blog.masterhu.com.cn">
-						<div class="mh-site-card__body">
+						<div class="mh-site-content">
 							<h3>📖博客</h3>
 							<p>📝记录&分享<br> The Joy of Sharing</p>
 						</div>
-						<div class="mh-site-card__icon">
+						<div class="mh-site-icon">
 							<img src="./static/svg/blog.svg" alt="Blog Icon" />
 						</div>
 					</a>
 					<a class="mh-site-card" target="_blank" href="https://blog.masterhu.com.cn/message">
-						<div class="mh-site-card__body">
+						<div class="mh-site-content">
 							<h3>💬 留言板</h3>
 							<p>🤙 来聊聊呗。。。</p>
 						</div>
-						<div class="mh-site-card__icon">
+						<div class="mh-site-icon">
 							<img src="./static/svg/message.svg" alt="Message Icon" />
 						</div>
 					</a>
 					<a class="mh-site-card" target="_blank" href="https://blog.masterhu.com.cn/friends">
-						<div class="mh-site-card__body">
+						<div class="mh-site-content">
 							<h3>🤝 友情链接</h3>
 							<p>👥 小伙伴们</p>
 						</div>
-						<div class="mh-site-card__icon">
+						<div class="mh-site-icon">
 							<img src="./static/svg/friends.svg" alt="Friends" />
 						</div>
 					</a>
 					<a class="mh-site-card" target="_blank" href="https://blog.masterhu.com.cn/about">
-						<div class="mh-site-card__body">
+						<div class="mh-site-content">
 							<h3>ℹ️ 关于</h3>
 							<p>👨‍💻 了解更多</p>
 						</div>
-						<div class="mh-site-card__icon">
+						<div class="mh-site-icon">
 							<img src="./static/svg/about.svg" alt="About" />
 						</div>
 					</a>
 				</div>
-				<div class="mh-shelf-title">
+				<div class="mh-sections-title">
 					<svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1"
 						xmlns="http://www.w3.org/2000/svg" p-id="1891">
 						<path
@@ -238,17 +252,17 @@
 
 				<div class="mh-prj-grid">
 					<a class="mh-prj-card" target="_blank" href="https://blog.masterhu.com.cn">
-						<div class="mh-prj-card__body">
+						<div class="mh-project-content">
 							<h3>📖博客</h3>
 							<p>📝记录&分享<br> The Joy of Sharing</p>
 						</div>
-						<div class="mh-prj-card__icon">
+						<div class="mh-project-icon">
 							<img src="./static/svg/blog.svg" alt="" />
 						</div>
 					</a>
 				</div>
 
-				<div class="mh-shelf-title">
+				<div class="mh-sections-title">
 					<svg t="1705257823317" class="icon" viewBox="0 0 1024 1024" version="1.1"
 						xmlns="http://www.w3.org/2000/svg" p-id="7833">
 						<path
@@ -265,12 +279,16 @@
 						src="https://skillicons.dev/icons?i=html,css,js,ts,react,vue,nodejs,python,go,c,cpp,linux,docker,git,github,postman,vscode,markdown,photoshop,bash&perline=8"
 						alt="" srcset="" />
 				</div>
-			</content>
+			</section>
 		</div>
 	</main>
+
+	<!-- footer -->
 	<footer>
 		Copyright ©2026 By <a href="https://masterhu.com.cn/"> 𝓜𝓪𝓼𝓽𝓮𝓻𝓱𝓾 </a>All Rights Reserved.
 	</footer>
+
+	<!-- modal -->
 	<div class="mh-modal" id="reward-modal">
 		<div class="modal-main">
 			<img class="modal-img" src="" alt="" srcset="" />
