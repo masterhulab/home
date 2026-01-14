@@ -1,70 +1,201 @@
-## MasterHu Homepage
+# MasterHu Homepage
 
-本仓库是 **MasterHu 个人主页** 的静态网页源码，
-仅使用 **原生 HTML / CSS / JavaScript** 实现，未依赖任何前端框架或第三方构建工具。
+![Version](https://img.shields.io/badge/version-1.0.0-blue)![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-green)![HTML](https://img.shields.io/badge/HTML-5-orange)
+![CSS](https://img.shields.io/badge/CSS-3-blue)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 
-项目目标：
+简洁优雅的静态个人主页模板，基于原生 HTML / CSS / JavaScript，零依赖，零构建，开箱即用。
 
-> 保持结构清晰、命名可读、易于二次修改与长期维护。
+🌐 **在线预览**: [masterhu.com.cn](https://masterhu.com.cn/)
 
-主页：[𝓜𝓪𝓼𝓽𝓮𝓻𝓱𝓾](https://masterhu.com.cn/)
-
-🌐 主页地址：
-👉 https://masterhu.com.cn
-
-## ✨ Features
-
-- 原生 HTML / CSS / JS
-- 响应式布局（PC / Mobile）
-- 多种主题切换
-- 模块化页面结构
-- 无框架、零构建成本
-- 适合作为 **个人主页 / 开源模板** 使用
+📦 **仓库地址**: [github.com/masterhublog/homepage](https://github.com/masterhublog/homepage)
 
 ---
 
-## 📁 Html Structure
+## ✨ 特性
 
-```text
-body
-├── nav (mh-nav)                 # 顶部导航栏
-├── main (mh-layout)             # 页面主体布局
-│    ├── aside (mh-sidebar)      # 左侧侧边栏
-│    │    ├── bio                # 个人信息
-│    │    ├── tags               # 技能 / 标签
-│    │    └── timeline           # 时间线
-│    └── div (mh-content)        # 右侧主内容区域
-│         ├── header (hero)      # 欢迎区 / Hero
-│         └── section (mh-sections)
-│              ├── site          # 站点入口
-│              ├── project       # 项目展示
-│              └── skills        # 技能图标
-└── footer                       # 页脚
+- 🎨 **多主题支持** - 内置多套配色方案，支持主题切换
+- 📱 **响应式设计** - 完美适配桌面端、平板、手机，含移动端汉堡菜单
+- ⚡ **零构建依赖** - 纯原生技术栈，无需 Node.js、Webpack 等工具
+- 🎭 **可替换图标** - 使用 SVG 图标系统，轻松自定义
+- ⌨️ **打字机效果** - 流畅的中英文座右铭循环展示，低性能开销
+- 🧩 **语义化结构** - 代码清晰易读，便于二次开发
+- 🚀 **轻量高效** - 加载速度快，无冗余代码
+
+## 📂 项目结构
+
+```
+homepage/
+├── index.html              # 页面主体结构
+├── static/
+│   ├── css/
+│   │   ├── style.css      # 通用样式与布局
+│   │   └── theme.css      # 主题配色方案
+│   ├── js/
+│   │   └── script.js      # 交互逻辑与功能
+│   └── svg/               # SVG 图标资源
+│       ├── homepage.svg
+│       ├── about.svg
+│       ├── blog.svg
+│       └── ...
+└── README.md
 ```
 
-## 🗺 Roadmap
+## 🚀 快速开始
 
-* [ ]  主页时钟组件
-* [ ]  音乐播放器
-* [ ]  访问统计展示
-* [ ]  更多交互细节优化
+### 克隆仓库
 
-## 🚀 Usage
+```bash
+git clone https://github.com/masterhublog/homepage.git
+cd homepage
+```
 
-你可以自由 **fork / clone / 修改** 本项目用于个人主页。
+### 本地预览
 
-如果你使用或基于本项目进行二次开发，请遵循以下约定：
+**方式一：直接打开**
+```bash
+# 双击 index.html 在浏览器中打开
+```
 
-* ✔ 请修改页面内容
-* ✔ 请调整样式或布局以体现个人风格
-* ❗ 请保留原作者署名
-* ❌ 禁止商业用途（详见 License）
+**方式二：使用 Python 本地服务器（推荐）**
+```bash
+python -m http.server 8000
+# 访问 http://localhost:8000
+```
 
-## 📜 License
+**方式三：使用 VS Code Live Server**
+```bash
+# 安装 Live Server 插件后
+# 右键 index.html → Open with Live Server
+```
 
-本项目基于 **CC BY-NC 4.0** 协议发布：
+## 🔧 自定义配置
 
-* 允许个人使用与修改
-* 允许非商业分发
-* **必须署名**
-* **禁止商业用途**
+### 修改个人信息
+
+编辑 `index.html`，找到对应区块进行修改：
+
+```html
+<!-- 修改标题与座右铭 -->
+<h1>你的名字</h1>
+<p class="motto">你的座右铭</p>
+
+<!-- 修改导航卡片 -->
+<a href="你的链接" class="card">
+  <img src="static/svg/图标.svg" alt="图标">
+  <span>卡片标题</span>
+</a>
+```
+
+### 更换主题
+
+在 `static/js/script.js` 中修改主题配置：
+
+```javascript
+const themes = {
+  yourTheme: {
+    primary: '#your-color',
+    secondary: '#your-color',
+    // ...
+  }
+};
+```
+
+### 自定义图标
+
+替换 `static/svg/` 目录下的 SVG 文件，或添加新图标并在 HTML 中引用。
+
+### 修改打字机效果
+
+在 `static/js/script.js` 中编辑座右铭数组：
+
+```javascript
+const mottos = [
+  '你的中文座右铭',
+  'Your English Motto'
+];
+```
+
+## 🛫 部署指南
+
+本项目为纯静态页面，可部署到任何静态托管平台。
+
+### GitHub Pages
+
+1. 将代码推送到 GitHub 仓库
+2. 进入仓库 **Settings** → **Pages**
+3. Source 选择 `main` 分支
+4. 保存后等待部署完成
+
+### Vercel
+
+```bash
+npm i -g vercel
+vercel
+```
+
+### Netlify
+
+拖拽项目文件夹到 [Netlify Drop](https://app.netlify.com/drop) 即可。
+
+### 其他平台
+
+支持 Cloudflare Pages、GitLab Pages、Nginx、Apache 等任何静态托管服务。
+
+## 🛠️ 技术栈
+
+- **HTML5** - 语义化页面结构
+- **CSS3** - 现代样式与动画效果
+- **JavaScript (ES6)** - 原生 DOM 操作与交互
+
+## 📋 浏览器兼容性
+
+| 浏览器 | 支持版本 |
+|--------|----------|
+| Chrome | ✅ 最新版 |
+| Firefox | ✅ 最新版 |
+| Safari | ✅ 最新版 |
+| Edge | ✅ 最新版 |
+| IE | ❌ 不支持 |
+
+## 🗺️ 开发路线
+
+详见 [Issues](https://github.com/masterhublog/homepage/issues) 和 [Projects](https://github.com/masterhublog/homepage/projects)
+
+## 🤝 贡献指南
+
+欢迎各种形式的贡献！
+
+1. Fork 本仓库
+2. 创建特性分支 `git checkout -b feature/AmazingFeature`
+3. 提交更改 `git commit -m 'Add some AmazingFeature'`
+4. 推送到分支 `git push origin feature/AmazingFeature`
+5. 提交 Pull Request
+
+## 💬 反馈与支持
+
+- 🐛 [报告 Bug](https://github.com/masterhublog/homepage/issues/new?labels=bug)
+- 💡 [功能建议](https://github.com/masterhublog/homepage/issues/new?labels=enhancement)
+- 💬 [讨论区](https://github.com/masterhublog/homepage/discussions)
+
+## 📜 开源协议
+
+本项目采用 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) 协议。
+
+**权限说明**:
+- ✅ 允许：署名使用、修改、分享
+- ❌ 禁止：商业使用
+
+## 🙏 致谢
+
+感谢所有为本项目做出贡献的开发者！
+
+## ⭐ Star History
+
+如果这个项目对你有帮助，请给个 Star ⭐
+
+[![Star History Chart](https://api.star-history.com/svg?repos=masterhublog/homepage&type=Date)](https://star-history.com/#masterhublog/homepage&Date)
+
+---
+
+**Made with ❤️ by [MasterHu](https://masterhu.com.cn)**

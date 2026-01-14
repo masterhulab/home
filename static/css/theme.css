@@ -23,31 +23,34 @@
 
 /* clear theme */
 .theme-clear {
-  --name: "原图清晰";
+  --name: "清晰原图";
+  /* Uses default values */
 }
 
 /* 暗淡原图 */
 .theme-dim {
-  --name: "暗调原图";
+  --name: "暗淡原图";
   --main-text-color: #eeeeee;
   --purple-text-color: #747bff;
-  --item-bg-color: #00000038;
-  --item-hover-color: #33333338;
+  --item-bg-color: rgba(0, 0, 0, 0.22);
+  --item-hover-color: rgba(51, 51, 51, 0.22);
   --item-text-color: #ffffff;
-  --left-tag-item: rgb(27 42 57 / 20%);
+  --left-tag-item: rgba(27, 42, 57, 0.2);
   --card-filter: 15px;
-  --back-filter-color: #00000030;
+  --back-filter-color: rgba(0, 0, 0, 0.19);
 }
 
 /* fresh theme */
 .theme-fresh {
   --name: "清新卡片";
   --main-text-color: #000000;
-  --text-bg-color: rgb(121 163 231);
+  --purple-text-color: #667eea;
+  --text-bg-color: rgba(121, 163, 231, 0.5);
   --item-bg-color: rgba(249, 250, 251, 0.42);
   --item-hover-color: rgba(244, 245, 246, 0.8);
   --item-title-color: #000000;
   --item-text-color: #494949;
+  --footer-text-color: #333333;
   --left-tag-item: #c7e1fa;
   --fill: #000000;
 }
@@ -56,56 +59,59 @@
 .theme-blur {
   --name: "背景模糊";
   --main-text-color: #eeeeee;
-  --item-bg-color: #00000038;
-  --item-hover-color: #33333338;
+  --purple-text-color: #a0a0ff;
+  --item-bg-color: rgba(0, 0, 0, 0.22);
+  --item-hover-color: rgba(51, 51, 51, 0.22);
   --item-text-color: #ffffff;
   --back-filter: 19px;
-  --back-filter-color: #00000030;
+  --back-filter-color: rgba(0, 0, 0, 0.19);
 }
 
 /* sky theme */
 .theme-sky {
-  --name: "蔚蓝天空";
-  --main-bg-color: linear-gradient(50deg, #a2d1ff, #ffffff);
+  --name: "蔚蓝天际";
+  --main-bg-color: linear-gradient(135deg, #a2d1ff 0%, #e8f4ff 100%);
   --main-text-color: #000000;
-  --text-bg-color: rgb(196 217 251);
+  --purple-text-color: #4a90e2;
+  --text-bg-color: rgba(196, 217, 251, 0.5);
   --item-bg-color: rgba(249, 250, 251, 0.5);
   --item-hover-color: rgba(244, 245, 246, 0.8);
   --item-title-color: #000000;
   --item-text-color: #494949;
   --footer-text-color: #222222;
-  --left-tag-item: linear-gradient(50deg, #a2d1ff, #ffffff);
+  --left-tag-item: rgba(162, 209, 255, 0.3);
   --fill: #000000;
 }
 
 /* white theme */
 .theme-white {
-  --name: "纯白简约";
+  --name: "简约纯白";
   --main-bg-color: #ffffff;
   --main-text-color: #000000;
-  --text-bg-color: rgb(240 243 247);
-  --item-bg-color: rgb(247 247 247);
+  --purple-text-color: #667eea;
+  --text-bg-color: rgba(240, 243, 247, 0.5);
+  --item-bg-color: rgba(247, 247, 247, 0.8);
   --item-hover-color: rgba(244, 245, 246, 0.5);
   --item-title-color: #000000;
   --item-text-color: #494949;
   --footer-text-color: #222222;
-  --left-tag-item: #ffffff;
+  --left-tag-item: rgba(230, 230, 230, 0.6);
   --fill: #000000;
 }
 
 /* dark theme */
 .theme-dark {
-  --name: "纯黑主题";
+  --name: "星河夜幕";
   --main-bg-color: #000000;
   --main-text-color: #ffffff;
   --purple-text-color: #a0a0ff;
-  --text-bg-color: #00000040;
-  --item-bg-color: #111111;
-  --item-hover-color: #333333;
+  --text-bg-color: rgba(0, 0, 0, 0.25);
+  --item-bg-color: rgba(17, 17, 17, 0.9);
+  --item-hover-color: rgba(51, 51, 51, 0.9);
   --item-title-color: #ffffff;
   --item-text-color: #cccccc;
   --footer-text-color: #ffffff;
-  --left-tag-item: #222222;
+  --left-tag-item: rgba(34, 34, 34, 0.8);
   --fill: #ffffff;
 }
 
@@ -117,8 +123,8 @@
 }
 
 .theme-fresh .hero-motto,
-.theme-blur .hero-motto {
-  color: #222 !important;
+.theme-sky .hero-motto {
+  color: #333333 !important;
 }
 
 /* mobile background */

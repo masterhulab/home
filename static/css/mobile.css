@@ -1,27 +1,40 @@
 /* =========================
-   Mobile (max-width: 800px)
+   Mobile Styles
+   移动端样式 (max-width: 800px)
    ========================= */
 
 @media (max-width: 800px) {
+  /* Body adjustments */
   body {
     background-attachment: scroll;
+    font-size: 14px;
   }
 
   body.nav-open {
     overflow: hidden;
   }
 
+  /* =========================
+     Navigation
+     ========================= */
+  .mh-nav {
+    width: 95%;
+    height: 56px;
+    top: 16px;
+  }
+
   .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
     padding: 0 20px;
+    height: 56px;
     position: relative;
     z-index: 2005;
   }
 
-  /* 2. 修改菜单样式 */
+  .nav-container .gradient-text {
+    font-size: 18px;
+  }
+
+  /* Mobile Menu */
   .nav-links {
     position: absolute;
     /* 从 fixed 改为 absolute，相对于 nav-container */
@@ -54,7 +67,7 @@
     /* 动画：下拉 + 缩放效果 */
     transform-origin: top right;
     /* 从右上角展开 */
-    transform: translateY(-10px) scale(0.1);
+    transform: translateY(-10px) scale(0.55);
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -88,6 +101,7 @@
     transform: translateX(0%) !important;
   }
 
+  /* Burger Menu */
   .nav-burger {
     display: block;
     position: relative;
@@ -113,17 +127,19 @@
     font-size: 16px;
   }
 
+ .mh-layout {
+    padding-top: 50px;
+    flex-direction: column;
+  }
+
+  /* Hide Sidebar on Mobile */
   .mh-sidebar {
     display: none;
   }
 
+  /* Content takes full width */
   .mh-content {
     width: 100%;
-  }
-
-  .mh-content {
-    flex-direction: column;
-    gap: 8px;
   }
 
   .hero-greeting {
@@ -198,6 +214,10 @@
   }
 }
 
+/* =========================
+   Modal Styles
+   (Applied to all screen sizes)
+   ========================= */
 .mh-modal {
   position: fixed;
 
@@ -229,12 +249,12 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transform: translateY(30%) scale(0.5);
+  transform: translateY(30%) scale(0.9);
 }
 
 .modal-img {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .mh-modal.active {
