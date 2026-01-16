@@ -29,7 +29,12 @@ const Storage = {
   }
 };
 
-/* Theme Configuration */
+/* =========================================================================
+ *  Configuration Section
+ *  自定义配置区域 - 你可以在这里修改站点设置
+ * ========================================================================= */
+
+/* Theme Configuration | 主题配置 */
 const THEME_CONFIG = {
   classes: [
     "theme-clear", "theme-dim", "theme-fresh",
@@ -42,10 +47,26 @@ const THEME_CONFIG = {
   icons: ["🖼️", "🌗", "🍃", "🌫️", "🌊", "⚪", "🔮"]
 };
 
+/* Motto Configuration | 座右铭配置 */
+const MOTTO_TEXTS = [
+  "不忘初心，方得始终!",
+  "Stay hungry Stay foolish!"
+];
+
+/* Site Configuration | 站点基础配置 */
 const SITE_CONFIG = {
-  BIRTH_TIME: "2025/01/01 00:00:00",
-  UPTIME_RENDER_ID: "run-time"
+  // 建站时间，用于计算运行时间
+  BIRTH_TIME: "2026/01/01 00:00:00",
+  // 页面元素 ID 配置 (通常无需修改)
+  UPTIME_RENDER_ID: "run-time",
+  TODAY_VISITORS_ID: "mh-today-visitors"
 };
+
+
+/* =========================================================================
+ *  Core Logic Section
+ *  核心逻辑区域 - 除非你是开发者，否则建议不要修改以下代码
+ * ========================================================================= */
 
 /* Uptime Counter */
 function updateSiteUptime() {
@@ -66,12 +87,49 @@ function updateSiteUptime() {
   const minutes = Math.floor(diff / 60000) % 60;
   const seconds = Math.floor(diff / 1000) % 60;
 
+  const years = Math.floor(days / 365);
+  const remainingDays = days % 365;
+
   const pad = (n) => String(n).padStart(2, '0');
-  el.textContent = `${days}天 ${pad(hours)}时 ${pad(minutes)}分 ${pad(seconds)}秒`;
+  const yearDayPart = years > 0
+    ? `${years}年${remainingDays}天`
+    : `${days}天`;
+
+  const timePart = `${pad(hours)}时 ${pad(minutes)}分 ${pad(seconds)}秒`;
+
+  el.innerHTML = `已运行 ${yearDayPart}<br>${timePart}`;
 }
 
 setInterval(updateSiteUptime, 1000);
 updateSiteUptime();
+
+function updateTodayVisitors() {
+  const el = document.getElementById(SITE_CONFIG.TODAY_VISITORS_ID);
+  if (!el) return;
+
+  const key = "MH_TODAY_VISIT";
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  const todayStr = `${yyyy}-${mm}-${dd}`;
+
+  let data;
+  try {
+    data = JSON.parse(localStorage.getItem(key) || "{}");
+  } catch {
+    data = {};
+  }
+
+  if (!data || data.date !== todayStr) {
+    data = { date: todayStr, count: 0 };
+  }
+
+  data.count += 1;
+  localStorage.setItem(key, JSON.stringify(data));
+
+  el.textContent = data.count;
+}
 
 
 /*  Determine whether a color is visually dark */
@@ -111,7 +169,6 @@ function applyTheme(index) {
   Storage.set("themeIndex", safeIndex);
 
   if (UI.themeButton) {
-    UI.themeButton.textContent = THEME_CONFIG.icons[safeIndex] + "主题";
     UI.themeButton.textContent = THEME_CONFIG.icons[safeIndex] + THEME_CONFIG.names[safeIndex];
     //UI.themeButton.dataset.tooltip = THEME_CONFIG.names[safeIndex];
   }
@@ -127,8 +184,7 @@ function applyTheme(index) {
   return safeIndex;
 }
 
-/*  Modal (Public API) */
-window.openModal = function (imgUrl) {
+window.openModal = async function (imgUrl) {
   if (!UI.modal) return;
   UI.modalImage.src = imgUrl;
   UI.modal.classList.add("active");
@@ -181,6 +237,10 @@ function initMobileNav() {
     UI.navLinks.classList.toggle("nav-active");
     UI.navBurger.classList.toggle("toggle");
     document.body.classList.toggle("nav-open");
+
+    const expanded = UI.navBurger.getAttribute("aria-expanded") === "true";
+    UI.navBurger.setAttribute("aria-expanded", expanded ? "false" : "true");
+    UI.navLinks.setAttribute("aria-hidden", expanded ? "true" : "false");
   });
 
   document.addEventListener("click", (e) => {
@@ -192,6 +252,8 @@ function initMobileNav() {
       UI.navLinks.classList.remove("nav-active");
       UI.navBurger.classList.remove("toggle");
       document.body.classList.remove("nav-open");
+      UI.navBurger.setAttribute("aria-expanded", "false");
+      UI.navLinks.setAttribute("aria-hidden", "true");
     }
   });
 }
@@ -199,19 +261,18 @@ function initMobileNav() {
 function initHeroTyping() {
   if (!UI.heroMotto) return;
 
-  const texts = ["不忘初心，方得始终!", "Stay hungry Stay foolish!"];
   let t = 0, c = 0, del = false, pause = 0;
 
   const tick = () => {
     if (pause-- > 0) return;
 
-    const text = texts[t];
+    const text = MOTTO_TEXTS[t];
     if (!del) {
       UI.heroMotto.textContent = text.slice(0, ++c);
       if (c === text.length) { del = true; pause = 20; }
     } else {
       UI.heroMotto.textContent = text.slice(0, --c);
-      if (c === 0) { del = false; t = (t + 1) % texts.length; pause = 10; }
+      if (c === 0) { del = false; t = (t + 1) % MOTTO_TEXTS.length; pause = 10; }
     }
   };
 
@@ -227,9 +288,16 @@ document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initMobileNav();
   initHeroTyping();
+  updateTodayVisitors();
 
   UI.modal?.addEventListener("click", (e) => {
     if (e.target === UI.modal) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeModal();
+    }
   });
 });
 

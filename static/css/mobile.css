@@ -1,3 +1,10 @@
+/* =========================================================
+ * MasterHu Homepage Mobile Styles
+ * Author: MasterHu
+ * Website: https://masterhu.com.cn
+ * License: CC BY-NC 4.0
+ * ========================================================= */
+
 /* =========================
    Mobile Styles
    移动端样式 (max-width: 800px)
@@ -207,17 +214,27 @@
     display: none;
   }
 
-  .skill #skill-mobile {
+  .mh-skills #skill-mobile {
     display: block;
   }
 
-  .skill #skill-pc {
+  .mh-skills #skill-pc {
     display: none;
   }
 
-  .skill img {
+  .mh-skills img {
     width: 92%;
     max-width: 360px;
+  }
+
+  .modal-img {
+    display: none;
+  }
+
+  .modal-stack {
+    display: block;
+    gap: 16px;
+    padding: 12px;
   }
 }
 
@@ -262,6 +279,12 @@
 .modal-img {
   width: 100%;
   height: auto;
+}
+
+.modal-stack .stack-img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .mh-modal.active {

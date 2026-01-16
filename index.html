@@ -10,7 +10,7 @@
 -->
 
 <!DOCTYPE html>
-<html data-site="masterhu.com.cn">
+<html lang="zh-CN" data-site="masterhu.com.cn">
 
 <head>
 	<meta charset="UTF-8">
@@ -35,8 +35,8 @@
 	<meta property="og:url" content="https://masterhu.com.cn/">
 	<meta property="og:title" content="MasterHu | 个人主页">
 	<meta property="og:description" content="探索技术与艺术的边界，记录我的数字旅程。">
-	<meta property="og:image" content="https://masterhu.com.cn/static/img/logo.png">
-	<meta property="og:image:alt" content="MasterHu Logo">
+	<meta property="og:image" content="https://masterhu.com.cn/static/img/avatar.gif">
+	<meta property="og:image:alt" content="MasterHu Avatar">
 	<meta property="og:site_name" content="MasterHu Homepage">
 	<meta property="og:locale" content="zh_CN">
 
@@ -81,7 +81,8 @@
 
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="./static/img/favicon.ico">
-	<link rel="apple-touch-icon" href="./static/img/logo.png">
+	<link rel="apple-touch-icon" href="./static/img/avatar.gif">
+
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="./static/css/style.css">
 	<link rel="stylesheet" href="./static/css/mobile.css">
@@ -98,7 +99,7 @@
 	<nav class="mh-nav">
 		<div class="nav-container">
 			<span class="gradient-text">MasterHu's Home</span>
-			<ul class="nav-links">
+			<ul class="nav-links" id="nav-links" aria-hidden="true">
 				<li><a href="https://blog.masterhu.com.cn" target="_blank">📖 博客</a></li>
 				<li>
 					<a href="https://blog.masterhu.com.cn/message" target="_blank">💬 留言板</a>
@@ -113,7 +114,7 @@
 					<button class="nav-theme-toggle" aria-label="切换主题">🎨</button>
 				</li>
 			</ul>
-			<div class="nav-burger" id="burger-menu" aria-label="打开菜单" aria-controls="nav-links">
+			<div class="nav-burger" id="burger-menu" aria-label="打开菜单" aria-controls="nav-links" aria-expanded="false">
 				<div class="line1"></div>
 				<div class="line2"></div>
 				<div class="line3"></div>
@@ -151,7 +152,6 @@
 							p-id="2475"></path>
 					</svg>Secret
 				</div>
-				<div class="mh-bio-item">📧 i@masterhu.com.cn</div>
 				<div class="mh-bio-item">🏷️ Full Developer</div>
 			</div>
 			<div class="mh-sidebar-section mh-tags">
@@ -197,6 +197,30 @@
 						<div class="mh-timeline-date">2020.2</div>
 					</li>
 				</ul>
+			</div>
+			<div class="mh-sidebar-section mh-status">
+				<div class="mh-status-item mh-status-item--uptime">
+					<div class="mh-status-title">⏳ 运行时间</div>
+					<div class="mh-status-text mh-status-text--uptime" id="run-time"></div>
+				</div>
+				<div class="mh-status-item">
+					<div class="mh-status-title">👀 总访问量</div>
+					<div class="mh-status-text">
+						<span id="busuanzi_value_site_pv"><i class="mh-inline-loading">Loading...</i></span>
+					</div>
+				</div>
+				<div class="mh-status-item">
+					<div class="mh-status-title">👤 总访客数</div>
+					<div class="mh-status-text">
+						<span id="busuanzi_value_site_uv"><i class="mh-inline-loading">Loading...</i></span>
+					</div>
+				</div>
+				<div class="mh-status-item">
+					<div class="mh-status-title">📅 今日访客</div>
+					<div class="mh-status-text">
+						<span id="mh-today-visitors"><i class="mh-inline-loading">Loading...</i></span>
+					</div>
+				</div>
 			</div>
 		</aside>
 		<div class="mh-content">
@@ -271,7 +295,7 @@
 							<p>📝记录&分享<br> The Joy of Sharing</p>
 						</div>
 						<div class="mh-site-icon">
-							<img src="./static/svg/blog.svg" alt="Blog Icon" />
+							<img src="./static/svg/blog.svg" alt="Blog Icon" loading="lazy" />
 						</div>
 					</a>
 					<a class="mh-site-card" target="_blank" href="https://blog.masterhu.com.cn/message">
@@ -280,7 +304,7 @@
 							<p>🤙 来聊聊呗。。。</p>
 						</div>
 						<div class="mh-site-icon">
-							<img src="./static/svg/message.svg" alt="Message Icon" />
+							<img src="./static/svg/message.svg" alt="Message Icon" loading="lazy" />
 						</div>
 					</a>
 					<a class="mh-site-card" target="_blank" href="https://blog.masterhu.com.cn/friends">
@@ -289,7 +313,7 @@
 							<p>👥 小伙伴们</p>
 						</div>
 						<div class="mh-site-icon">
-							<img src="./static/svg/friends.svg" alt="Friends" />
+							<img src="./static/svg/friends.svg" alt="Friends" loading="lazy" />
 						</div>
 					</a>
 					<a class="mh-site-card" target="_blank" href="https://blog.masterhu.com.cn/about">
@@ -298,7 +322,7 @@
 							<p>👨‍💻 了解更多</p>
 						</div>
 						<div class="mh-site-icon">
-							<img src="./static/svg/about.svg" alt="About" />
+							<img src="./static/svg/about.svg" alt="About" loading="lazy" />
 						</div>
 					</a>
 				</div>
@@ -318,7 +342,7 @@
 							<p>🚀一键部署的静态个人主页</p>
 						</div>
 						<div class="mh-project-icon">
-							<img src="./static/svg/homepage.svg" alt="Homepage" />
+							<img src="./static/svg/homepage.svg" alt="Homepage" loading="lazy" />
 						</div>
 					</a>
 				</div>
@@ -332,7 +356,7 @@
 					</svg>
 					skills
 				</div>
-				<div class="skill">
+				<div class="mh-skills">
 					<img id="skill-pc"
 						src="https://skillicons.dev/icons?i=html,css,js,ts,react,vue,nodejs,python,go,c,cpp,linux,docker,git,github,postman,vscode,markdown,photoshop,bash&perline=16"
 						alt="Technical Skills Icons" width="960" height="64" loading="lazy" srcset="" />
@@ -351,19 +375,29 @@
 	</footer>
 
 	<!-- Modal for Images -->
-	<div class="mh-modal" id="reward-modal">
+	<div class="mh-modal" id="reward-modal" role="dialog" aria-modal="true" aria-hidden="true">
 		<div class="modal-main">
+			<div class="modal-stack">
+				<img class="stack-img" src="./static/img/alipay.webp" alt="Alipay QR Code" loading="lazy" />
+				<img class="stack-img" src="./static/img/wechat.webp" alt="WeChat QR Code" loading="lazy" />
+			</div>
 			<img class="modal-img" src="" alt="Reward QR Code" srcset="" />
 		</div>
 	</div>
 </body>
-<link rel="stylesheet" href="https://registry.npmmirror.com/weblive2d/latest/files/waifu.css">
-<script async src="https://registry.npmmirror.com/weblive2d/latest/files/js/autoload.js"></script>
+<!-- Optional: WebLive2D Widget (看板娘) -->
+ <link rel="stylesheet" href="https://registry.npmmirror.com/weblive2d/latest/files/waifu.css">
+ <script async src="https://registry.npmmirror.com/weblive2d/latest/files/js/autoload.js"></script>
 
 <script src="./static/js/script.js"></script>
+
+<!-- Optional: Analytics (Replace with your own ID or remove) -->
+<!-- 
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <script charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script>
 <script>
-	LA.init({ id: "KFqltKSkJgQTGD9l", ck: "KFqltKSkJgQTGD9l" });
-</script>
+	LA.init({ id: "YOUR_ID", ck: "YOUR_CK" });
+</script> 
+-->
 
 </html>

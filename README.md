@@ -1,8 +1,6 @@
 # MasterHu Homepage
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-green)![HTML](https://img.shields.io/badge/HTML-5-orange)
-![CSS](https://img.shields.io/badge/CSS-3-blue)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-green)![HTML](https://img.shields.io/badge/HTML-5-orange)![CSS](https://img.shields.io/badge/CSS-3-blue)![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 
 简洁优雅的静态个人主页模板，基于原生 HTML / CSS / JavaScript，零依赖，零构建，开箱即用。
 
@@ -31,6 +29,7 @@ homepage/
 │   ├── css/
 │   │   ├── style.css      # 通用样式与布局
 │   │   └── theme.css      # 主题配色方案
+│   │   └── mobile.css     # 移动端样式与布局
 │   ├── js/
 │   │   └── script.js      # 交互逻辑与功能
 │   └── svg/               # SVG 图标资源
@@ -40,6 +39,8 @@ homepage/
 │       └── ...
 └── README.md
 ```
+
+
 
 ## 🚀 快速开始
 
@@ -58,6 +59,7 @@ cd homepage
 ### 本地预览
 
 #### 方式一：直接打开（不推荐）
+
 ```bash
 # 直接双击 index.html 在浏览器中打开
 # 注意：可能存在跨域资源加载问题
@@ -66,12 +68,14 @@ cd homepage
 #### 方式二：使用 Python 本地服务器（推荐）
 
 **Python 3.x:**
+
 ```bash
 python -m http.server 8000
 # 访问 http://localhost:8000
 ```
 
 **Python 2.x:**
+
 ```bash
 python -m SimpleHTTPServer 8000
 # 访问 http://localhost:8000
@@ -80,11 +84,13 @@ python -m SimpleHTTPServer 8000
 #### 方式三：使用 Node.js 服务器
 
 **安装 serve:**
+
 ```bash
 npm install -g serve
 ```
 
 **启动服务:**
+
 ```bash
 serve -s . -l 8000
 # 访问 http://localhost:8000
@@ -106,6 +112,7 @@ php -S localhost:8000
 ### 验证安装
 
 访问主页后，你应该能看到：
+
 - 左侧个人信息和时间线
 - 右侧欢迎界面和个人链接
 - 主题切换功能
@@ -115,31 +122,36 @@ php -S localhost:8000
 
 ### 修改个人信息
 
-编辑 `index.html`，找到对应区块进行修改：
+编辑 `index.html`，找到对应区块进行修改，例如：
 
 ```html
-<!-- 修改标题与座右铭 -->
-<h1>你的名字</h1>
-<p class="motto">你的座右铭</p>
+<!-- Hero 标题与座右铭 -->
+<div class="hero-greeting">
+  Hello I'm <span class="gradient-text greeting-name">你的名字</span>
+</div>
+<div class="hero-motto" id="hero-motto">你的座右铭</div>
 
-<!-- 修改导航卡片 -->
-<a href="你的链接" class="card">
-  <img src="static/svg/图标.svg" alt="图标">
-  <span>卡片标题</span>
+<!-- 站点卡片示例 -->
+<a class="mh-site-card" target="_blank" href="你的链接">
+  <div class="mh-site-content">
+    <h3>卡片标题</h3>
+    <p>卡片描述</p>
+  </div>
 </a>
 ```
 
 ### 更换主题
 
-在 `static/js/script.js` 中修改主题配置：
+主题样式由 `static/css/theme.css` 和 `static/js/script.js` 共同控制：
+
+- 在 `static/css/theme.css` 中修改各个 `.theme-*` 变量（颜色、背景等）
+- 在 `static/js/script.js` 中修改 `THEME_CONFIG`，自定义主题名称与图标：
 
 ```javascript
-const themes = {
-  yourTheme: {
-    primary: '#your-color',
-    secondary: '#your-color',
-    // ...
-  }
+const THEME_CONFIG = {
+  classes: ["theme-clear", "theme-dim", "theme-fresh", "theme-blur", "theme-sky", "theme-white", "theme-dark"],
+  names: ["清晰原图", "暗淡原图", "清新卡片", "背景模糊", "蔚蓝天际", "简约纯白", "星河夜幕"],
+  icons: ["🖼️", "🌗", "🍃", "🌫️", "🌊", "⚪", "🔮"]
 };
 ```
 
@@ -149,12 +161,12 @@ const themes = {
 
 ### 修改打字机效果
 
-在 `static/js/script.js` 中编辑座右铭数组：
+在 `static/js/script.js` 顶部编辑座右铭配置常量：
 
 ```javascript
-const mottos = [
-  '你的中文座右铭',
-  'Your English Motto'
+const MOTTO_TEXTS = [
+  "你的中文座右铭",
+  "Your English Motto"
 ];
 ```
 
@@ -187,6 +199,7 @@ vercel
 ## 🛠️ 技术栈
 
 ### 前端技术
+
 - **HTML5** - 语义化页面结构，支持现代浏览器特性
 - **CSS3** - 现代样式与动画效果，包含：
   - Flexbox & Grid 布局
@@ -197,27 +210,31 @@ vercel
   - 模块化代码结构
   - LocalStorage 主题持久化
   - 打字机动画效果
-  - 移动端手势支持
+  - 移动端导航菜单与弹窗交互
 
 ### 外部资源
+
 - **Google Fonts** - 字体服务
 - **Skillicons.dev** - 技能图标生成
 - **WebLive2D** - 可选的看板娘组件
+- **51.la** - 可选的访问统计脚本（默认启用，建议 Fork 后替换为你自己的 ID，或移除）
 
 ### 开发工具
+
 - 零构建配置，无需 Webpack、Vite 等构建工具
 - 支持任何静态文件服务器
 - 兼容所有主流代码编辑器
 
 ## 📋 浏览器兼容性
 
-| 浏览器 | 支持版本 |
-|--------|----------|
-| Chrome | ✅ 最新版 |
+
+| 浏览器  | 支持版本  |
+| ------- | --------- |
+| Chrome  | ✅ 最新版 |
 | Firefox | ✅ 最新版 |
-| Safari | ✅ 最新版 |
-| Edge | ✅ 最新版 |
-| IE | ❌ 不支持 |
+| Safari  | ✅ 最新版 |
+| Edge    | ✅ 最新版 |
+| IE      | ❌ 不支持 |
 
 ## 🗺️ 开发路线
 
@@ -244,6 +261,7 @@ vercel
 本项目采用 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) 协议。
 
 **权限说明**:
+
 - ✅ 允许：署名使用、修改、分享
 - ❌ 禁止：商业使用
 
