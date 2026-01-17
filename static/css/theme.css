@@ -25,6 +25,22 @@
   --back-filter: 0px;           /* 默认背景模糊 */
   --back-filter-color: #00000000; /* 默认阴影遮罩 */
   --fill: #ffffff;              /* svg填充 */
+  --nav-bg-color: rgba(255, 255, 255, 0.2); /* 导航栏背景 */
+  --nav-border-color: rgba(255, 255, 255, 0.3); /* 导航栏边框 */
+  --nav-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1); /* 导航栏阴影 */
+  --timeline-line-color: rgba(255, 255, 255, 0.15); /* 时间线颜色 */
+
+  /* Z-Index Layers */
+  --z-negative: -1;
+  --z-normal: 1;
+  --z-nav: 1000;
+  --z-nav-menu: 2001;
+  --z-nav-burger: 2002;
+  --z-nav-item: 2003;
+  --z-nav-container: 2005;
+  --z-modal: 99999;
+  --z-modal-content: 100000;
+  --z-loading: 999999;
 }
 
 
@@ -45,6 +61,9 @@
   --left-tag-item: rgba(27, 42, 57, 0.2);
   --card-filter: 15px;
   --back-filter-color: rgba(0, 0, 0, 0.19);
+  --nav-bg-color: rgba(0, 0, 0, 0.2);
+  --nav-border-color: rgba(255, 255, 255, 0.1);
+  --timeline-line-color: rgba(255, 255, 255, 0.1);
 }
 
 /* fresh theme */
@@ -60,6 +79,10 @@
   --footer-text-color: #333333;
   --left-tag-item: #c7e1fa;
   --fill: #000000;
+  --nav-bg-color: rgba(255, 255, 255, 0.6);
+  --nav-border-color: rgba(0, 0, 0, 0.05);
+  --nav-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  --timeline-line-color: rgba(0, 0, 0, 0.1);
 }
 
 /* blur theme */
@@ -72,6 +95,9 @@
   --item-text-color: #ffffff;
   --back-filter: 19px;
   --back-filter-color: rgba(0, 0, 0, 0.19);
+  --nav-bg-color: rgba(0, 0, 0, 0.2);
+  --nav-border-color: rgba(255, 255, 255, 0.1);
+  --timeline-line-color: rgba(255, 255, 255, 0.15);
 }
 
 /* sky theme */
@@ -88,6 +114,10 @@
   --footer-text-color: #222222;
   --left-tag-item: rgba(162, 209, 255, 0.3);
   --fill: #000000;
+  --nav-bg-color: rgba(255, 255, 255, 0.5);
+  --nav-border-color: rgba(255, 255, 255, 0.6);
+  --nav-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --timeline-line-color: rgba(74, 144, 226, 0.3);
 }
 
 /* white theme */
@@ -104,6 +134,10 @@
   --footer-text-color: #222222;
   --left-tag-item: rgba(230, 230, 230, 0.6);
   --fill: #000000;
+  --nav-bg-color: rgba(255, 255, 255, 0.9);
+  --nav-border-color: #eaeaea;
+  --nav-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --timeline-line-color: #eaeaea;
 }
 
 /* dark theme */
@@ -120,6 +154,10 @@
   --footer-text-color: #ffffff;
   --left-tag-item: rgba(34, 34, 34, 0.8);
   --fill: #ffffff;
+  --nav-bg-color: rgba(30, 30, 30, 0.8);
+  --nav-border-color: rgba(255, 255, 255, 0.1);
+  --nav-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  --timeline-line-color: rgba(255, 255, 255, 0.15);
 }
 
 /* background filter */

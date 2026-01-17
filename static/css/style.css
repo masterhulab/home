@@ -6,22 +6,28 @@
  * ========================================================= */
 
  /* Fonts */
+:root {
+  --font-zh: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-en: "Ubuntu-Regular", sans-serif;
+  --font-title: "Pacifico-Regular", cursive;
+}
+
 @font-face {
-  font-family: "a";
+  font-family: "Noto Sans SC";
   /*中文字体*/
   src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap");
   font-display: swap;
 }
 
 @font-face {
-  font-family: "b";
+  font-family: "Ubuntu-Regular";
 
   src: url(../fonts/Ubuntu-Regular.ttf);
   font-display: swap;
 }
 
 @font-face {
-  font-family: "title";
+  font-family: "Pacifico-Regular";
   /*英文字体*/
   src: url(../fonts/Pacifico-Regular.ttf);
   font-display: swap;
@@ -58,14 +64,13 @@ a:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--main-text-color, #000000);
+  background-color: var(--main-text-color);
   border-radius: 8px;
   height: 20%;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--main-bg-color,
-      linear-gradient(50deg, #a2d0ff, #ffffff));
+  background-color: var(--scrollbar-track-color, linear-gradient(50deg, #a2d0ff, #ffffff));
 }
 
 body {
@@ -73,26 +78,27 @@ body {
   min-height: 100vh;
   width: 100%;
   position: relative;
-  font-family: "b", "a", sans-serif;
+  font-family: var(--font-en), var(--font-zh);
   background: var(--main-bg-color);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  transition: color 0.1s ease;
+  transition: color 0.1s ease, background-color 0.2s ease;
   color: var(--main-text-color);
   overflow-x: hidden;
+  user-select: none;
 }
 
 /* Loading overlay */
 .mh-loading {
   position: fixed;
   inset: 0;
-  z-index: 999999;
+  z-index: var(--z-loading);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--main-bg-color, #fff);
+  background: var(--main-bg-color);
 
   opacity: 1;
   transform: scale(1);
@@ -132,7 +138,7 @@ animation:
   position: absolute;
   inset: 7px;
   border-radius: 50%;
-  background: var(--main-bg-color, #fff);
+  background: var(--spinner-center-bg, #ffffff);
 }
 
 /* Spin animation */
@@ -161,21 +167,15 @@ animation:
   /* 宽度 */
   max-width: 1200px;
   height: 60px;
-  z-index: 1000;
+  z-index: var(--z-nav);
 
-  /* 关键：毛玻璃效果 */
-  background: rgba(255, 255, 255, 0.2);
-  /* 半透明白色背景 */
+  background: var(--nav-bg-color);
   backdrop-filter: blur(10px);
-  /* 背景模糊 */
   -webkit-backdrop-filter: blur(10px);
 
-  /* 关键：边框与圆角 */
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--nav-border-color);
   border-radius: 30px;
-  /* 大圆角 */
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-  /* 柔和阴影 */
+  box-shadow: var(--nav-shadow);
 }
 
 .nav-container {
@@ -197,7 +197,7 @@ animation:
 
   color: var(--main-text-color);
 
-  font-family: "title", sans-serif;
+  font-family: var(--font-title);
   will-change: background-position;
   animation: mh-kf-fluid-gradient 10s ease-in-out infinite;
 }
@@ -215,7 +215,7 @@ animation:
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 15px;
+  gap: 20px;
   align-items: center;
 }
 
@@ -232,7 +232,9 @@ animation:
 
 .nav-links a:hover {
   color: var(--purple-text-color);
-  /* 悬停变色 */
+  transform: scale(1.5);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
   text-shadow: 0 0 10px rgba(116, 123, 255, 0.5);
 }
 
@@ -273,7 +275,7 @@ animation:
   opacity: 0;
   pointer-events: none;
   transition: opacity .15s, transform .15s;
-  z-index: 1000;
+  z-index: var(--z-nav);
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -319,7 +321,7 @@ animation:
   background: var(--back-filter-color);
   backdrop-filter: blur(var(--back-filter));
   -webkit-backdrop-filter: blur(var(--back-filter));
-  z-index: -1;
+  z-index: var(--z-negative);
   transition: all 0.3s ease;
 }
 
@@ -421,105 +423,14 @@ animation:
   background: var(--left-tag-item);
 }
 
-.mh-timeline-list {
-  width: 100%;
-  height: 200px;
-  font-size: 13px;
-  padding-left: 8px;
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  list-style: none;
-  scrollbar-width: none;
-}
-
-.mh-timeline-list::-webkit-scrollbar {
-  display: none;
-}
-
-.mh-timeline-item {
-  position: relative;
-  padding: 0 0 20px 20px; /* 顺时针：上 右 下 左 */
-  /* 线条：实线 */
-  border-left: 4px solid rgba(255, 255, 255, 0.15); 
-  scroll-snap-align: start; /* 改为 start 通常滚动体验更好 */
-  color: var(--main-text-color);
-}
-
-/* 处理“更多”项：点隐藏，线变透明或虚线 */
-.mh-timeline-item--more {
-  border-left-style: dashed; /* 或者改为 transparent 完全切断 */
-  border-left-color: rgba(213, 213, 213, 0.1);
-}
-
-.mh-timeline-item--more .mh-timeline-dot {
-  display: none;
-}
-
-.mh-timeline-list li:first-child .mh-timeline-dot:first-child {
-  background-color: #aaffcd;
-  animation: mh-timeline-dot 1.8s ease infinite;
-}
-
-.mh-timeline-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 22px;
-  background-color: rgb(255 255 255);
-  border: 2px solid #fff;
-  position: absolute;
-  left: -6px;
-  top: 6px;
-}
-
-.mh-timeline .mh-timeline-list .mh-timeline-item:first-child .mh-timeline-dot {
-  background-color: #09f069 !important;
-  border-color: #09f069 !important;
-  animation: mh-timeline-pulse 1.8s ease infinite;
-}
-
-@keyframes mh-timeline-pulse {
-  0% { box-shadow: 0 0 0 0px rgba(9, 240, 105, 0.7); }
-  70% { box-shadow: 0 0 0 8px rgba(9, 240, 105, 0); }
-  100% { box-shadow: 0 0 0 0px rgba(9, 240, 105, 0); }
-}
-
-.mh-timeline-text {
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--main-text-color);
-  margin-bottom: 2px;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  position: relative;
-}
-
-.mh-timeline-item:hover .mh-timeline-text {
-  white-space: normal;
-  overflow: visible;
-}
-
-.mh-timeline-date {
-  font-size: 11px;
-}
-
-.mh-timeline-item:hover .mh-timeline-date {
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-
-.mh-timeline-item:hover .mh-timeline-dot {
-  background-color: #aaffcd;
-  border-color: #aaffcd;
-  box-shadow: 0 0 10px rgba(170, 255, 205, 0.4);
-}
-
 /* Status Section */
 .mh-status {
   display: flex;
   flex-direction: column;
   gap: 1px;
+
+  height: auto;
+  min-height: min-content;
 }
 
 .mh-status-item {
@@ -559,8 +470,10 @@ animation:
   font-size: 12px;
   font-weight: 500;
   color: var(--item-text-color);
-  white-space: normal;
+  
+  white-space: pre-wrap; 
   word-break: break-word;
+  overflow: visible; 
 }
 
 .mh-inline-loading {
@@ -568,6 +481,109 @@ animation:
   opacity: 0.5;
   font-size: 12px;
   font-weight: normal;
+}
+
+.mh-timeline-list {
+  width: 100%;
+
+  max-height: 200px; 
+  font-size: 13px;
+  padding-left: 8px;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll; 
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.mh-timeline-list::-webkit-scrollbar {
+  display: none;
+}
+
+.mh-timeline-item {
+  position: relative;
+  padding: 0 0 20px 20px; /* 顺时针：上 右 下 左 */
+  /* 线条：实线 */
+  border-left: 4px solid var(--timeline-line-color); 
+  scroll-snap-align: start; /* 改为 start 通常滚动体验更好 */
+  color: var(--main-text-color);
+}
+
+/* 处理“更多”项：点隐藏，线变透明或虚线 */
+.mh-timeline-item--more {
+  border-left-style: dashed; /* 或者改为 transparent 完全切断 */
+  border-left-color: rgba(213, 213, 213, 0.1);
+}
+
+.mh-timeline-item--more .mh-timeline-dot {
+  display: none;
+}
+
+.mh-timeline-list li:first-child .mh-timeline-dot:first-child {
+  background-color: #aaffcd;
+  animation: mh-timeline-dot 1.8s ease infinite;
+}
+
+.mh-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 22px;
+  background-color: rgb(255 255 255);
+  border: 2px solid #fff;
+  position: absolute;
+  left: -6px;
+  top: 6px;
+}
+
+.mh-timeline .mh-timeline-list .mh-timeline-item:first-child .mh-timeline-dot {
+  background-color: #09f069 !important;
+  border-color: #09f069 !important;
+  animation: mh-timeline-pulse 1.8s ease infinite;
+}
+
+@keyframes mh-timeline-pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(9, 240, 105, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px rgba(9, 240, 105, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0px rgba(9, 240, 105, 0);
+  }
+}
+
+.mh-timeline-text {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--main-text-color);
+  margin-bottom: 2px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.mh-timeline-item:hover .mh-timeline-text {
+  white-space: normal;
+  overflow: visible;
+}
+
+.mh-timeline-date {
+  font-size: 11px;
+}
+
+.mh-timeline-item:hover .mh-timeline-date {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.mh-timeline-item:hover .mh-timeline-dot {
+  background-color: #aaffcd;
+  border-color: #aaffcd;
+  box-shadow: 0 0 10px rgba(170, 255, 205, 0.4);
 }
 
 /* mh-content */
@@ -613,6 +629,7 @@ animation:
   align-items: center;
   margin: 16px 0;
   text-align: center;
+  font-family: var(--font-title);
 }
 
 .hero-motto {
@@ -724,13 +741,13 @@ animation:
 }
 
 .mh-site-grid,
-.mh-prj-grid {
+.mh-project-grid {
   display: flex;
   flex-wrap: wrap;
 }
 
 .mh-site-card,
-.mh-prj-card {
+.mh-project-card {
   /* 布局逻辑 */
   display: flex;
   margin: 7px;
@@ -738,7 +755,7 @@ animation:
   /* 4列布局，减去 margin 的空间 */
   padding: 15px;
   height: 100px;
-
+  
   /* 视觉样式 */
   background-color: var(--item-bg-color);
   border-radius: 8px;
@@ -754,33 +771,33 @@ animation:
 }
 
 .mh-site-card:hover,
-.mh-prj-card:hover {
+.mh-project-card:hover {
   box-shadow: 0 8px 16px -4px #2c2d300c;
   transform: translateY(-2px);
 }
 
 .mh-site-card:hover .mh-site-content,
-.mh-prj-card:hover .mh-project-content {
+.mh-project-card:hover .mh-project-content {
   width: 100%;
 }
 
 .mh-site-card:hover .mh-site-icon,
-.mh-prj-card:hover .mh-project-icon {
+.mh-project-card:hover .mh-project-icon {
   width: 0%;
 }
 
 .mh-site-card:hover .mh-site-content h3,
-.mh-prj-card:hover .mh-project-content h3 {
+.mh-project-card:hover .mh-project-content h3 {
   font-size: 20px;
 }
 
 .mh-site-card:hover .mh-site-icon img,
-.mh-prj-card:hover .mh-project-icon img {
+.mh-project-card:hover .mh-project-icon img {
   transform: rotate(50deg);
 }
 
 .mh-site-card.pressed,
-.mh-prj-card.pressed {
+.mh-project-card.pressed {
   transform: scale(0.9);
   background-color: var(--item-hover-color);
 }
@@ -860,6 +877,62 @@ footer {
 }
 
 /* =========================
+   Modal Styles
+   ========================= */
+.mh-modal {
+  position: fixed;
+
+  display: flex;
+  visibility: hidden;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: var(--modal-bg-color, rgba(20, 20, 20, 0.5));
+  z-index: var(--z-modal);
+  align-items: center;
+  top: 0;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal-main {
+  z-index: var(--z-modal-content);
+
+  width: 80%;
+  max-width: 800px;
+  min-height: 500px;
+  background-color: var(--modal-main-bg, #ffffff);
+  border-radius: 15px;
+
+  display: flex;
+  transition: transform 0.2s linear;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transform: translateY(30%) scale(0.9);
+}
+
+.modal-img {
+  width: 100%;
+  height: auto;
+}
+
+.modal-stack .stack-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mh-modal.active {
+  visibility: visible;
+}
+
+.modal-main.active {
+  transform: translateY(0) scale(1);
+}
+
+/* =========================
    PC (min-width: 800px)
    ========================= */
 @media (min-width: 800px) {
@@ -868,5 +941,20 @@ footer {
   }
   .modal-stack {
     display: none;
+  }
+}
+
+/* =========================
+   Animations
+   ========================= */
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }

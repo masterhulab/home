@@ -30,7 +30,16 @@
 	<meta name="language" content="zh-CN">
 	<meta name="revisit-after" content="7 days">
 	<link rel="canonical" href="https://masterhu.com.cn/">
-	<!-- Open Graph / Facebook -->
+
+	<!-- Preconnect for Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<!-- Preload Critical Resources -->
+	<link rel="preload" as="image" href="./static/img/avatar.gif">
+
+	<!-- [CUSTOMIZE]: Open Graph / Facebook Meta Tags -->
+	<!-- Replace content with your own site information -->
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://masterhu.com.cn/">
 	<meta property="og:title" content="MasterHu | 个人主页">
@@ -45,11 +54,11 @@
 	<meta property="twitter:url" content="https://masterhu.com.cn/">
 	<meta property="twitter:title" content="MasterHu | 个人主页">
 	<meta property="twitter:description" content="探索技术与艺术的边界，记录我的数字旅程。">
-	<meta property="twitter:image" content="https://masterhu.com.cn/static/img/logo.png">
+	<meta property="twitter:image" content="https://masterhu.com.cn/static/img/avatar.gif">
 	<meta property="twitter:creator" content="@masterhu">
 	<meta property="twitter:site" content="@masterhu">
 
-	<!-- Additional SEO Meta Tags -->
+	<!-- [CUSTOMIZE]: Additional SEO Meta Tags -->
 	<meta name="application-name" content="MasterHu Homepage">
 	<meta name="apple-mobile-web-app-title" content="MasterHu">
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -58,7 +67,8 @@
 	<meta name="msapplication-TileColor" content="#667eea">
 	<meta name="msapplication-config" content="/browserconfig.xml">
 
-	<!-- JSON-LD Structured Data -->
+	<!-- [CUSTOMIZE]: JSON-LD Structured Data -->
+	<!-- Modify this section to match your personal profile -->
 	<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
@@ -89,7 +99,7 @@
 	<link rel="stylesheet" href="./static/css/theme.css">
 </head>
 
-<body class="mh" data-author="masterhu" data-project="homepage" data-license="CC-BY-NC-4.0">
+<body data-author="masterhu" data-project="homepage" data-license="CC-BY-NC-4.0">
 	<!-- Loading Screen -->
 	<div class="mh-loading" id="mh-loading" role="status" aria-label="页面加载中">
 		<div class="mh-loading-spinner"></div>
@@ -100,7 +110,9 @@
 		<div class="nav-container">
 			<span class="gradient-text">MasterHu's Home</span>
 			<ul class="nav-links" id="nav-links" aria-hidden="true">
-				<li><a href="https://blog.masterhu.com.cn" target="_blank">📖 博客</a></li>
+				<li>
+					<a href="https://blog.masterhu.com.cn" target="_blank" rel="noopener noreferrer">📖 博客</a>
+				</li>
 				<li>
 					<a href="https://blog.masterhu.com.cn/message" target="_blank">💬 留言板</a>
 				</li>
@@ -111,10 +123,12 @@
 					<a href="https://blog.masterhu.com.cn/about" target="_blank">ℹ️ 关于</a>
 				</li>
 				<li>
-					<button class="nav-theme-toggle" aria-label="切换主题">🎨</button>
+					<button class="nav-theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+						🖼️清晰原图
+					</button>
 				</li>
 			</ul>
-			<div class="nav-burger" id="burger-menu" aria-label="打开菜单" aria-controls="nav-links" aria-expanded="false">
+			<div class="nav-burger" aria-label="Toggle navigation" aria-expanded="false" role="button" tabindex="0">
 				<div class="line1"></div>
 				<div class="line2"></div>
 				<div class="line3"></div>
@@ -164,6 +178,30 @@
 				<div class="mh-tags-item">跑者</div>
 				<div class="mh-tags-item">电子竞技</div>
 			</div>
+			<div class="mh-sidebar-section mh-status">
+				<div class="mh-status-item mh-status-item--uptime">
+					<div class="mh-status-title">⏳ 运行时间</div>
+					<div class="mh-status-text mh-status-text--uptime" id="run-time"></div>
+				</div>
+				<div class="mh-status-item">
+					<div class="mh-status-title">👀 总访问量</div>
+					<div class="mh-status-text">
+						<span id="busuanzi_value_site_pv"><i class="mh-inline-loading">Loading...</i></span>
+					</div>
+				</div>
+				<div class="mh-status-item">
+					<div class="mh-status-title">👤 总访客数</div>
+					<div class="mh-status-text">
+						<span id="busuanzi_value_site_uv"><i class="mh-inline-loading">Loading...</i></span>
+					</div>
+				</div>
+				<div class="mh-status-item">
+					<div class="mh-status-title">📅 今日访客</div>
+					<div class="mh-status-text">
+						<span id="mh-today-visitors"><i class="mh-inline-loading">Loading...</i></span>
+					</div>
+				</div>
+			</div>
 			<div class="mh-sidebar-section mh-timeline">
 				<ul class="mh-timeline-list">
 					<li class="mh-timeline-item">
@@ -198,30 +236,6 @@
 					</li>
 				</ul>
 			</div>
-			<div class="mh-sidebar-section mh-status">
-				<div class="mh-status-item mh-status-item--uptime">
-					<div class="mh-status-title">⏳ 运行时间</div>
-					<div class="mh-status-text mh-status-text--uptime" id="run-time"></div>
-				</div>
-				<div class="mh-status-item">
-					<div class="mh-status-title">👀 总访问量</div>
-					<div class="mh-status-text">
-						<span id="busuanzi_value_site_pv"><i class="mh-inline-loading">Loading...</i></span>
-					</div>
-				</div>
-				<div class="mh-status-item">
-					<div class="mh-status-title">👤 总访客数</div>
-					<div class="mh-status-text">
-						<span id="busuanzi_value_site_uv"><i class="mh-inline-loading">Loading...</i></span>
-					</div>
-				</div>
-				<div class="mh-status-item">
-					<div class="mh-status-title">📅 今日访客</div>
-					<div class="mh-status-text">
-						<span id="mh-today-visitors"><i class="mh-inline-loading">Loading...</i></span>
-					</div>
-				</div>
-			</div>
 		</aside>
 		<div class="mh-content">
 			<header class="hero-section">
@@ -246,7 +260,7 @@
 						</svg>
 						<div class="hero-actions-item-tip">Github</div>
 					</a>
-					<a class="hero-actions-item" onclick="" href="mailto:i@masterhu.com.cn">
+					<a class="hero-actions-item" href="mailto:i@masterhu.com.cn">
 						<svg t="1704870588438" class="icon" viewBox="0 0 1024 1024" version="1.1"
 							xmlns="http://www.w3.org/2000/svg" p-id="3174" aria-label="Email Contact">
 							<path
@@ -335,8 +349,8 @@
 					</svg>project
 				</div>
 
-				<div class="mh-prj-grid">
-					<a class="mh-prj-card" target="_blank" href="https://github.com/masterhublog/homepage">
+				<div class="mh-project-grid">
+					<a class="mh-project-card" target="_blank" href="https://github.com/masterhublog/homepage">
 						<div class="mh-project-content">
 							<h3>🏠 个人主页</h3>
 							<p>🚀一键部署的静态个人主页</p>

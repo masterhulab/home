@@ -34,7 +34,7 @@
     padding: 0 20px;
     height: 56px;
     position: relative;
-    z-index: 2005;
+    z-index: var(--z-nav-container);
   }
 
   .nav-container .gradient-text {
@@ -49,14 +49,12 @@
     /* 紧贴导航栏底部 */
     right: 20px;
     /* 与右侧保持和 nav-burger 相同的边距 */
-
     width: auto;
     /* 宽度由内容决定 */
     min-width: 120px;
     /* 设置最小宽度，防止太窄点不到 */
     white-space: nowrap;
     /* 强制文字不换行，确保宽度被内容撑开 */
-
     height: auto;
     background: var(--item-bg-color);
     border-radius: 12px;
@@ -78,7 +76,7 @@
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2001;
+    z-index: var(--z-nav-menu);
   }
 
   .nav-links li {
@@ -93,13 +91,13 @@
     color: var(--main-text-color);
     border-radius: 8px;
     position: relative;
-    z-index: 2003;
+    z-index: var(--z-nav-item);
     text-decoration: none;
     text-align: center;
     white-space: nowrap;
   }
 
-.nav-active li {
+  .nav-active li {
     opacity: 1;
     animation: navLinkFade 0.3s ease forwards;
   }
@@ -119,7 +117,7 @@
   .nav-burger {
     display: block;
     position: relative;
-    z-index: 2002;
+    z-index: var(--z-nav-burger);
   }
 
   /* 3. 激活状态 */
@@ -174,7 +172,7 @@
   }
 
   .mh-site-card,
-  .mh-prj-card {
+  .mh-project-card {
     padding: 10px;
   }
 
@@ -183,7 +181,7 @@
     margin: 9px;
   }
 
-  .mh-prj-card {
+  .mh-project-card {
     height: 110px;
     margin: 8px 15px;
     width: calc(100% - 30px);
@@ -199,18 +197,20 @@
     font-size: 13px;
   }
 
-  .mh-site-content h3,
-  .mh-project-content h3 {
-    font-size: 18px;
+  .mh-site-card:hover .mh-site-content h3,
+  .mh-project-card:hover .mh-project-content h3 {
+    font-size: 18px; /* 重置为默认大小，取消 hover 放大 */
   }
 
+  .mh-site-card:hover,
+  .mh-project-card:hover {
+    transform: none; /* 取消 hover 上浮 */
+    box-shadow: none; /* 取消 hover 阴影 */
+  }
+
+  /* 移除不必要的 hover 选择器覆盖，直接隐藏图标 */
   .mh-site-icon,
   .mh-project-icon {
-    display: none;
-  }
-
-  .mh-site-icon img,
-  .mh-project-icon img {
     display: none;
   }
 
@@ -235,74 +235,5 @@
     display: block;
     gap: 16px;
     padding: 12px;
-  }
-}
-
-/* =========================
-   Modal Styles
-   (Applied to all screen sizes)
-   ========================= */
-.mh-modal {
-  position: fixed;
-
-  display: flex;
-  visibility: hidden;
-  width: 100vw;
-  height: 100vh;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: rgba(20, 20, 20, 0.5);
-  z-index: 99999;
-  align-items: center;
-  top: 0;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.modal-main {
-  z-index: 100000;
-
-  width: 80%;
-  max-width: 800px;
-  min-height: 500px;
-  background-color: #ffffff;
-  border-radius: 15px;
-
-  display: flex;
-  transition: transform 0.2s linear;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transform: translateY(30%) scale(0.9);
-}
-
-.modal-img {
-  width: 100%;
-  height: auto;
-}
-
-.modal-stack .stack-img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.mh-modal.active {
-  visibility: visible;
-}
-
-.modal-main.active {
-  transform: translateY(0) scale(1);
-}
-
-@keyframes navLinkFade {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0px);
   }
 }
