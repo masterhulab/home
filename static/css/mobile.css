@@ -120,7 +120,7 @@
     z-index: var(--z-nav-burger);
   }
 
- .mh-layout {
+  .mh-layout {
     padding-top: 50px;
     flex-direction: column;
   }
@@ -183,7 +183,7 @@
 
   .mh-site-card:hover .mh-site-content h3,
   .mh-project-card:hover .mh-project-content h3 {
-    font-size: 18px; 
+    font-size: 18px;
   }
 
   .mh-site-card:hover,

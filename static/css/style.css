@@ -5,7 +5,7 @@
  * License: CC BY-NC 4.0
  * ========================================================= */
 
- /* Fonts */
+/* Fonts */
 :root {
   --font-zh: "Noto Sans SC", "Microsoft YaHei", sans-serif;
   --font-en: "Ubuntu-Regular", sans-serif;
@@ -115,8 +115,7 @@ body {
       var(--gradient-accent, #3fd1ff),
       var(--purple-text-color)
     );
-
-animation:
+  animation:
     mh-spin 1s linear infinite,
     mh-progress 2.5s ease-in-out infinite;
 }
@@ -434,10 +433,9 @@ animation:
   font-size: 12px;
   font-weight: 500;
   color: var(--item-text-color);
-  
-  white-space: pre-wrap; 
+  white-space: pre-wrap;
   word-break: break-word;
-  overflow: visible; 
+  overflow: visible;
 }
 
 .mh-inline-loading {
@@ -449,12 +447,11 @@ animation:
 
 .mh-timeline-list {
   width: 100%;
-
   max-height: 220px;
   font-size: 13px;
   padding-left: 8px;
   scroll-snap-type: y mandatory;
-  overflow-y: scroll; 
+  overflow-y: scroll;
   list-style: none;
   scrollbar-width: none;
 }
@@ -607,15 +604,15 @@ animation:
 }
 
 #hero-motto::after {
-    content: '|';
-    animation: blink 1s infinite;
-    margin-left: 4px;
-    color: var(--purple-text-color);
+  content: '|';
+  animation: blink 1s infinite;
+  margin-left: 4px;
+  color: var(--purple-text-color);
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Content - Hero Actions (buttons row) */
@@ -902,7 +899,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-   position: relative;
+  position: relative;
 }
 
 .modal-stack .stack-img {

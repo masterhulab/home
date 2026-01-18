@@ -17,7 +17,7 @@ console.log("%cZZZzz /,`.-'`'    -.  ;-;;,_", CAT_STYLE);
 console.log("%c     |,4-  ) )-,_. ,\\ (  `'-'", CAT_STYLE);
 console.log("%c    '---''(_/--'  `-'\\_)", CAT_STYLE);
 
-/*   Storage Utility (LocalStorage Wrapper) */
+/* Storage Utility (LocalStorage Wrapper) */
 const Storage = {
   set(key, value) {
     localStorage.setItem(key, value);
