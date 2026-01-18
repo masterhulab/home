@@ -17,7 +17,8 @@
     font-size: 14px;
   }
 
-  body.nav-open {
+  body.nav-open,
+  body.modal-open {
     overflow: hidden;
   }
 
@@ -204,6 +205,17 @@
   }
 
   /* Modal - Mobile Stack Layout */
+  .mh-modal {
+    padding: 16px;
+  }
+
+  .modal-main {
+    width: 78vw;
+    max-width: 360px;
+    min-height: auto;
+    border-radius: 16px;
+  }
+
   .modal-img {
     display: none;
   }
@@ -211,6 +223,10 @@
   .modal-stack {
     display: block;
     gap: 16px;
-    padding: 12px;
+    padding: 24px 16px 16px;
+  }
+
+  .modal-hint {
+    display: block;
   }
 }

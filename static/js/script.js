@@ -209,7 +209,12 @@ const SITE_CONFIG = {
   window.openModal = function (imgUrl) {
     if (!UI.modal) return;
     UI.modalImage.src = imgUrl;
+    if (UI.modalStackShow) {
+      UI.modalStackIndex = 0;
+      UI.modalStackShow(0);
+    }
     UI.modal.classList.add("active");
+    document.body.classList.add("modal-open");
     setTimeout(() => UI.modalMain.classList.add("active"), 100);
   };
 
@@ -223,6 +228,7 @@ const SITE_CONFIG = {
     setTimeout(() => {
       UI.modal.classList.remove("active");
       UI.modalImage.src = "";
+      document.body.classList.remove("modal-open");
     }, 200);
   };
 
@@ -245,6 +251,9 @@ const SITE_CONFIG = {
       modal: document.querySelector(".mh-modal"),
       modalMain: document.querySelector(".modal-main"),
       modalImage: document.querySelector(".modal-img"),
+      modalStack: document.querySelector(".modal-stack"),
+      modalStackShow: null,
+      modalStackIndex: 0,
 
       heroMotto: document.getElementById("hero-motto"),
       snakeImage: document.getElementById("snake-img")
@@ -306,6 +315,69 @@ const SITE_CONFIG = {
     });
   }
 
+  function initModalSwipe() {
+    if (!UI.modalStack) return;
+
+    const items = Array.from(UI.modalStack.querySelectorAll(".stack-img"));
+    const arrowLeft = UI.modalStack.querySelector(".modal-arrow-left");
+    const arrowRight = UI.modalStack.querySelector(".modal-arrow-right");
+    if (!items.length) return;
+
+    UI.modalStackIndex = 0;
+    UI.modalStackShow = (i) => {
+      items.forEach((img, idx) => {
+        img.style.display = idx === i ? "block" : "none";
+      });
+    };
+
+    UI.modalStackShow(UI.modalStackIndex);
+
+    const goNext = () => {
+      UI.modalStackIndex = (UI.modalStackIndex + 1) % items.length;
+      UI.modalStackShow(UI.modalStackIndex);
+    };
+
+    const goPrev = () => {
+      UI.modalStackIndex = (UI.modalStackIndex - 1 + items.length) % items.length;
+      UI.modalStackShow(UI.modalStackIndex);
+    };
+
+    let startX = 0;
+    let touching = false;
+    const threshold = 40;
+
+    UI.modalStack.addEventListener("touchstart", (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      touching = true;
+      startX = e.touches[0].clientX;
+    });
+
+    UI.modalStack.addEventListener("touchend", (e) => {
+      if (!touching || !e.changedTouches || !e.changedTouches[0]) return;
+      touching = false;
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+
+      if (Math.abs(diff) < threshold) return;
+
+      if (diff < 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    });
+
+    arrowLeft?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      goPrev();
+    });
+
+    arrowRight?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      goNext();
+    });
+  }
+
   /**
    * Initializes the typing effect for the motto.
    * 初始化座右铭打字机效果
@@ -339,6 +411,7 @@ const SITE_CONFIG = {
     cacheUI();
     initTheme();
     initMobileNav();
+    initModalSwipe();
     initHeroTyping();
     updateTodayVisitors();
 
