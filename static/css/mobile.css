@@ -94,6 +94,13 @@
     white-space: nowrap;
   }
 
+  .nav-theme-toggle {
+    border: none;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .nav-active li {
     opacity: 1;
     animation: navLinkFade 0.3s ease forwards;

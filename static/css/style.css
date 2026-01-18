@@ -235,14 +235,19 @@ animation:
   transition: all 0.3s ease;
   font-size: 15px;
   color: var(--main-text-color);
-  border: 1px solid transparent;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav-theme-toggle:hover {
   color: var(--purple-text-color);
   transform: scale(1.1);
   text-shadow: 0 0 6px rgba(116, 123, 255, 0.4);
+}
+
+.nav-theme-toggle:focus-visible {
+  outline: 2px solid var(--purple-text-color);
+  outline-offset: 2px;
 }
 
 .nav-burger {
@@ -945,7 +950,7 @@ footer {
   padding: 4px 10px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.4);
-  color: var(--main-text-color);
+  color: #ffffff;
   font-size: 11px;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);

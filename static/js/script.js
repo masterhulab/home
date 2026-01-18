@@ -180,14 +180,17 @@ const SITE_CONFIG = {
     const total = THEME_CONFIG.classes.length;
     const safeIndex = (index + total) % total;
 
-    const html = document.documentElement;
+    const html = UI.html || document.documentElement;
     THEME_CONFIG.classes.forEach(cls => html.classList.remove(cls));
     html.classList.add(THEME_CONFIG.classes[safeIndex]);
 
     Storage.set("themeIndex", safeIndex);
 
     if (UI.themeButton) {
-      UI.themeButton.textContent = THEME_CONFIG.icons[safeIndex] + THEME_CONFIG.names[safeIndex];
+      const name = THEME_CONFIG.names[safeIndex];
+      const icon = THEME_CONFIG.icons[safeIndex] || "🎨";
+      UI.themeButton.textContent = icon + name;
+      UI.themeButton.setAttribute("aria-label", name);
     }
 
     if (UI.snakeImage) {
@@ -385,18 +388,30 @@ const SITE_CONFIG = {
   function initHeroTyping() {
     if (!UI.heroMotto) return;
 
-    let t = 0, c = 0, del = false, pause = 0;
+    let mottoIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    let pauseTicks = 0;
 
     const tick = () => {
-      if (pause-- > 0) return;
+      if (pauseTicks-- > 0) return;
 
-      const text = MOTTO_TEXTS[t];
-      if (!del) {
-        UI.heroMotto.textContent = text.slice(0, ++c);
-        if (c === text.length) { del = true; pause = 20; }
+      const text = MOTTO_TEXTS[mottoIndex];
+      if (!deleting) {
+        charIndex += 1;
+        UI.heroMotto.textContent = text.slice(0, charIndex);
+        if (charIndex === text.length) {
+          deleting = true;
+          pauseTicks = 20;
+        }
       } else {
-        UI.heroMotto.textContent = text.slice(0, --c);
-        if (c === 0) { del = false; t = (t + 1) % MOTTO_TEXTS.length; pause = 10; }
+        charIndex -= 1;
+        UI.heroMotto.textContent = text.slice(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          mottoIndex = (mottoIndex + 1) % MOTTO_TEXTS.length;
+          pauseTicks = 10;
+        }
       }
     };
 
