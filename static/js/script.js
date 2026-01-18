@@ -6,8 +6,6 @@
  * ========================================================= */
 
 /* Console Banner & Signature */
-const AUTHOR = 'masterhu.com.cn';
-
 console.log(
   "%cCopyright © 2026 masterhu.com.cn",
   "background: linear-gradient(90deg, #ff00ff, #8e44ad); color: white; font-size: 20px; font-weight: bold; padding: 8px 20px; border-radius: 5px;"
@@ -52,6 +50,8 @@ const MOTTO_TEXTS = [
   "不忘初心，方得始终!",
   "Stay hungry Stay foolish!"
 ];
+
+const HERO_TYPING_INTERVAL = 200;
 
 /* Site Configuration | 站点基础配置 */
 const SITE_CONFIG = {
@@ -188,7 +188,6 @@ const SITE_CONFIG = {
 
     if (UI.themeButton) {
       UI.themeButton.textContent = THEME_CONFIG.icons[safeIndex] + THEME_CONFIG.names[safeIndex];
-      //UI.themeButton.dataset.tooltip = THEME_CONFIG.names[safeIndex];
     }
 
     if (UI.snakeImage) {
@@ -207,7 +206,7 @@ const SITE_CONFIG = {
    * 打开图片模态框
    * @param {string} imgUrl
    */
-  window.openModal = async function (imgUrl) {
+  window.openModal = function (imgUrl) {
     if (!UI.modal) return;
     UI.modalImage.src = imgUrl;
     UI.modal.classList.add("active");
@@ -272,6 +271,14 @@ const SITE_CONFIG = {
   function initMobileNav() {
     if (!UI.navBurger || !UI.navLinks) return;
 
+    const closeNav = () => {
+      UI.navLinks.classList.remove("nav-active");
+      UI.navBurger.classList.remove("toggle");
+      document.body.classList.remove("nav-open");
+      UI.navBurger.setAttribute("aria-expanded", "false");
+      UI.navLinks.setAttribute("aria-hidden", "true");
+    };
+
     UI.navBurger.addEventListener("click", () => {
       UI.navLinks.classList.toggle("nav-active");
       UI.navBurger.classList.toggle("toggle");
@@ -282,17 +289,19 @@ const SITE_CONFIG = {
       UI.navLinks.setAttribute("aria-hidden", expanded ? "true" : "false");
     });
 
+    UI.navLinks.addEventListener("click", (e) => {
+      if (e.target.closest("a, .nav-theme-toggle")) {
+        closeNav();
+      }
+    });
+
     document.addEventListener("click", (e) => {
       if (
         UI.navLinks.classList.contains("nav-active") &&
         !e.target.closest(".nav-burger") &&
         !e.target.closest(".nav-links")
       ) {
-        UI.navLinks.classList.remove("nav-active");
-        UI.navBurger.classList.remove("toggle");
-        document.body.classList.remove("nav-open");
-        UI.navBurger.setAttribute("aria-expanded", "false");
-        UI.navLinks.setAttribute("aria-hidden", "true");
+        closeNav();
       }
     });
   }
@@ -319,9 +328,9 @@ const SITE_CONFIG = {
       }
     };
 
-    let timer = setInterval(tick, 80);
+    let timer = setInterval(tick, HERO_TYPING_INTERVAL);
     document.addEventListener("visibilitychange", () => {
-      document.hidden ? clearInterval(timer) : timer = setInterval(tick, 80);
+      document.hidden ? clearInterval(timer) : timer = setInterval(tick, HERO_TYPING_INTERVAL);
     });
   }
 

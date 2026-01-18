@@ -13,13 +13,6 @@
 }
 
 @font-face {
-  font-family: "Noto Sans SC";
-  /*中文字体*/
-  src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap");
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Ubuntu-Regular";
 
   src: url(../fonts/Ubuntu-Regular.ttf);
@@ -27,8 +20,7 @@
 }
 
 @font-face {
-  font-family: "Pacifico-Regular";
-  /*英文字体*/
+  font-family: "Pacifico-Regular"; /* 英文字体 */
   src: url(../fonts/Pacifico-Regular.ttf);
   font-display: swap;
 }
@@ -37,8 +29,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  user-select: none;
-  transition: background-color 0.2s ease;
 }
 
 html {
@@ -87,10 +77,9 @@ body {
   transition: color 0.1s ease, background-color 0.2s ease;
   color: var(--main-text-color);
   overflow-x: hidden;
-  user-select: none;
 }
 
-/* Loading overlay */
+/* Layout - Loading Overlay (mh-loading) */
 .mh-loading {
   position: fixed;
   inset: 0;
@@ -132,7 +121,7 @@ animation:
     mh-progress 2.5s ease-in-out infinite;
 }
 
-/* 中心镂空 */
+/* Hollow center mask */
 .mh-loading-spinner::after {
   content: "";
   position: absolute;
@@ -155,16 +144,13 @@ animation:
 }
 
 
-/* ===== Navigation ===== */
+/* Layout - Navigation (mh-nav, nav-container, nav-links) */
 .mh-nav {
   position: fixed;
-  top: 20px;
-  /* 距离顶部留出间隙，产生悬浮感 */
+  top: 20px; /* 距离顶部留出间隙，产生悬浮感 */
   left: 50%;
-  transform: translateX(-50%);
-  /* 居中 */
+  transform: translateX(-50%); /* 水平居中 */
   width: 90%;
-  /* 宽度 */
   max-width: 1200px;
   height: 60px;
   z-index: var(--z-nav);
@@ -232,13 +218,11 @@ animation:
 
 .nav-links a:hover {
   color: var(--purple-text-color);
-  transform: scale(1.5);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-  text-shadow: 0 0 10px rgba(116, 123, 255, 0.5);
+  transform: scale(1.1);
+  text-shadow: 0 0 6px rgba(116, 123, 255, 0.4);
 }
 
-/* mh-nav theme button */
+/* Component - Theme Toggle Button */
 .nav-theme-toggle {
   padding: 6px;
   border-radius: 6px;
@@ -257,34 +241,8 @@ animation:
 
 .nav-theme-toggle:hover {
   color: var(--purple-text-color);
-  transform: scale(1.5);
-  text-shadow: 0 0 10px rgba(116, 123, 255, 0.5);
-}
-
-.nav-theme-toggle::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  background: transparent;
-  color: var(--main-text-color);
-  border-radius: 6px;
-  white-space: nowrap;
-  font-size: 13px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .15s, transform .15s;
-  z-index: var(--z-nav);
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  border: 5px solid transparent;
-}
-
-.nav-theme-toggle:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: scale(1.1);
+  text-shadow: 0 0 6px rgba(116, 123, 255, 0.4);
 }
 
 .nav-burger {
@@ -312,6 +270,7 @@ animation:
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
+/* Layout - Background Filter Overlay (mh-bg-filter) */
 .mh-bg-filter {
   position: fixed;
   width: 100%;
@@ -325,7 +284,7 @@ animation:
   transition: all 0.3s ease;
 }
 
-/* Main Layout */
+/* Layout - Main Container (mh-layout) */
 .mh-layout {
   width: 100%;
   margin: 0 auto;
@@ -337,7 +296,7 @@ animation:
   padding-top: 60px;
 }
 
-/* Sidebar */
+/* Layout - Sidebar (mh-sidebar, avatar, tags, status, timeline) */
 .mh-sidebar {
   overflow-y: scroll;
   width: 230px;
@@ -423,7 +382,7 @@ animation:
   background: var(--left-tag-item);
 }
 
-/* Status Section */
+/* Sidebar - Status Section */
 .mh-status {
   display: flex;
   flex-direction: column;
@@ -486,7 +445,7 @@ animation:
 .mh-timeline-list {
   width: 100%;
 
-  max-height: 200px; 
+  max-height: 220px;
   font-size: 13px;
   padding-left: 8px;
   scroll-snap-type: y mandatory;
@@ -501,14 +460,14 @@ animation:
 
 .mh-timeline-item {
   position: relative;
-  padding: 0 0 20px 20px; /* 顺时针：上 右 下 左 */
-  /* 线条：实线 */
-  border-left: 4px solid var(--timeline-line-color); 
-  scroll-snap-align: start; /* 改为 start 通常滚动体验更好 */
+  padding: 0 0 24px 20px; /* 顺时针：上 右 下 左 */
+  border-left: 3px solid var(--timeline-line-color); /* 时间线竖线：实线 */
+  scroll-snap-align: start; /* 使用 start 时滚动体验更好 */
   color: var(--main-text-color);
+  transition: border-left-color 0.3s ease;
 }
 
-/* 处理“更多”项：点隐藏，线变透明或虚线 */
+/* Handle "more" item: hide dot, use transparent or dashed line */
 .mh-timeline-item--more {
   border-left-style: dashed; /* 或者改为 transparent 完全切断 */
   border-left-color: rgba(213, 213, 213, 0.1);
@@ -518,20 +477,20 @@ animation:
   display: none;
 }
 
-.mh-timeline-list li:first-child .mh-timeline-dot:first-child {
-  background-color: #aaffcd;
-  animation: mh-timeline-dot 1.8s ease infinite;
-}
-
 .mh-timeline-dot {
   width: 8px;
   height: 8px;
-  border-radius: 22px;
+  border-radius: 50%;
   background-color: rgb(255 255 255);
   border: 2px solid #fff;
   position: absolute;
   left: -6px;
   top: 6px;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
 
 .mh-timeline .mh-timeline-list .mh-timeline-item:first-child .mh-timeline-dot {
@@ -555,10 +514,10 @@ animation:
 }
 
 .mh-timeline-text {
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 13px;
+  line-height: 1.5;
   color: var(--main-text-color);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 
   white-space: nowrap;
   overflow: hidden;
@@ -572,7 +531,8 @@ animation:
 }
 
 .mh-timeline-date {
-  font-size: 11px;
+  font-size: 12px;
+  color: var(--item-text-color);
 }
 
 .mh-timeline-item:hover .mh-timeline-date {
@@ -586,7 +546,7 @@ animation:
   box-shadow: 0 0 10px rgba(170, 255, 205, 0.4);
 }
 
-/* mh-content */
+/* Layout - Main Content (mh-content) */
 .mh-content {
   width: calc(100% - 230px);
   padding: 20px;
@@ -614,7 +574,7 @@ animation:
   height: 120px;
 }
 
-/* mh-content  hero-intro*/
+/* Content - Hero Intro (hero-intro, hero-greeting, hero-motto) */
 .hero-intro {
   display: flex;
   align-items: center;
@@ -653,6 +613,7 @@ animation:
     50% { opacity: 0; }
 }
 
+/* Content - Hero Actions (buttons row) */
 .hero-actions {
   width: 100%;
   height: 60px;
@@ -708,6 +669,7 @@ animation:
   display: block;
 }
 
+/* Content - Snake Contribution Graph */
 .snake {
   width: 85%;
   max-width: 800px;
@@ -720,6 +682,7 @@ animation:
   object-fit: cover;
 }
 
+/* Content - Sections Title (site / project / skills) */
 .mh-sections-title {
   display: flex;
   align-items: center;
@@ -740,6 +703,7 @@ animation:
   transform: translateY(-5px);
 }
 
+/* Content - Site & Project Grids */
 .mh-site-grid,
 .mh-project-grid {
   display: flex;
@@ -748,20 +712,16 @@ animation:
 
 .mh-site-card,
 .mh-project-card {
-  /* 布局逻辑 */
-  display: flex;
+  display: flex; /* 布局逻辑 */
   margin: 7px;
   width: calc(25% - 14px);
-  /* 4列布局，减去 margin 的空间 */
   padding: 15px;
   height: 100px;
-  
-  /* 视觉样式 */
-  background-color: var(--item-bg-color);
+
+  background-color: var(--item-bg-color); /* 视觉样式 */
   border-radius: 8px;
 
-  /* 毛玻璃效果：只需写两行，一行标准，一行兼容 Webkit */
-  backdrop-filter: blur(var(--card-filter));
+  backdrop-filter: blur(var(--card-filter)); /* 毛玻璃效果：只需写两行，一行标准，一行兼容 Webkit */
   -webkit-backdrop-filter: blur(var(--card-filter));
 
   transition:
@@ -842,6 +802,7 @@ animation:
   width: 39px;
 }
 
+/* Content - Skills Section */
 .mh-skills {
   padding: 20px;
   width: 100%;
@@ -862,7 +823,7 @@ animation:
   display: none;
 }
 
-/* Footer */
+/* Layout - Footer */
 footer {
   position: absolute;
   padding: 10px;
@@ -876,9 +837,7 @@ footer {
   bottom: 0;
 }
 
-/* =========================
-   Modal Styles
-   ========================= */
+/* Layout - Modal (Reward / QR Code) */
 .mh-modal {
   position: fixed;
 
@@ -932,9 +891,7 @@ footer {
   transform: translateY(0) scale(1);
 }
 
-/* =========================
-   PC (min-width: 800px)
-   ========================= */
+/* Media - Desktop Only (min-width: 800px) */
 @media (min-width: 800px) {
   .avatar-mobile {
     display: none;
@@ -944,9 +901,7 @@ footer {
   }
 }
 
-/* =========================
-   Animations
-   ========================= */
+/* Animations - navLinkFade (for mobile nav menu) */
 @keyframes navLinkFade {
   from {
     opacity: 0;

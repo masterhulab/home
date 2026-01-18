@@ -28,7 +28,7 @@ homepage/
 ├── static/
 │   ├── css/
 │   │   ├── style.css      # 通用样式与布局
-│   │   └── theme.css      # 主题配色方案
+│   │   ├── theme.css      # 主题配色方案
 │   │   └── mobile.css     # 移动端样式与布局
 │   ├── js/
 │   │   └── script.js      # 交互逻辑与功能
@@ -118,57 +118,42 @@ php -S localhost:8000
 - 主题切换功能
 - 响应式布局（调整浏览器窗口大小测试）
 
-## 🔧 自定义配置
+## 🛠️ Configuration
 
-### 修改个人信息
+This project is designed to be easily configurable without touching the core logic.
 
-编辑 `index.html`，找到对应区块进行修改，例如：
+### 1. Basic Settings (`static/js/script.js`)
 
-```html
-<!-- Hero 标题与座右铭 -->
-<div class="hero-greeting">
-  Hello I'm <span class="gradient-text greeting-name">你的名字</span>
-</div>
-<div class="hero-motto" id="hero-motto">你的座右铭</div>
-
-<!-- 站点卡片示例 -->
-<a class="mh-site-card" target="_blank" href="你的链接">
-  <div class="mh-site-content">
-    <h3>卡片标题</h3>
-    <p>卡片描述</p>
-  </div>
-</a>
-```
-
-### 更换主题
-
-主题样式由 `static/css/theme.css` 和 `static/js/script.js` 共同控制：
-
-- 在 `static/css/theme.css` 中修改各个 `.theme-*` 变量（颜色、背景等）
-- 在 `static/js/script.js` 中修改 `THEME_CONFIG`，自定义主题名称与图标：
+Open `static/js/script.js` and modify the top `Configuration Section`:
 
 ```javascript
+/* Theme Configuration */
 const THEME_CONFIG = {
-  classes: ["theme-clear", "theme-dim", "theme-fresh", "theme-blur", "theme-sky", "theme-white", "theme-dark"],
-  names: ["清晰原图", "暗淡原图", "清新卡片", "背景模糊", "蔚蓝天际", "简约纯白", "星河夜幕"],
-  icons: ["🖼️", "🌗", "🍃", "🌫️", "🌊", "⚪", "🔮"]
+  // ... customize themes
+};
+
+/* Motto Configuration */
+const MOTTO_TEXTS = [
+  "Your custom motto here!",
+  "Another one..."
+];
+
+// Typing speed for the hero motto (ms per step)
+const HERO_TYPING_INTERVAL = 200;
+
+/* Site Configuration */
+const SITE_CONFIG = {
+  BIRTH_TIME: "2026/01/01 00:00:00", // Your site's birth time
+  // ...
 };
 ```
 
-### 自定义图标
+### 2. Styling (`static/css/theme.css`)
 
-替换 `static/svg/` 目录下的 SVG 文件，或添加新图标并在 HTML 中引用。
-
-### 修改打字机效果
-
-在 `static/js/script.js` 顶部编辑座右铭配置常量：
-
-```javascript
-const MOTTO_TEXTS = [
-  "你的中文座右铭",
-  "Your English Motto"
-];
-```
+Colors and visual variables are stored in `static/css/theme.css`. You can:
+- Modify existing themes
+- Add new themes (requires adding to `THEME_CONFIG` in JS as well)
+- Change global variables in `:root`
 
 ## 🛫 部署指南
 
@@ -217,7 +202,7 @@ vercel
 - **Google Fonts** - 字体服务
 - **Skillicons.dev** - 技能图标生成
 - **WebLive2D** - 可选的看板娘组件
-- **51.la** - 可选的访问统计脚本（默认启用，建议 Fork 后替换为你自己的 ID，或移除）
+- **51.la** - 可选的访问统计脚本（默认关闭，建议 Fork 后按需启用或替换为你自己的 ID）
 
 ### 开发工具
 
@@ -240,15 +225,9 @@ vercel
 
 详见 [Issues](https://github.com/masterhublog/homepage/issues) 和 [Projects](https://github.com/masterhublog/homepage/projects)
 
-## 🤝 贡献指南
+## 🤝 Contributing
 
-欢迎各种形式的贡献！
-
-1. Fork 本仓库
-2. 创建特性分支 `git checkout -b feature/AmazingFeature`
-3. 提交更改 `git commit -m 'Add some AmazingFeature'`
-4. 推送到分支 `git push origin feature/AmazingFeature`
-5. 提交 Pull Request
+欢迎通过 Issue 或 Pull Request 参与贡献，具体流程可参考 GitHub 仓库中的说明。
 
 ## 💬 反馈与支持
 
@@ -256,14 +235,9 @@ vercel
 - 💡 [功能建议](https://github.com/masterhublog/homepage/issues/new?labels=enhancement)
 - 💬 [讨论区](https://github.com/masterhublog/homepage/discussions)
 
-## 📜 开源协议
+## 📄 License
 
-本项目采用 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) 协议。
-
-**权限说明**:
-
-- ✅ 允许：署名使用、修改、分享
-- ❌ 禁止：商业使用
+This project is licensed under the [CC BY-NC 4.0](LICENSE) License - see the LICENSE file for details.
 
 ## 🙏 致谢
 

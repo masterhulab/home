@@ -7,11 +7,11 @@
 
 /* =========================
    Mobile Styles
-   移动端样式 (max-width: 800px)
+   Mobile layout (max-width: 800px)
    ========================= */
 
 @media (max-width: 800px) {
-  /* Body adjustments */
+  /* Layout - Body Adjustments */
   body {
     background-attachment: scroll;
     font-size: 14px;
@@ -21,13 +21,18 @@
     overflow: hidden;
   }
 
-  /* =========================
-     Navigation
-     ========================= */
+  .mh-bg-filter {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* Layout - Navigation (mh-nav, nav-container, nav-links) */
   .mh-nav {
     width: 95%;
     height: 56px;
     top: 16px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .nav-container {
@@ -41,26 +46,18 @@
     font-size: 18px;
   }
 
-  /* Mobile Menu */
+  /* Component - Mobile Menu Panel (nav-links) */
   .nav-links {
-    position: absolute;
-    /* 从 fixed 改为 absolute，相对于 nav-container */
-    top: 100%;
-    /* 紧贴导航栏底部 */
-    right: 20px;
-    /* 与右侧保持和 nav-burger 相同的边距 */
-    width: auto;
-    /* 宽度由内容决定 */
-    min-width: 120px;
-    /* 设置最小宽度，防止太窄点不到 */
-    white-space: nowrap;
-    /* 强制文字不换行，确保宽度被内容撑开 */
+    position: absolute; /* 从 fixed 改为 absolute，相对于 nav-container */
+    top: 100%; /* 紧贴导航栏底部 */
+    right: 20px; /* 与右侧保持和 nav-burger 相同的边距 */
+    width: auto; /* 宽度由内容决定 */
+    min-width: 120px; /* 设置最小宽度，防止太窄点不到 */
+    white-space: nowrap; /* 强制文字不换行，确保宽度被内容撑开 */
     height: auto;
     background: var(--item-bg-color);
     border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 
     display: flex;
@@ -69,9 +66,7 @@
     padding: 10px;
     gap: 4px;
 
-    /* 动画：下拉 + 缩放效果 */
-    transform-origin: top right;
-    /* 从右上角展开 */
+    transform-origin: top right; /* 动画：下拉 + 缩放效果，从右上角展开 */
     transform: translateY(-10px) scale(0.55);
     opacity: 0;
     pointer-events: none;
@@ -83,7 +78,8 @@
     opacity: 0;
   }
 
-  .nav-links a {
+  .nav-links a,
+  .nav-theme-toggle {
     display: block;
     width: 100%;
     padding: 12px 10px;
@@ -105,38 +101,15 @@
   .nav-links.nav-active {
     opacity: 1;
     transform: translateY(10px) scale(1) !important;
-    /* 向下偏移一点，形成悬浮感 */
+
     pointer-events: auto;
   }
 
-  .nav-active {
-    transform: translateX(0%) !important;
-  }
-
-  /* Burger Menu */
+  /* Component - Burger Menu (nav-burger) */
   .nav-burger {
     display: block;
     position: relative;
     z-index: var(--z-nav-burger);
-  }
-
-  /* 3. 激活状态 */
-  .nav-active {
-    opacity: 1;
-    transform: translateY(10px) scale(1) !important;
-    /* 向下偏移一点，形成悬浮感 */
-    pointer-events: auto;
-  }
-
-  .nav-theme-toggle {
-    background: var(--item-bg-color);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 6px 8px;
-    border-radius: 12px;
-  }
-
-  .nav-theme-toggle {
-    font-size: 16px;
   }
 
  .mh-layout {
@@ -144,16 +117,17 @@
     flex-direction: column;
   }
 
-  /* Hide Sidebar on Mobile */
+  /* Layout - Hide Sidebar on Mobile */
   .mh-sidebar {
     display: none;
   }
 
-  /* Content takes full width */
+  /* Layout - Content Full Width */
   .mh-content {
     width: 100%;
   }
 
+  /* Content - Hero Text (greeting & motto) */
   .hero-greeting {
     font-size: 10vw;
     margin: 2vw 0;
@@ -163,6 +137,7 @@
     font-size: 4vw;
   }
 
+  /* Content - Snake Graph & Actions Spacing */
   .snake {
     width: 100%;
   }
@@ -171,6 +146,7 @@
     margin-top: 3vw;
   }
 
+  /* Content - Site & Project Cards Layout */
   .mh-site-card,
   .mh-project-card {
     padding: 10px;
@@ -199,21 +175,21 @@
 
   .mh-site-card:hover .mh-site-content h3,
   .mh-project-card:hover .mh-project-content h3 {
-    font-size: 18px; /* 重置为默认大小，取消 hover 放大 */
+    font-size: 18px; 
   }
 
   .mh-site-card:hover,
   .mh-project-card:hover {
-    transform: none; /* 取消 hover 上浮 */
-    box-shadow: none; /* 取消 hover 阴影 */
+    transform: none;
+    box-shadow: none;
   }
 
-  /* 移除不必要的 hover 选择器覆盖，直接隐藏图标 */
   .mh-site-icon,
   .mh-project-icon {
     display: none;
   }
 
+  /* Content - Skills Images (mobile vs pc) */
   .mh-skills #skill-mobile {
     display: block;
   }
@@ -227,6 +203,7 @@
     max-width: 360px;
   }
 
+  /* Modal - Mobile Stack Layout */
   .modal-img {
     display: none;
   }
