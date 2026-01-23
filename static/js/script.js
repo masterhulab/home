@@ -194,7 +194,7 @@ const SITE_CONFIG = {
 
     if (UI.snakeImage) {
       const textColor = getComputedStyle(html)
-        .getPropertyValue("--main-text-color")
+        .getPropertyValue("--primary-text-color")
         .trim();
       const suffix = isDarkColor(textColor) ? "Dark" : "Light";
       UI.snakeImage.src = `./static/svg/snake-${suffix}.svg`;
@@ -486,7 +486,18 @@ const SITE_CONFIG = {
   });
 
   /* Loading Screen & Uptime */
-  setInterval(updateSiteUptime, 1000);
+  // Optimized: Only update DOM when tab is visible
+  let uptimeTimer = setInterval(updateSiteUptime, 1000);
+  
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      clearInterval(uptimeTimer);
+    } else {
+      updateSiteUptime(); // Update immediately upon return
+      uptimeTimer = setInterval(updateSiteUptime, 1000);
+    }
+  });
+
   updateSiteUptime();
 
   window.addEventListener("load", () => {

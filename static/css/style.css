@@ -9,9 +9,41 @@
    Global Resets & Fonts
 ================================================== */
 :root {
-  --font-zh: "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  --font-en: "Ubuntu-Regular", sans-serif;
-  --font-title: "Pacifico-Regular", cursive;
+  /* Modern Style Font Stack */
+  --font-family-zh: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-family-en: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-family-title: "Pacifico-Regular", cursive;
+  
+  /* Modern Design Tokens */
+  --modern-radius-lg: 20px;
+  --modern-radius-md: 16px;
+  --modern-radius-sm: 10px;
+  --modern-transition: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+::selection {
+  background-color: var(--accent-color);
+  color: #ffffff;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.4);
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(128, 128, 128, 0.6);
 }
 
 @font-face {
@@ -45,8 +77,8 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 
-  font-family: var(--font-en), var(--font-zh);
-  color: var(--main-text-color);
+  font-family: var(--font-family-en), var(--font-family-zh);
+  color: var(--primary-text-color);
   background: var(--main-bg-color);
   background-repeat: no-repeat;
   background-size: cover;
@@ -71,7 +103,7 @@ a:hover, a:focus {
 /* Accessibility: Visible focus for keyboard users */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--purple-text-color);
+  outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
 
@@ -83,7 +115,7 @@ button:focus-visible {
 ::-webkit-scrollbar-thumb {
   height: 20%;
   border-radius: 8px;
-  background-color: var(--main-text-color);
+  background-color: var(--primary-text-color);
 }
 
 ::-webkit-scrollbar-track {
@@ -96,7 +128,7 @@ button:focus-visible {
 .mh-loading {
   position: fixed;
   inset: 0;
-  z-index: var(--z-loading);
+  z-index: var(--z-index-loading);
   
   display: flex;
   justify-content: center;
@@ -122,9 +154,9 @@ button:focus-visible {
   
   background: conic-gradient(
     from 0deg,
-    var(--purple-text-color),
+    var(--accent-color),
     var(--gradient-accent, #3fd1ff),
-    var(--purple-text-color)
+    var(--accent-color)
   );
   
   animation: mh-spin 1s linear infinite, mh-progress 2.5s ease-in-out infinite;
@@ -149,6 +181,19 @@ button:focus-visible {
 }
 
 /* ==================================================
+   Custom Cursor
+================================================== */
+body {
+  /* Default Cursor: High Contrast Black Arrow (macOS Black Style) */
+  cursor: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0yIiB5PSItMiIgd2lkdGg9IjM2IiBoZWlnaHQ9IjM2Ij4KICAgIDxmZUdhdXNzaWFuQmx1ciBpbiT0iU291cmNlQWxwaGEiIHN0ZERldmlhdGlvbj0iMS41Ii8+CiAgICA8ZmVPZmZzZXQgZHg9IjEiIGR5PSIxIiByZXN1bHQ9Im9mZnNldGJsdXIiLz4KICAgIDxmZUNvbXBvbmVudFRyYW5zZmVyPgogICAgICA8ZmVGdW5jQSB0eXBlPSJsaW5lYXIiIHNsb3BlPSIwLjUiLz4KICAgIDwvZmVDb21wb25lbnRUcmFuc2Zlcj4KICAgIDxmZU1lcmdlPgogICAgICA8ZmVNZXJnZU5vZGUvPgogICAgICA8ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz4KICAgIDwvZmVNZXJnZT4KICA8L2ZpbHRlcj4KICA8cGF0aCBkPSJNNC41IDJWMjUuNUwxMC4xMjUgMTkuODc1SDE3Ljk3NUw0LjUgMloiIGZpbGw9ImJsYWNrIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZmlsdGVyPSJ1cmwoI3NoYWRvdykiLz4KPC9zdmc+"), auto;
+}
+
+a, button, .mh-site-card, .mh-project-card, .nav-theme-toggle, .hero-actions-item, .nav-burger {
+  /* Pointer Cursor: High Contrast Black Hand */
+  cursor: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0yIiB5PSItMiIgd2lkdGg9IjM2IiBoZWlnaHQ9IjM2Ij4KICAgIDxmZUdhdXNzaWFuQmx1ciBpbiT0iU291cmNlQWxwaGEiIHN0ZERldmlhdGlvbj0iMS41Ii8+CiAgICA8ZmVPZmZzZXQgZHg9IjEiIGR5PSIxIiByZXN1bHQ9Im9mZnNldGJsdXIiLz4KICAgIDxmZUNvbXBvbmVudFRyYW5zZmVyPgogICAgICA8ZmVGdW5jQSB0eXBlPSJsaW5lYXIiIHNsb3BlPSIwLjUiLz4KICAgIDwvZmVDb21wb25lbnRUcmFuc2Zlcj4KICAgIDxmZU1lcmdlPgogICAgICA8ZmVNZXJnZU5vZGUvPgogICAgICA8ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz4KICAgIDwvZmVNZXJnZT4KICA8L2ZpbHRlcj4KICA8cGF0aCBkPSJNMTEgMy41QzEwLjE3MTYgMy41IDkuNSA0LjE3MTU3IDkuNSA1VjEyLjVIOEM3LjE3MTU3IDEyLjUgNi41IDEzLjE3MTYgNi41IDE0VjE4LjVDNi41IDE4Ljc5NTcgNi41NTg2IDE5LjA3OTYgNi42NjYyMyAxOS4zNDQ4TDcuOTE2MjMgMjIuODQ0OEM4LjIwMDMxIDIzLjY0MDIgOS4wMDUgMjQuMjA4MyA5Ljg0OTcgMjQuNDE5NUwxNC43MjQ4IDI1LjYzODdDMTUuNDg3NCAyNS44MjkzIDE2LjI4NzMgMjUuNTc1IDE2LjgzOTIgMjQuOTc3OUwyMC4zMzkyIDIxLjE5MjJDMjAuNjA1OCAyMC45MzkxIDIwLjc1IDIwLjU2NjEgMjAuNzUgMjAuMTc4VjkuNUMyMC43NSA4LjY3MTU3IDIwLjA3ODQgOCAxOS4yNSA4QzE4LjQyMTYgOCAxNy43NSA4LjY3MTU3IDE3Ljc1IDkuNVYxMC4yNUgxN1Y2LjVDMTcgNS42NzE1NyAxNi4zMjg0IDUgMTUuNSA1QzE0LjY3MTYgNSAxNCA1LjY3MTU3IDE0IDYuNVY3LjI1SDEzLjI1VjUuNUMxMy4yNSA0LjY3MTU3IDEyLjU3ODQgNCAxMS43NSA0QzEwLjkyMTYgNCAxMC4yNSA0LjY3MTU3IDEwLjI1IDUuNVYzLjVDMTAuMjUgMy4xNzE1NyA5LjU3ODQzIDIuNSA4Ljc1IDIuNUM3LjkyMTU3IDIuNSA3LjI1IDMuMTcxNTcgNy4yNSAzLjVIOVYzLjVaIiBmaWxsPSJibGFjayIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbHRlcj0idXJsKCNzaGFkb3cpIi8+Cjwvc3ZnPg=="), pointer;
+}
+
+/* ==================================================
    Layout: Navigation
 ================================================== */
 .mh-nav {
@@ -156,19 +201,20 @@ button:focus-visible {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: var(--z-nav);
+  z-index: var(--z-index-nav);
 
   width: 90%;
   max-width: 1200px;
   height: 60px;
 
+  /* Modern Blur Effect for Navigation */
   background: var(--nav-bg-color);
-  border: 1px solid var(--nav-border-color);
-  border-radius: 30px;
-  box-shadow: var(--nav-shadow);
+  border: var(--glass-border);
+  border-radius: 999px; /* Pill shape */
+  box-shadow: var(--modern-shadow);
   
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
 .nav-container {
@@ -176,13 +222,13 @@ button:focus-visible {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  padding: 0 30px;
+  padding: 0 24px;
 }
 
 /* Gradient Text Effect */
 .gradient-text {
-  font-family: var(--font-title);
-  color: var(--main-text-color);
+  font-family: var(--font-family-title);
+  color: var(--primary-text-color);
   
   background-image: var(--gradient);
   background-size: 200% auto;
@@ -219,13 +265,13 @@ button:focus-visible {
   
   font-size: 15px;
   font-weight: 500;
-  color: var(--main-text-color);
+  color: var(--primary-text-color);
   
   transition: 0.3s;
 }
 
 .nav-links a:hover {
-  color: var(--purple-text-color);
+  color: var(--accent-color);
   text-shadow: 0 0 6px rgba(116, 123, 255, 0.4);
   transform: scale(1.1);
 }
@@ -241,7 +287,7 @@ button:focus-visible {
   border-radius: 6px;
   background: transparent;
   
-  color: var(--main-text-color);
+  color: var(--primary-text-color);
   font-size: 15px;
   white-space: nowrap;
   cursor: pointer;
@@ -250,13 +296,13 @@ button:focus-visible {
 }
 
 .nav-theme-toggle:hover {
-  color: var(--purple-text-color);
+  color: var(--accent-color);
   text-shadow: 0 0 6px rgba(116, 123, 255, 0.4);
   transform: scale(1.1);
 }
 
 .nav-theme-toggle:focus-visible {
-  outline: 2px solid var(--purple-text-color);
+  outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
 
@@ -270,8 +316,9 @@ button:focus-visible {
   width: 25px;
   height: 3px;
   margin: 5px;
-  background-color: var(--main-text-color);
+  background-color: var(--primary-text-color);
   transition: all 0.3s ease;
+  border-radius: 4px;
 }
 
 .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
@@ -281,7 +328,7 @@ button:focus-visible {
 /* Background Filter Overlay */
 .mh-bg-filter {
   position: fixed;
-  z-index: var(--z-negative);
+  z-index: var(--z-index-negative);
   width: 100%;
   height: 100%;
   
@@ -350,8 +397,11 @@ button:focus-visible {
   margin-top: 15px;
   padding: 20px;
   
-  background: var(--item-bg-color);
-  border-radius: 13px;
+  background: var(--card-bg-color);
+  border-radius: var(--modern-radius-lg);
+  border: var(--glass-border);
+  box-shadow: var(--modern-shadow);
+  
   backdrop-filter: blur(var(--card-filter));
   -webkit-backdrop-filter: blur(var(--card-filter));
 }
@@ -377,7 +427,7 @@ button:focus-visible {
   width: 16px;
   height: 16px;
   margin-right: 10px;
-  fill: var(--fill);
+  fill: var(--icon-fill-color);
   font-size: 18px;
 }
 
@@ -397,7 +447,7 @@ button:focus-visible {
   margin: 0 5px 5px 0;
   padding: 10px;
   
-  background: var(--left-tag-item);
+  background: var(--tag-bg-color);
   border-radius: 10px;
   font-size: 13px;
 }
@@ -425,12 +475,12 @@ button:focus-visible {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: var(--item-text-color);
+  color: var(--secondary-text-color);
 }
 
 .mh-status-text {
   font-weight: 600;
-  color: var(--main-text-color);
+  color: var(--primary-text-color);
   font-variant-numeric: tabular-nums;
 }
 
@@ -448,7 +498,7 @@ button:focus-visible {
   
   font-size: 12px;
   font-weight: 500;
-  color: var(--item-text-color);
+  color: var(--secondary-text-color);
   
   white-space: pre-wrap;
   word-break: break-word;
@@ -485,7 +535,7 @@ button:focus-visible {
   border-left: 3px solid var(--timeline-line-color);
   scroll-snap-align: start;
   
-  color: var(--main-text-color);
+  color: var(--primary-text-color);
   transition: border-left-color 0.3s ease;
 }
 
@@ -531,7 +581,7 @@ button:focus-visible {
   
   font-size: 13px;
   line-height: 1.5;
-  color: var(--main-text-color);
+  color: var(--primary-text-color);
   
   white-space: nowrap;
   overflow: hidden;
@@ -545,7 +595,7 @@ button:focus-visible {
 
 .mh-timeline-date {
   font-size: 12px;
-  color: var(--item-text-color);
+  color: var(--secondary-text-color);
 }
 
 .mh-timeline-item:hover .mh-timeline-date {
@@ -601,7 +651,7 @@ button:focus-visible {
 
 .hero-greeting {
   margin: 16px 0;
-  font-family: var(--font-title);
+  font-family: var(--font-family-title);
   font-size: 56px;
   font-weight: 800;
   text-align: center;
@@ -613,13 +663,13 @@ button:focus-visible {
   line-height: 1.4;
   letter-spacing: 0.02em;
   text-align: center;
-  color: var(--main-text-color);
+  color: var(--primary-text-color);
 }
 
 #hero-motto::after {
   content: '|';
   margin-left: 4px;
-  color: var(--purple-text-color);
+  color: var(--accent-color);
   animation: blink 1s infinite;
 }
 
@@ -655,34 +705,42 @@ button:focus-visible {
   margin-left: 10px;
   padding: 0;
   
-  background: var(--item-bg-color);
+  background: var(--card-bg-color);
   backdrop-filter: blur(var(--card-filter));
   -webkit-backdrop-filter: blur(var(--card-filter));
-  border-radius: 7px;
-  border: none;
+  
+  border-radius: var(--modern-radius-sm);
+  border: var(--glass-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  
   cursor: pointer;
   
-  transition: width 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  transition: width 0.3s var(--modern-transition), opacity 0.3s var(--modern-transition), transform 0.2s var(--modern-transition);
 }
 
 .hero-actions-item:hover {
   width: 95px;
-  background: var(--item-hover-color);
+  background: var(--card-hover-color);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hero-actions-item:active {
+  transform: scale(0.96);
 }
 
 .hero-actions-item svg {
   width: 22px;
   height: 22px;
   margin-right: 3px;
-  fill: var(--fill);
+  fill: var(--icon-fill-color);
   font-size: 22px;
 }
 
 .hero-actions-item-tip {
   display: none;
   white-space: nowrap;
-  color: var(--main-text-color);
+  color: var(--primary-text-color);
 }
 
 .hero-actions-item:hover .hero-actions-item-tip {
@@ -717,7 +775,7 @@ button:focus-visible {
   width: 26px;
   height: 26px;
   margin-right: 8px;
-  fill: var(--fill);
+  fill: var(--icon-fill-color);
 }
 
 .mh-sections-title:hover {
@@ -730,6 +788,17 @@ button:focus-visible {
   flex-wrap: wrap;
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .mh-site-card, .mh-project-card {
   display: flex;
   
@@ -738,17 +807,34 @@ button:focus-visible {
   margin: 7px;
   padding: 15px;
   
-  background-color: var(--item-bg-color);
-  border-radius: 8px;
+  background-color: var(--card-bg-color);
+  border-radius: var(--modern-radius-md);
+  border: var(--glass-border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  
   backdrop-filter: blur(var(--card-filter));
   -webkit-backdrop-filter: blur(var(--card-filter));
   
-  transition: opacity 0.5s ease, background-color 0.3s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0; /* Initial state for animation */
+  animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  
+  transition: opacity 0.5s ease, background-color 0.3s ease, transform 0.2s var(--modern-transition), box-shadow 0.2s var(--modern-transition);
 }
 
+/* Staggered Delays for Cards */
+.mh-site-card:nth-child(1) { animation-delay: 0.1s; }
+.mh-site-card:nth-child(2) { animation-delay: 0.2s; }
+.mh-site-card:nth-child(3) { animation-delay: 0.3s; }
+.mh-site-card:nth-child(4) { animation-delay: 0.4s; }
+.mh-project-card:nth-child(1) { animation-delay: 0.5s; }
+
 .mh-site-card:hover, .mh-project-card:hover {
-  box-shadow: 0 8px 16px -4px #2c2d300c;
-  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.mh-site-card:active, .mh-project-card:active {
+  transform: scale(0.98);
 }
 
 .mh-site-card:hover .mh-site-content,
@@ -771,7 +857,7 @@ button:focus-visible {
   margin: 0;
   font-size: 16px;
   font-weight: normal;
-  color: var(--item-title-color);
+  color: var(--card-title-color);
   transition: font-size 0.4s ease;
 }
 
@@ -782,7 +868,7 @@ button:focus-visible {
 .mh-site-content p, .mh-project-content p {
   margin-top: 15px;
   font-size: 12px;
-  color: var(--item-text-color);
+  color: var(--secondary-text-color);
 }
 
 .mh-site-icon, .mh-project-icon {
@@ -834,7 +920,7 @@ footer {
   width: 100%;
   padding: 10px;
   
-  background: var(--item-bg-color);
+  background: var(--card-bg-color);
   backdrop-filter: blur(var(--card-filter));
   -webkit-backdrop-filter: blur(var(--card-filter));
   
@@ -849,7 +935,7 @@ footer {
 .mh-modal {
   position: fixed;
   top: 0;
-  z-index: var(--z-modal);
+  z-index: var(--z-index-modal);
   
   display: flex;
   flex-direction: column;
@@ -871,7 +957,7 @@ footer {
 }
 
 .modal-main {
-  z-index: var(--z-modal-content);
+  z-index: var(--z-index-modal-content);
   
   display: flex;
   justify-content: center;
@@ -903,7 +989,7 @@ footer {
   position: relative;
   
   padding: 20px 14px 16px;
-  background: var(--item-bg-color);
+  background: var(--card-bg-color);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);

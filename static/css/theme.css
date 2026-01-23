@@ -29,32 +29,32 @@
   --card-filter: 0px;
 
   /* --- Text Colors --- */
-  /* Primary text color */
-  --main-text-color: #ffffff;
-  /* Accent text color (often purple/blue) */
-  --purple-text-color: #a0a0ff;
+  /* Primary text color (Main Content) */
+  --primary-text-color: #ffffff;
+  /* Accent color (Primary Brand Color) */
+  --accent-color: #a0a0ff;
   /* Title color in cards */
-  --item-title-color: #ffffff;
-  /* Body text color in cards */
-  --item-text-color: #cccccc;
+  --card-title-color: #ffffff;
+  /* Secondary text color (Subtitles, Dates, Status) */
+  --secondary-text-color: #cccccc;
   /* Footer text color */
   --footer-text-color: #ffffff;
   /* Background for selected text (if applicable) */
   --text-bg-color: transparent;
 
   /* --- Component Colors --- */
-  /* Background for general items/cards */
-  --item-bg-color: #0000004d;
-  /* Hover state for items */
-  --item-hover-color: #33333366;
+  /* Background for cards/containers */
+  --card-bg-color: rgba(255, 255, 255, 0.1); 
+  /* Hover state for cards/interactive elements */
+  --card-hover-color: rgba(255, 255, 255, 0.2);
   /* Background for tags in the sidebar */
-  --left-tag-item: #0000002b;
+  --tag-bg-color: rgba(0, 0, 0, 0.15);
 
   /* --- Navigation --- */
-  /* Navbar background */
-  --nav-bg-color: rgba(255, 255, 255, 0.2);
+  /* Navbar background (More translucent) */
+  --nav-bg-color: rgba(255, 255, 255, 0.1);
   /* Navbar border color */
-  --nav-border-color: rgba(255, 255, 255, 0.3);
+  --nav-border-color: rgba(255, 255, 255, 0.2);
   /* Navbar shadow */
   --nav-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
   
@@ -62,7 +62,13 @@
   /* Vertical line color in timeline */
   --timeline-line-color: rgba(255, 255, 255, 0.15);
   /* Fill color for SVG icons */
-  --fill: #ffffff;
+  --icon-fill-color: #ffffff;
+
+  /* --- Borders & Shadows (Modern Glass Style) --- */
+  /* Glass border - adjusts based on theme lightness */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Component Shadow - adjusts based on theme depth */
+  --modern-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.1);
 
   /* --- Modal --- */
   /* Full screen modal overlay background */
@@ -71,16 +77,16 @@
   --modal-main-bg: rgba(18, 18, 18, 0.96);
 
   /* Z-Index Layers */
-  --z-negative: -1;
-  --z-normal: 1;
-  --z-nav: 1000;
-  --z-nav-menu: 2001;
-  --z-nav-burger: 2002;
-  --z-nav-item: 2003;
-  --z-nav-container: 2005;
-  --z-modal: 99999;
-  --z-modal-content: 100000;
-  --z-loading: 999999;
+  --z-index-negative: -1;
+  --z-index-normal: 1;
+  --z-index-nav: 1000;
+  --z-index-nav-menu: 2001;
+  --z-index-nav-burger: 2002;
+  --z-index-nav-item: 2003;
+  --z-index-nav-container: 2005;
+  --z-index-modal: 99999;
+  --z-index-modal-content: 100000;
+  --z-index-loading: 999999;
 }
 
 /* ==================================================
@@ -94,42 +100,45 @@
 
 /* --- Dim Theme --- */
 .theme-dim {
-  --main-text-color: #eeeeee;
-  --purple-text-color: #747bff;
+  --primary-text-color: #eeeeee;
+  --accent-color: #747bff;
   
-  --item-bg-color: rgba(0, 0, 0, 0.22);
-  --item-hover-color: rgba(51, 51, 51, 0.22);
-  --item-text-color: #ffffff;
-  --left-tag-item: rgba(27, 42, 57, 0.2);
+  --card-bg-color: rgba(0, 0, 0, 0.4);
+  --card-hover-color: rgba(255, 255, 255, 0.08);
+  --secondary-text-color: #ffffff;
+  --tag-bg-color: rgba(255, 255, 255, 0.1);
   
-  --card-filter: 15px;
-  --back-filter-color: rgba(0, 0, 0, 0.19);
+  --card-filter: 20px;
+  --back-filter-color: rgba(0, 0, 0, 0.3);
   
-  --nav-bg-color: rgba(0, 0, 0, 0.2);
-  --nav-border-color: rgba(255, 255, 255, 0.1);
+  --nav-bg-color: rgba(0, 0, 0, 0.4);
+  --nav-border-color: rgba(255, 255, 255, 0.08);
   
   --timeline-line-color: rgba(255, 255, 255, 0.1);
   
   --scrollbar-track-color: rgba(255, 255, 255, 0.1);
 
   --modal-bg-color: rgba(0, 0, 0, 0.65);
-  --modal-main-bg: rgba(10, 10, 10, 0.98);
+  --modal-main-bg: rgba(28, 28, 30, 0.95); /* iOS System Gray 6 */
+  
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --modern-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
 }
 
 /* --- Fresh Theme --- */
 .theme-fresh {
-  --main-text-color: #000000;
-  --purple-text-color: #667eea;
+  --primary-text-color: #000000;
+  --accent-color: #667eea;
   --text-bg-color: rgba(121, 163, 231, 0.5);
   
-  --item-bg-color: rgba(249, 250, 251, 0.42);
-  --item-hover-color: rgba(244, 245, 246, 0.8);
-  --item-title-color: #000000;
-  --item-text-color: #494949;
+  --card-bg-color: rgba(249, 250, 251, 0.42);
+  --card-hover-color: rgba(244, 245, 246, 0.8);
+  --card-title-color: #000000;
+  --secondary-text-color: #494949;
   
   --footer-text-color: #333333;
-  --left-tag-item: #c7e1fa;
-  --fill: #000000;
+  --tag-bg-color: #c7e1fa;
+  --icon-fill-color: #000000;
   
   --nav-bg-color: rgba(255, 255, 255, 0.6);
   --nav-border-color: rgba(0, 0, 0, 0.05);
@@ -139,16 +148,19 @@
   
   --modal-bg-color: rgba(0, 0, 0, 0.25);
   --modal-main-bg: rgba(255, 255, 255, 0.96);
+  
+  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+  --modern-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 /* --- Blur Theme --- */
 .theme-blur {
-  --main-text-color: #eeeeee;
-  --purple-text-color: #a0a0ff;
+  --primary-text-color: #eeeeee;
+  --accent-color: #a0a0ff;
   
-  --item-bg-color: rgba(0, 0, 0, 0.22);
-  --item-hover-color: rgba(51, 51, 51, 0.22);
-  --item-text-color: #ffffff;
+  --card-bg-color: rgba(0, 0, 0, 0.22);
+  --card-hover-color: rgba(51, 51, 51, 0.22);
+  --secondary-text-color: #ffffff;
   
   --back-filter: 19px;
   --back-filter-color: rgba(0, 0, 0, 0.19);
@@ -165,18 +177,18 @@
 /* --- Sky Theme --- */
 .theme-sky {
   --main-bg-color: linear-gradient(135deg, #a2d1ff 0%, #e8f4ff 100%);
-  --main-text-color: #000000;
-  --purple-text-color: #4a90e2;
+  --primary-text-color: #000000;
+  --accent-color: #4a90e2;
   --text-bg-color: rgba(196, 217, 251, 0.5);
   
-  --item-bg-color: rgba(249, 250, 251, 0.5);
-  --item-hover-color: rgba(244, 245, 246, 0.8);
-  --item-title-color: #000000;
-  --item-text-color: #494949;
+  --card-bg-color: rgba(249, 250, 251, 0.5);
+  --card-hover-color: rgba(244, 245, 246, 0.8);
+  --card-title-color: #000000;
+  --secondary-text-color: #494949;
   
   --footer-text-color: #222222;
-  --left-tag-item: rgba(162, 209, 255, 0.3);
-  --fill: #000000;
+  --tag-bg-color: rgba(162, 209, 255, 0.3);
+  --icon-fill-color: #000000;
   
   --nav-bg-color: rgba(255, 255, 255, 0.5);
   --nav-border-color: rgba(255, 255, 255, 0.6);
@@ -186,58 +198,67 @@
   
   --modal-bg-color: rgba(0, 0, 0, 0.25);
   --modal-main-bg: rgba(255, 255, 255, 0.96);
+  
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+  --modern-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 /* --- White Theme --- */
 .theme-white {
-  --main-bg-color: #ffffff;
-  --main-text-color: #000000;
-  --purple-text-color: #667eea;
-  --text-bg-color: rgba(240, 243, 247, 0.5);
+  --main-bg-color: #f2f2f7; /* System Gray 6 (Light) */
+  --primary-text-color: #000000;
+  --accent-color: #007aff; /* System Blue */
+  --text-bg-color: rgba(0, 0, 0, 0.05);
   
-  --item-bg-color: rgba(247, 247, 247, 0.8);
-  --item-hover-color: rgba(244, 245, 246, 0.5);
-  --item-title-color: #000000;
-  --item-text-color: #494949;
+  --card-bg-color: rgba(255, 255, 255, 0.7);
+  --card-hover-color: rgba(255, 255, 255, 0.9);
+  --card-title-color: #000000;
+  --secondary-text-color: #3c3c43; /* System Label Color */
   
-  --footer-text-color: #222222;
-  --left-tag-item: rgba(230, 230, 230, 0.6);
-  --fill: #000000;
+  --footer-text-color: #8e8e93;
+  --tag-bg-color: rgba(0, 0, 0, 0.05);
+  --icon-fill-color: #000000;
   
-  --nav-bg-color: rgba(255, 255, 255, 0.9);
-  --nav-border-color: #eaeaea;
-  --nav-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --nav-bg-color: rgba(255, 255, 255, 0.8);
+  --nav-border-color: rgba(0, 0, 0, 0.05);
+  --nav-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   
-  --timeline-line-color: #eaeaea;
+  --timeline-line-color: #c6c6c8;
   
-  --modal-bg-color: rgba(0, 0, 0, 0.18);
-  --modal-main-bg: rgba(255, 255, 255, 0.98);
+  --modal-bg-color: rgba(0, 0, 0, 0.2);
+  --modal-main-bg: rgba(255, 255, 255, 0.95);
+  
+  --glass-border: 1px solid rgba(0, 0, 0, 0.05);
+  --modern-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* --- Dark Theme --- */
 .theme-dark {
   --main-bg-color: #000000;
-  --main-text-color: #ffffff;
-  --purple-text-color: #a0a0ff;
-  --text-bg-color: rgba(0, 0, 0, 0.25);
+  --primary-text-color: #ffffff;
+  --accent-color: #0a84ff; /* System Dark Blue */
+  --text-bg-color: rgba(255, 255, 255, 0.1);
   
-  --item-bg-color: rgba(17, 17, 17, 0.9);
-  --item-hover-color: rgba(51, 51, 51, 0.9);
-  --item-title-color: #ffffff;
-  --item-text-color: #cccccc;
+  --card-bg-color: rgba(28, 28, 30, 0.6); /* System Gray 6 (Dark) */
+  --card-hover-color: rgba(44, 44, 46, 0.8);
+  --card-title-color: #ffffff;
+  --secondary-text-color: #ebebf5;
   
-  --footer-text-color: #ffffff;
-  --left-tag-item: rgba(34, 34, 34, 0.8);
-  --fill: #ffffff;
+  --footer-text-color: #8e8e93;
+  --tag-bg-color: rgba(255, 255, 255, 0.1);
+  --icon-fill-color: #ffffff;
   
-  --nav-bg-color: rgba(30, 30, 30, 0.8);
+  --nav-bg-color: rgba(28, 28, 30, 0.6);
   --nav-border-color: rgba(255, 255, 255, 0.1);
-  --nav-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  --nav-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
   
-  --timeline-line-color: rgba(255, 255, 255, 0.15);
+  --timeline-line-color: rgba(255, 255, 255, 0.2);
   
   --modal-bg-color: rgba(0, 0, 0, 0.75);
-  --modal-main-bg: rgba(10, 10, 10, 0.98);
+  --modal-main-bg: rgba(28, 28, 30, 0.95);
+  
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  --modern-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
 
 /* ==================================================
