@@ -569,15 +569,19 @@
 
   updateSiteUptime();
 
-  window.addEventListener("load", () => {
-    if (!UI.loading) return;
+  // Loading removal logic with safety timeout
+  function removeLoading() {
+    if (!UI.loading || UI.loading.classList.contains("hide")) return;
 
-    setTimeout(() => {
-      UI.loading.classList.add("hide");
-    }, 300);
-
+    UI.loading.classList.add("hide");
     setTimeout(() => {
       UI.loading.style.display = "none";
-    }, 900);
-  });
+    }, 600);
+  }
+
+  window.addEventListener("load", removeLoading);
+  
+  // Safety fallback: Force remove loading after 5 seconds
+  // 防止因资源加载失败导致页面一直白屏
+  setTimeout(removeLoading, 5000);
 })();
