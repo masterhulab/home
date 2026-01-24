@@ -44,6 +44,8 @@
    * ========================================================================= */
 
   /* Theme Configuration | 主题配置 */
+  // Note: These names will be displayed on the theme toggle button
+  // 注意：这些名称将显示在主题切换按钮上
   const THEME_CONFIG = {
     classes: [
       "theme-clear", "theme-dim", "theme-fresh",
@@ -64,27 +66,12 @@
 
   const HERO_TYPING_INTERVAL = 200;
 
-  /* Analytics Configuration | 统计服务配置 */
-  const ANALYTICS_CONFIG = {
-    ids: {
-      sitePV: "busuanzi_value_site_pv",
-      siteUV: "busuanzi_value_site_uv",
-      pagePV: "busuanzi_value_page_pv"
-    },
-    script: "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
-  };
-
   /* Site Configuration | 站点基础配置 */
   const SITE_CONFIG = {
     // 建站时间，用于计算运行时间
     BIRTH_TIME: "2026/01/01 00:00:00",
     // 页面元素 ID 配置 (通常无需修改)
-    UPTIME_RENDER_ID: "run-time",
-    STATS_IDS: {
-      sitePV: "mh-stats-site-pv",
-      siteUV: "mh-stats-site-uv",
-      pagePV: "mh-stats-page-pv"
-    }
+    UPTIME_RENDER_ID: "run-time"
   };
 
   // Precompute timestamp to avoid parsing date repeatedly in the loop
@@ -470,86 +457,8 @@
     initMobileNav();
     initModal();
     initHeroTyping();
-    initAnalytics();
     updateFooterYear();
   });
-
-  /* Analytics Adapter */
-  /**
-   * Initializes analytics with provider abstraction.
-   * 初始化统计服务（适配器模式，解耦具体服务商）
-   */
-  function initAnalytics() {
-    // Adapter for Analytics Provider (Default: Busuanzi)
-    // 统计服务适配器 (默认: 不蒜子)
-    if (window.analyticsLoaded) return;
-    window.analyticsLoaded = true;
-
-    const { ids, script } = ANALYTICS_CONFIG;
-    const { STATS_IDS } = SITE_CONFIG;
-
-    // Create hidden proxy elements that the provider expects
-    const proxyContainer = document.createElement("div");
-    proxyContainer.style.display = "none";
-    proxyContainer.setAttribute("aria-hidden", "true");
-    proxyContainer.id = "analytics_proxy";
-
-    // Mapping: Provider ID -> Generic Site ID
-    const mappings = [
-      { providerId: ids.sitePV, genericId: STATS_IDS.sitePV },
-      { providerId: ids.siteUV, genericId: STATS_IDS.siteUV },
-      { providerId: ids.pagePV, genericId: STATS_IDS.pagePV }
-    ];
-
-    mappings.forEach(map => {
-      if (!map.providerId) return;
-      const span = document.createElement("span");
-      span.id = map.providerId;
-      proxyContainer.appendChild(span);
-    });
-
-    document.body.appendChild(proxyContainer);
-
-    // Sync data from hidden proxy to visible generic elements
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === "childList" || mutation.type === "characterData") {
-          const target = mutation.target;
-          const targetEl = target.nodeType === 1 ? target : target.parentElement;
-          const targetId = targetEl.id;
-
-          const map = mappings.find(m => m.providerId === targetId);
-          if (map) {
-            const genericEl = document.getElementById(map.genericId);
-            if (genericEl) {
-              genericEl.textContent = targetEl.textContent;
-              genericEl.classList.remove("mh-inline-loading");
-            }
-          }
-        }
-      });
-    });
-
-    mappings.forEach(map => {
-      if (!map.providerId) return;
-      const el = document.getElementById(map.providerId);
-      if (el) observer.observe(el, { childList: true, subtree: true, characterData: true });
-    });
-
-    // Load the script dynamically
-    const scriptEl = document.createElement("script");
-    scriptEl.src = script;
-    scriptEl.async = true;
-    scriptEl.referrerPolicy = "no-referrer-when-downgrade";
-
-    scriptEl.onerror = () => {
-      console.warn("Analytics script failed to load. Some stats may be unavailable.");
-      const proxy = document.getElementById("analytics_proxy");
-      if (proxy) proxy.style.display = "none";
-    };
-
-    document.head.appendChild(scriptEl);
-  }
 
   /**
    * Updates the footer year dynamically.

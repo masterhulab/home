@@ -75,10 +75,10 @@
     "name": "MasterHu",
     "url": "https://masterhu.com.cn",
     "sameAs": [
-      "https://github.com/masterhublog",
+      "https://github.com/masterhulab",
       "https://blog.masterhu.com.cn"
     ],
-    "jobTitle": "Full Stack Dev",
+    "jobTitle": "Full Stack Developer",
     "worksFor": {
       "@type": "Organization",
       "name": "Freelance"
@@ -156,7 +156,7 @@
             <use href="./static/svg/icons.svg#icon-secret"></use>
           </svg>Secret
         </div>
-        <div class="mh-bio-item">🏷️ Full Stack Dev</div>
+        <div class="mh-bio-item">🏷️ Developer</div>
       </div>
       <!-- [CUSTOMIZE]: Tags Section -->
       <div class="mh-sidebar-section mh-tags">
@@ -177,20 +177,20 @@
         <div class="mh-status-item">
           <dt class="mh-status-title">👀 总访问量</dt>
           <dd class="mh-status-text">
-            <span id="mh-stats-site-pv"><i class="mh-inline-loading">Loading...</i></span>
+            <span id="mh_site_pv"><i class="mh-inline-loading">Loading...</i></span>
           </dd>
         </div>
         <div class="mh-status-item">
           <dt class="mh-status-title">👤 总访客数</dt>
           <dd class="mh-status-text">
-            <span id="mh-stats-site-uv"><i class="mh-inline-loading">Loading...</i></span>
+            <span id="mh_site_uv"><i class="mh-inline-loading">Loading...</i></span>
           </dd>
         </div>
 
         <div class="mh-status-item">
           <dt class="mh-status-title">🔥 访问热度</dt>
           <dd class="mh-status-text">
-            <span id="mh-stats-page-pv"><i class="mh-inline-loading">Loading...</i></span>
+            <span id="mh_page_pv"><i class="mh-inline-loading">Loading...</i></span>
           </dd>
         </div>
       </dl>
@@ -244,7 +244,7 @@
         </div>
 
         <div class="hero-actions">
-          <a class="hero-actions-item" href="https://github.com/masterhublog" target="_blank" rel="noopener noreferrer">
+          <a class="hero-actions-item" href="https://github.com/masterhulab" target="_blank" rel="noopener noreferrer">
             <svg class="icon" aria-label="Github Profile">
               <use href="./static/svg/icons.svg#icon-github"></use>
             </svg>
@@ -265,7 +265,7 @@
         </div>
 
         <div class="snake">
-          <img id="snake-img" src="./static/svg/snake-Light.svg" alt="Snake Contribution Graph" loading="lazy" />
+          <img id="snake-img" src="./static/svg/snake-Light.svg" alt="Snake Contribution Graph" />
         </div>
       </header>
 
@@ -322,7 +322,7 @@
         </div>
 
         <div class="mh-project-grid">
-          <a class="mh-project-card" target="_blank" href="https://github.com/masterhublog/homepage" rel="noopener noreferrer">
+          <a class="mh-project-card" target="_blank" href="https://github.com/masterhulab/homepage" rel="noopener noreferrer">
             <div class="mh-project-content">
               <h3>🏠 个人主页</h3>
               <p>🚀一键部署的静态个人主页</p>
@@ -331,7 +331,7 @@
               <img src="./static/svg/homepage.svg" alt="Homepage" loading="lazy" />
             </div>
           </a>
-          <a class="mh-project-card" target="_blank" href="https://github.com/masterhublog/MHAnalytics" rel="noopener noreferrer">
+          <a class="mh-project-card" target="_blank" href="https://github.com/masterhulab/MHAnalytics" rel="noopener noreferrer">
             <div class="mh-project-content">
               <h3>📊 MHAnalytics</h3>
               <p>📈 网站访问分析系统</p>
@@ -384,6 +384,17 @@
   <link rel="stylesheet" href="https://registry.npmmirror.com/weblive2d/latest/files/waifu.css" media="print" onload="this.media='all'">
   <script defer src="https://registry.npmmirror.com/weblive2d/latest/files/js/autoload.js"></script>
   
+  <!-- [CUSTOMIZE] Analytics | 统计服务配置 -->
+  <!--
+    Replace the script below with your own analytics provider (e.g., Umami, Cloudflare, etc.)
+    请将下方脚本替换为您自己的统计服务 (如 Umami, Cloudflare 等)
+  -->
+  <script
+    src="https://insight.masterhu.com.cn/lib/core.js"
+    data-endpoint="https://insight.masterhu.com.cn/api/event" async defer>
+  </script>
+
   <script src="./static/js/script.js" defer></script>
 </body>
 </html>
+

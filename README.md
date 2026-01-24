@@ -47,7 +47,7 @@ homepage/
 ### 方式一：直接克隆 (推荐)
 
 ```bash
-git clone https://github.com/masterhublog/homepage.git
+git clone https://github.com/masterhulab/homepage.git
 cd homepage
 ```
 
@@ -74,11 +74,12 @@ python -m http.server 8000
 在部署之前，请确保你已经完成了以下修改：
 
 - [ ]  **Meta 信息**: 修改 `index.html` 中的 `<title>`, `description`, `keywords` 等 Meta 标签。
+- [ ]  **SEO 信息**: 检查 `index.html` 中的 JSON-LD 结构化数据，确保 `jobTitle` (职位) 等信息准确。
 - [ ]  **个人信息**: 修改 `index.html` 中的头像、名字、社交链接。
 - [ ]  **站点配置**: 在 `static/js/script.js` 中修改 `SITE_CONFIG` (建站时间) 和 `MOTTO_TEXTS` (座右铭)。
 - [ ]  **图片资源**: 替换 `static/img/` 下的 `avatar.gif` (头像) 和 `background.webp` (背景图)。
 - [ ]  **技能图标**: 修改 `index.html` 中 `skillicons.dev` 的 URL 参数，定制你的技能栈。
-- [ ]  **统计代码**: 如果不需要 Busuanzi 统计，可以在 `script.js` 中注释掉 `initAnalytics` 相关代码。
+- [ ]  **统计代码**: 在 `index.html` 底部配置你的统计脚本，或删除默认的 ID 占位符。
 
 ## 🛠️ 配置指南
 
@@ -132,6 +133,44 @@ const MOTTO_TEXTS = [
 
 完整图标列表请参考: [Skill Icons](https://skillicons.dev)
 
+### 5. 统计服务配置 (Analytics)
+
+项目采用 **HTML 优先** 的配置方式，您只需在 `index.html` 中引入统计脚本并对应 ID 即可。
+
+#### 默认配置 (自定义脚本)
+
+在 `index.html` 底部引入您的统计脚本 (例如 Umami, Matomo 或 自定义服务):
+
+```html
+<!-- 统计脚本 -->
+<script
+  src="https://your-analytics.com/script.js"
+  data-website-id="xxxxx"
+  async defer>
+</script>
+```
+
+#### 数据展示 (可选)
+
+如果您希望在页脚显示 PV/UV 数据，请确保您的统计脚本能回填以下 ID 的元素：
+
+- `mh_site_pv`: 站点总访问量
+- `mh_site_uv`: 站点访客数
+- `mh_page_pv`: 当前页访问量
+
+#### 推荐替代方案
+
+如果您还没有统计服务，推荐以下开源方案：
+
+- **[Umami](https://umami.is/) (推荐)**:
+  - ✅ 开源、免费、可私有化部署
+  - ✅ 界面美观，注重隐私
+- **[Counterscale](https://counterscale.dev/) (Cloudflare 专属)**:
+  - ✅ 部署在 Cloudflare Workers
+  - ✅ 完全免费，高性能
+
+> **注意**: `script.js` 中的旧版 JS 统计适配器代码已默认注释，以减少对特定服务商(如不蒜子)的强依赖。
+
 ## 🛫 部署
 
 本项目是纯静态的，可以免费部署到任何静态托管平台：
@@ -158,8 +197,8 @@ const MOTTO_TEXTS = [
 
 欢迎提交 Issue 或 Pull Request！
 
-- 🐛 [报告 Bug](https://github.com/masterhublog/homepage/issues)
-- 💡 [提出建议](https://github.com/masterhublog/homepage/issues)
+- 🐛 [报告 Bug](https://github.com/masterhulab/homepage/issues)
+- 💡 [提出建议](https://github.com/masterhulab/homepage/issues)
 
 ## 📄 开源协议
 
@@ -170,7 +209,7 @@ const MOTTO_TEXTS = [
 
 如果这个项目对您有帮助，请在 GitHub 上点个 **Star** ⭐️ 支持一下！
 
-[![GitHub stars](https://img.shields.io/github/stars/masterhublog/homepage?style=social)](https://github.com/masterhublog/homepage)
+[![Star History Chart](https://api.star-history.com/svg?repos=masterhulab/homepage&type=Date)](https://star-history.com/#masterhulab/homepage&Date)
 
 ---
 
