@@ -875,6 +875,7 @@ a, button, .mh-site-card, .mh-project-card, .nav-theme-toggle, .hero-actions-ite
 .mh-site-card:nth-child(3) { animation-delay: 0.3s; }
 .mh-site-card:nth-child(4) { animation-delay: 0.4s; }
 .mh-project-card:nth-child(1) { animation-delay: 0.5s; }
+.mh-project-card:nth-child(2) { animation-delay: 0.6s; }
 
 .mh-site-card:hover, .mh-project-card:hover {
   box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.12);

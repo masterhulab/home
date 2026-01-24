@@ -64,6 +64,16 @@
 
   const HERO_TYPING_INTERVAL = 200;
 
+  /* Analytics Configuration | 统计服务配置 */
+  const ANALYTICS_CONFIG = {
+    ids: {
+      sitePV: "busuanzi_value_site_pv",
+      siteUV: "busuanzi_value_site_uv",
+      pagePV: "busuanzi_value_page_pv"
+    },
+    script: "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
+  };
+
   /* Site Configuration | 站点基础配置 */
   const SITE_CONFIG = {
     // 建站时间，用于计算运行时间
