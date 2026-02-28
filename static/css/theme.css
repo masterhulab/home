@@ -1,0 +1,290 @@
+/* =========================================================
+ * MasterHu Homepage Theme Configuration
+ * Author: MasterHu
+ * Website: https://masterhu.com.cn
+ * License: CC BY-NC 4.0
+ * ========================================================= */
+
+/* ==================================================
+   Theme Variables & Defaults
+   
+   Naming Convention:
+   - Use kebab-case for all variables (e.g., --main-bg-color).
+   - Prefix with the component or property it affects.
+   - Use descriptive names for colors and values.
+=================================================== */
+:root {
+  /* --- Backgrounds --- */
+  /* Main page background image */
+  --main-bg-color: url(../img/background.webp);
+  /* Gradient used for text or accents */
+  --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
+  
+  /* --- Filters & Effects --- */
+  /* Backdrop blur amount for the background overlay */
+  --back-filter: 0px;
+  /* Color overlay for the background */
+  --back-filter-color: #00000000;
+  /* Blur amount for glassmorphism cards */
+  --card-filter: 0px;
+
+  /* --- Text Colors --- */
+  /* Primary text color (Main Content) */
+  --primary-text-color: #ffffff;
+  /* Accent color (Primary Brand Color) */
+  --accent-color: #a0a0ff;
+  /* Title color in cards */
+  --card-title-color: #ffffff;
+  /* Secondary text color (Subtitles, Dates, Status) */
+  --secondary-text-color: #cccccc;
+  /* Footer text color */
+  --footer-text-color: #ffffff;
+  /* Background for selected text (if applicable) */
+  --text-bg-color: transparent;
+  /* Motto text color */
+  --motto-color: #ffffff;
+
+  /* --- Component Colors --- */
+  /* Background for cards/containers */
+  --card-bg-color: rgba(255, 255, 255, 0.1); 
+  /* Hover state for cards/interactive elements */
+  --card-hover-color: rgba(255, 255, 255, 0.2);
+  /* Background for tags in the sidebar */
+  --tag-bg-color: rgba(0, 0, 0, 0.15);
+
+  /* --- Navigation --- */
+  /* Navbar background (More translucent) */
+  --nav-bg-color: rgba(255, 255, 255, 0.1);
+  /* Navbar border color */
+  --nav-border-color: rgba(255, 255, 255, 0.2);
+  /* Navbar shadow */
+  --nav-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  
+  /* --- Timeline & Icons --- */
+  /* Vertical line color in timeline */
+  --timeline-line-color: rgba(255, 255, 255, 0.15);
+  /* Fill color for SVG icons */
+  --icon-fill-color: #ffffff;
+
+  /* --- Borders & Shadows (Modern Glass Style) --- */
+  /* Glass border - adjusts based on theme lightness */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Component Shadow - adjusts based on theme depth */
+  --modern-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.1);
+
+  /* --- Modal --- */
+  /* Full screen modal overlay background */
+  --modal-bg-color: rgba(20, 20, 20, 0.6);
+  /* Modal content box background */
+  --modal-main-bg: rgba(18, 18, 18, 0.96);
+
+  /* Z-Index Layers */
+  --z-index-negative: -1;
+  --z-index-normal: 1;
+  --z-index-nav: 1000;
+  --z-index-nav-menu: 2001;
+  --z-index-nav-burger: 2002;
+  --z-index-nav-item: 2003;
+  --z-index-nav-container: 2005;
+  --z-index-modal: 99999;
+  --z-index-modal-content: 100000;
+  --z-index-loading: 999999;
+}
+
+/* ==================================================
+   Theme Definitions
+=================================================== */
+
+/* --- Clear Theme (Default) --- */
+.theme-clear {
+  /* Inherits default values from :root */
+}
+
+/* --- Dim Theme --- */
+.theme-dim {
+  --primary-text-color: #eeeeee;
+  --accent-color: #747bff;
+  
+  --card-bg-color: rgba(0, 0, 0, 0.4);
+  --card-hover-color: rgba(255, 255, 255, 0.08);
+  --secondary-text-color: #ffffff;
+  --tag-bg-color: rgba(255, 255, 255, 0.1);
+  
+  --card-filter: 20px;
+  --back-filter-color: rgba(0, 0, 0, 0.3);
+  
+  --nav-bg-color: rgba(0, 0, 0, 0.4);
+  --nav-border-color: rgba(255, 255, 255, 0.08);
+  
+  --timeline-line-color: rgba(255, 255, 255, 0.1);
+  
+  --scrollbar-track-color: rgba(255, 255, 255, 0.1);
+
+  --modal-bg-color: rgba(0, 0, 0, 0.65);
+  --modal-main-bg: rgba(28, 28, 30, 0.95); /* iOS System Gray 6 */
+  
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --modern-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Fresh Theme --- */
+.theme-fresh {
+  --primary-text-color: #000000;
+  --accent-color: #667eea;
+  --text-bg-color: rgba(121, 163, 231, 0.5);
+  
+  --motto-color: #333333;
+
+  --card-bg-color: rgba(249, 250, 251, 0.42);
+  --card-hover-color: rgba(244, 245, 246, 0.8);
+  --card-title-color: #000000;
+  --secondary-text-color: #494949;
+  
+  --footer-text-color: #333333;
+  --tag-bg-color: #c7e1fa;
+  --icon-fill-color: #000000;
+  
+  --nav-bg-color: rgba(255, 255, 255, 0.6);
+  --nav-border-color: rgba(0, 0, 0, 0.05);
+  --nav-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  
+  --timeline-line-color: rgba(0, 0, 0, 0.1);
+  
+  --modal-bg-color: rgba(0, 0, 0, 0.25);
+  --modal-main-bg: rgba(255, 255, 255, 0.96);
+  
+  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+  --modern-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Blur Theme --- */
+.theme-blur {
+  --primary-text-color: #eeeeee;
+  --accent-color: #a0a0ff;
+  
+  --card-bg-color: rgba(0, 0, 0, 0.22);
+  --card-hover-color: rgba(51, 51, 51, 0.22);
+  --secondary-text-color: #ffffff;
+  
+  --back-filter: 19px;
+  --back-filter-color: rgba(0, 0, 0, 0.19);
+  
+  --nav-bg-color: rgba(0, 0, 0, 0.2);
+  --nav-border-color: rgba(255, 255, 255, 0.1);
+  
+  --timeline-line-color: rgba(255, 255, 255, 0.15);
+  
+  --modal-bg-color: rgba(0, 0, 0, 0.65);
+  --modal-main-bg: rgba(10, 10, 10, 0.98);
+}
+
+/* --- Sky Theme --- */
+.theme-sky {
+  --main-bg-color: linear-gradient(135deg, #a2d1ff 0%, #e8f4ff 100%);
+  --primary-text-color: #000000;
+  --accent-color: #4a90e2;
+  --text-bg-color: rgba(196, 217, 251, 0.5);
+  
+  --card-bg-color: rgba(249, 250, 251, 0.5);
+  --card-hover-color: rgba(244, 245, 246, 0.8);
+  --card-title-color: #000000;
+  --secondary-text-color: #494949;
+  
+  --footer-text-color: #222222;
+  --tag-bg-color: rgba(162, 209, 255, 0.3);
+  --icon-fill-color: #000000;
+  
+  --nav-bg-color: rgba(255, 255, 255, 0.5);
+  --nav-border-color: rgba(255, 255, 255, 0.6);
+  --nav-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  
+  --timeline-line-color: rgba(74, 144, 226, 0.3);
+  
+  --modal-bg-color: rgba(0, 0, 0, 0.25);
+  --modal-main-bg: rgba(255, 255, 255, 0.96);
+  
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+  --modern-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* --- White Theme --- */
+.theme-white {
+  --main-bg-color: #f2f2f7; /* System Gray 6 (Light) */
+  --primary-text-color: #000000;
+  --accent-color: #007aff; /* System Blue */
+  --text-bg-color: rgba(0, 0, 0, 0.05);
+  
+  --card-bg-color: rgba(255, 255, 255, 0.7);
+  --card-hover-color: rgba(255, 255, 255, 0.9);
+  --card-title-color: #000000;
+  --secondary-text-color: #3c3c43; /* System Label Color */
+  
+  --footer-text-color: #8e8e93;
+  --tag-bg-color: rgba(0, 0, 0, 0.05);
+  --icon-fill-color: #000000;
+  
+  --nav-bg-color: rgba(255, 255, 255, 0.8);
+  --nav-border-color: rgba(0, 0, 0, 0.05);
+  --nav-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  
+  --timeline-line-color: #c6c6c8;
+  
+  --modal-bg-color: rgba(0, 0, 0, 0.2);
+  --modal-main-bg: rgba(255, 255, 255, 0.95);
+  
+  --glass-border: 1px solid rgba(0, 0, 0, 0.05);
+  --modern-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Dark Theme --- */
+.theme-dark {
+  --main-bg-color: #000000;
+  --primary-text-color: #ffffff;
+  --accent-color: #0a84ff; /* System Dark Blue */
+  --text-bg-color: rgba(255, 255, 255, 0.1);
+  
+  --card-bg-color: rgba(28, 28, 30, 0.6); /* System Gray 6 (Dark) */
+  --card-hover-color: rgba(44, 44, 46, 0.8);
+  --card-title-color: #ffffff;
+  --secondary-text-color: #ebebf5;
+  
+  --footer-text-color: #8e8e93;
+  --tag-bg-color: rgba(255, 255, 255, 0.1);
+  --icon-fill-color: #ffffff;
+  
+  --nav-bg-color: rgba(28, 28, 30, 0.6);
+  --nav-border-color: rgba(255, 255, 255, 0.1);
+  --nav-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  
+  --timeline-line-color: rgba(255, 255, 255, 0.2);
+  
+  --modal-bg-color: rgba(0, 0, 0, 0.75);
+  --modal-main-bg: rgba(28, 28, 30, 0.95);
+  
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  --modern-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ==================================================
+   Theme Specific Overrides
+=================================================== */
+
+/* Remove backdrop filter for White Theme */
+.theme-white .mh-bg-filter {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: transparent;
+}
+
+/* ==================================================
+   Mobile Background Overrides
+=================================================== */
+@media (max-width: 800px) {
+  html,
+  .theme-clear,
+  .theme-dim,
+  .theme-fresh,
+  .theme-blur {
+    --main-bg-color: url(../img/background-wap.webp);
+  }
+}
