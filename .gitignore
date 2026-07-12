@@ -1,5 +1,15 @@
 .DS_Store
 Thumbs.db
+desktop.ini
 .vscode/
 .idea/
 *.log
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+.env*
+node_modules/
+dist/
+build/

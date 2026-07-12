@@ -13,6 +13,7 @@
    - Prefix with the component or property it affects.
    - Use descriptive names for colors and values.
 =================================================== */
+/* [CUSTOMIZE]: Theme variables — edit colors, borders, and shadows here */
 :root {
   /* --- Backgrounds --- */
   /* Main page background image */
@@ -39,10 +40,8 @@
   --secondary-text-color: #cccccc;
   /* Footer text color */
   --footer-text-color: #ffffff;
-  /* Background for selected text (if applicable) */
+  /* Background for selected text (reserved for user customization) */
   --text-bg-color: transparent;
-  /* Motto text color */
-  --motto-color: #ffffff;
 
   /* --- Component Colors --- */
   /* Background for cards/containers */
@@ -51,26 +50,34 @@
   --card-hover-color: rgba(255, 255, 255, 0.2);
   /* Background for tags in the sidebar */
   --tag-bg-color: rgba(0, 0, 0, 0.15);
+  /* Motto text color */
+  --motto-color: #ffffff;
 
   /* --- Navigation --- */
   /* Navbar background (More translucent) */
   --nav-bg-color: rgba(255, 255, 255, 0.1);
-  /* Navbar border color */
+  /* Navbar border color (reserved for user customization) */
   --nav-border-color: rgba(255, 255, 255, 0.2);
-  /* Navbar shadow */
+  /* Navbar shadow (reserved for user customization) */
   --nav-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
   
   /* --- Timeline & Icons --- */
   /* Vertical line color in timeline */
   --timeline-line-color: rgba(255, 255, 255, 0.15);
+  /* Timeline dot color (default white) */
+  --timeline-dot-color: #ffffff;
+  /* Timeline active dot color (first item pulse) */
+  --timeline-active-dot-color: #09f069;
+  /* Avatar border color */
+  --avatar-border-color: rgba(255, 255, 255, 0.6);
   /* Fill color for SVG icons */
   --icon-fill-color: #ffffff;
 
-  /* --- Borders & Shadows (Modern Glass Style) --- */
+  /* --- Borders & Shadows (iOS-inspired) --- */
   /* Glass border - adjusts based on theme lightness */
-  --glass-border: 1px solid rgba(255, 255, 255, 0.12);
-  /* Component Shadow - adjusts based on theme depth */
-  --modern-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.1);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.18);
+  /* Component Shadow - iOS-style layered depth */
+  --modern-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.08);
 
   /* --- Modal --- */
   /* Full screen modal overlay background */
@@ -80,7 +87,6 @@
 
   /* Z-Index Layers */
   --z-index-negative: -1;
-  --z-index-normal: 1;
   --z-index-nav: 1000;
   --z-index-nav-menu: 2001;
   --z-index-nav-burger: 2002;
@@ -118,13 +124,11 @@
   
   --timeline-line-color: rgba(255, 255, 255, 0.1);
   
-  --scrollbar-track-color: rgba(255, 255, 255, 0.1);
-
   --modal-bg-color: rgba(0, 0, 0, 0.65);
   --modal-main-bg: rgba(28, 28, 30, 0.95); /* iOS System Gray 6 */
   
   --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --modern-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+  --modern-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
 /* --- Fresh Theme --- */
@@ -132,8 +136,6 @@
   --primary-text-color: #000000;
   --accent-color: #667eea;
   --text-bg-color: rgba(121, 163, 231, 0.5);
-  
-  --motto-color: #333333;
 
   --card-bg-color: rgba(249, 250, 251, 0.42);
   --card-hover-color: rgba(244, 245, 246, 0.8);
@@ -149,12 +151,15 @@
   --nav-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
   
   --timeline-line-color: rgba(0, 0, 0, 0.1);
+  --timeline-dot-color: #333333;
+  --avatar-border-color: rgba(0, 0, 0, 0.15);
+  --motto-color: #000000;
   
   --modal-bg-color: rgba(0, 0, 0, 0.25);
   --modal-main-bg: rgba(255, 255, 255, 0.96);
   
   --glass-border: 1px solid rgba(255, 255, 255, 0.4);
-  --modern-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  --modern-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* --- Blur Theme --- */
@@ -199,12 +204,15 @@
   --nav-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   
   --timeline-line-color: rgba(74, 144, 226, 0.3);
+  --timeline-dot-color: #4a90e2;
+  --avatar-border-color: rgba(0, 0, 0, 0.1);
+  --motto-color: #000000;
   
   --modal-bg-color: rgba(0, 0, 0, 0.25);
   --modal-main-bg: rgba(255, 255, 255, 0.96);
   
-  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
-  --modern-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+  --modern-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* --- White Theme --- */
@@ -228,12 +236,15 @@
   --nav-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   
   --timeline-line-color: #c6c6c8;
+  --timeline-dot-color: #333333;
+  --avatar-border-color: rgba(0, 0, 0, 0.1);
+  --motto-color: #000000;
   
   --modal-bg-color: rgba(0, 0, 0, 0.2);
   --modal-main-bg: rgba(255, 255, 255, 0.95);
   
   --glass-border: 1px solid rgba(0, 0, 0, 0.05);
-  --modern-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --modern-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* --- Dark Theme --- */
@@ -262,7 +273,7 @@
   --modal-main-bg: rgba(28, 28, 30, 0.95);
   
   --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-  --modern-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --modern-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* ==================================================
@@ -278,7 +289,9 @@
 
 /* ==================================================
    Mobile Background Overrides
-=================================================== */
+   Only themes using the default background image;
+   gradient/solid themes (sky, white, dark) are excluded.
+================================================== */
 @media (max-width: 800px) {
   html,
   .theme-clear,

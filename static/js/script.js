@@ -33,6 +33,7 @@
       try {
         return localStorage.getItem(key);
       } catch (e) {
+        console.warn("LocalStorage read failed", e);
         return null;
       }
     }
@@ -110,7 +111,8 @@
       modalStackIndex: 0,
 
       heroMotto: document.getElementById("hero-motto"),
-      snakeImage: document.getElementById("snake-img")
+      snakeImage: document.getElementById("snake-img"),
+      uptimeElement: document.getElementById(SITE_CONFIG.UPTIME_RENDER_ID)
     };
   }
 
@@ -123,7 +125,7 @@
     const now = Date.now();
     const diff = now - SITE_CONFIG.BIRTH_TIMESTAMP;
 
-    const el = document.getElementById(SITE_CONFIG.UPTIME_RENDER_ID);
+    const el = UI.uptimeElement;
     if (!el) return;
 
     if (diff < 0) {
@@ -146,10 +148,12 @@
 
     const timePart = `${pad(hours)} : ${pad(minutes)} : ${pad(seconds)}`;
 
-    el.innerHTML = `${yearDayPart}<br>${timePart}`;
+    el.textContent = "";
+    el.appendChild(document.createTextNode(yearDayPart));
+    el.appendChild(document.createElement("br"));
+    el.appendChild(document.createTextNode(timePart));
   }
 
-  /*  Determine whether a color is visually dark */
   /**
    * Determines if a color is visually dark to adjust contrast.
    * 判断颜色是否为深色，用于调整对比度
@@ -215,9 +219,14 @@
    * 打开模态框
    * @param {string} imgUrl - URL of the image to display
    */
+  /* Track the element that triggered the modal for focus restoration */
+  let modalTriggerElement = null;
+
   function openModal(imgUrl) {
     if (!UI.modal) return;
     
+    modalTriggerElement = document.activeElement;
+
     // Update main image
     if (UI.modalImage && imgUrl) {
       UI.modalImage.src = imgUrl;
@@ -237,6 +246,10 @@
     setTimeout(() => {
         if(UI.modalMain) UI.modalMain.classList.add("active");
     }, 100);
+
+    // Focus trap: focus the close button
+    const closeBtn = UI.modal.querySelector(".modal-close");
+    if (closeBtn) setTimeout(() => closeBtn.focus(), 150);
   }
 
   /**
@@ -253,6 +266,12 @@
       UI.modal.setAttribute("aria-hidden", "true");
       if (UI.modalImage) UI.modalImage.src = "";
       document.body.classList.remove("modal-open");
+
+      // Restore focus to the trigger element
+      if (modalTriggerElement && typeof modalTriggerElement.focus === "function") {
+        modalTriggerElement.focus();
+        modalTriggerElement = null;
+      }
     }, 200);
   }
 
@@ -288,6 +307,46 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         closeModal();
+      }
+    });
+
+    // Focus Trap + Arrow Key Navigation
+    UI.modal.addEventListener("keydown", (e) => {
+      if (!UI.modal.classList.contains("active")) return;
+
+      // Arrow keys to switch images in stack
+      if ((e.key === "ArrowLeft" || e.key === "ArrowRight") && UI.modalStackItems) {
+        e.preventDefault();
+        if (e.key === "ArrowLeft") {
+          UI.modalStackIndex = (UI.modalStackIndex - 1 + UI.modalStackItems.length) % UI.modalStackItems.length;
+        } else {
+          UI.modalStackIndex = (UI.modalStackIndex + 1) % UI.modalStackItems.length;
+        }
+        UI.modalStackShow(UI.modalStackIndex);
+        return;
+      }
+
+      // Tab focus trap
+      if (e.key !== "Tab") return;
+
+      const focusable = UI.modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     });
 
@@ -361,7 +420,7 @@
    * 初始化主题逻辑
    */
   function initTheme() {
-    let idx = parseInt(Storage.get("MH_THEME_INDEX")) || 0;
+    let idx = parseInt(Storage.get("MH_THEME_INDEX"), 10) || 0;
     idx = applyTheme(idx);
     UI.themeButton?.addEventListener("click", () => {
       idx = applyTheme(idx + 1);
@@ -374,6 +433,13 @@
    */
   function initMobileNav() {
     if (!UI.navBurger || !UI.navLinks) return;
+
+    const isMobile = !window.matchMedia("(min-width: 800px)").matches;
+
+    // Mobile: nav is visually hidden on load — hide from screen readers too
+    if (isMobile) {
+      UI.navLinks.setAttribute("aria-hidden", "true");
+    }
 
     const closeNav = () => {
       UI.navLinks.classList.remove("nav-active");
@@ -391,6 +457,13 @@
       const expanded = UI.navBurger.getAttribute("aria-expanded") === "true";
       UI.navBurger.setAttribute("aria-expanded", expanded ? "false" : "true");
       UI.navLinks.setAttribute("aria-hidden", expanded ? "true" : "false");
+    });
+
+    UI.navBurger.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        UI.navBurger.click();
+      }
     });
 
     UI.navLinks.addEventListener("click", (e) => {
@@ -446,7 +519,10 @@
 
     let timer = setInterval(tick, HERO_TYPING_INTERVAL);
     document.addEventListener("visibilitychange", () => {
-      document.hidden ? clearInterval(timer) : timer = setInterval(tick, HERO_TYPING_INTERVAL);
+      clearInterval(timer);
+      if (!document.hidden) {
+        timer = setInterval(tick, HERO_TYPING_INTERVAL);
+      }
     });
   }
 
@@ -458,35 +534,62 @@
     initModal();
     initHeroTyping();
     updateFooterYear();
+
+    // Uptime timer: only starts after DOM is ready
+    let uptimeTimer = setInterval(updateSiteUptime, 1000);
+    updateSiteUptime();
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        clearInterval(uptimeTimer);
+      } else {
+        updateSiteUptime();
+        uptimeTimer = setInterval(updateSiteUptime, 1000);
+      }
+    });
+
+    // Pause card float animation when off-screen
+    initCardAnimationObserver();
   });
 
   /**
    * Updates the footer year dynamically.
-   * 动态更新页脚年份
+   * 动态更新页脚年份 (e.g. "2026" or "2026 - 2027")
    */
   function updateFooterYear() {
     const el = document.getElementById("footer-year");
-    if (el) {
-      const year = new Date().getFullYear();
-      el.textContent = year;
-      el.setAttribute("datetime", String(year));
-    }
+    if (!el) return;
+
+    const currentYear = new Date().getFullYear();
+    const birthYear = new Date(SITE_CONFIG.BIRTH_TIME).getFullYear();
+
+    el.textContent = currentYear > birthYear
+      ? birthYear + " - " + currentYear
+      : String(currentYear);
+    el.setAttribute("datetime", String(currentYear));
   }
 
-  /* Loading Screen & Uptime */
-  // Optimized: Only update DOM when tab is visible
-  let uptimeTimer = setInterval(updateSiteUptime, 1000);
-  
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      clearInterval(uptimeTimer);
-    } else {
-      updateSiteUptime(); // Update immediately upon return
-      uptimeTimer = setInterval(updateSiteUptime, 1000);
-    }
-  });
+  /**
+   * Uses IntersectionObserver to pause/resume card icon float animation.
+   * 当卡片离开视口时暂停浮动动画，节省 GPU 资源
+   */
+  function initCardAnimationObserver() {
+    if (!("IntersectionObserver" in window)) return;
 
-  updateSiteUptime();
+    const cards = document.querySelectorAll(".mh-site-card, .mh-project-card");
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const icon = entry.target.querySelector("img");
+        if (icon) {
+          icon.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach((card) => observer.observe(card));
+  }
 
   // Loading removal logic with safety timeout
   function removeLoading() {
